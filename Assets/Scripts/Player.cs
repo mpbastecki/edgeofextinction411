@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
 
         /*
     *  @name       ChangeAllScore()
-    *  @purpose    Updates all the scores om the current canvas screen happens after each players turn
+    *  @purpose    Updates all the scores on the current canvas screen happens after each players turn
     */
     public void ChangeAllScore()
     {
