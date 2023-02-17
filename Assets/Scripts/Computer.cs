@@ -174,56 +174,61 @@ public class Computer : Player
                         SubZeroCount++;
 
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, RegionGameObject, RegionPlacement);
+                    MoveCard(z, RegionGameObject, RegionPlacement, false);
                 }
                 else if (Hand[z].CardType == "Condition") //puts the card into the condition card
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, ConditionGameObject, ConditionPlacement);
+                    MoveCard(z, ConditionGameObject, ConditionPlacement, false);
                 }
                 else if (Hand[z].CardType == "Plant") //puts the card into the plant type
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, PlantGameObject, PlantPlacement);
+                    MoveCard(z, PlantGameObject, PlantPlacement, false);
                 }
                 else if (Hand[z].CardType == "Invertebrate") //puts the card into the invertebrate pile
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, InvertebrateGameObject, InvertebratePlacement);
+                    MoveCard(z, InvertebrateGameObject, InvertebratePlacement, false);
                 }
                 else if (Hand[z].CardType == "Animal") //puts the cards into the animal pile
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, AnimalGameObject, AnimalPlacement);
+                    MoveCard(z, AnimalGameObject, AnimalPlacement, false);
                 }
                 else if (Hand[z].CardType == "Special Region") //puts the card into the special region pile
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, SpecialRegionGameObject, SpecialRegionPlacement);
+                    MoveCard(z, SpecialRegionGameObject, SpecialRegionPlacement, false);
                 }
                 else if (Hand[z].CardType == "Multi-Player") //puts the card into the multiplayer pile
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, MultiplayerGameObject, MultiPlacement);
+                    MoveCard(z, MultiplayerGameObject, MultiPlacement, false);
                 }
                 else if (Hand[z].CardType == "Microbe") //puts the card into the microbe pile
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, MicrobeGameObject, MicrobePlacement);
+                    MoveCard(z, MicrobeGameObject, MicrobePlacement, false);
                 }
 
                 else if (Hand[z].CardType == "Fungi") //puts the card into the fungi pile
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, FungiGameObject, FungiPlacement);
+                    MoveCard(z, FungiGameObject, FungiPlacement, false);
+                }
+                else if (Hand[z].CardType == "Human") //puts the card into the human pile
+                {
+                    //calls the method to assigning the correct sprite and update score and passes in z so it knows which card to work with
+                    MoveCard(z, HumanGameObject, HumanPlacement, false);
                 }
             }
         }
 
-        if (Hand.Count != 0) //if there is a card left in the hand, it will discad the firsts one
+        if (Hand.Count > 0) //if there is a card left in the hand, it will discard the firsts one
         {
             //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-            MoveCard(0, DiscardGameObject, DiscardPlacement);
+            MoveCard(0, DiscardGameObject, DiscardPlacement, true);
 
             yield return new WaitForSeconds(2);
         }
@@ -241,7 +246,7 @@ public class Computer : Player
      *  @purpose   Moves the card from the hand to the correct placement and takes in the index from the loop so it knows whch card to use
      *  also it updates the score
      */
-    public void MoveCard(int pZ, string pParent, List<Card> pListPlacement)
+    public void MoveCard(int pZ, string pParent, List<Card> pListPlacement, bool pDiscard)
     {
         //assigns where the game object with go to a object
         CardParent = GameObject.Find(pParent).transform;
@@ -255,9 +260,10 @@ public class Computer : Player
         //CardObject.transform.SetParent(CardParent);
         //resizes the card so it fits nicely on the placements
         CardObject.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-        
-        //updates the score based off the value of the card played
+
+        if (pDiscard == false)
         ChangeScore(Hand[pZ].PointValue);
+  
         //adds the card from the hand to the correct list
         pListPlacement.Add(Hand[pZ]);
         //removes the card just played from the hand

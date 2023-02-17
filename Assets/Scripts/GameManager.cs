@@ -253,8 +253,8 @@ public class GameManager : MonoBehaviour {
         //goes through each player and executes accordingly
         if (pPlayerName == "Person")
         {
-            Cursor.visible = false; //hides the mouse from the user
-            Cursor.lockState = CursorLockMode.Locked; //you cannot use the cursor  
+            //Cursor.visible = false; //hides the mouse from the user
+            //Cursor.lockState = CursorLockMode.Locked; //you cannot use the cursor  
             HideShow.ShowCP1();
             CP1.CreateDeckInfo();
             CP1.StartTurn();
