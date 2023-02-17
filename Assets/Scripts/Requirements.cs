@@ -3055,52 +3055,52 @@ public class Reqs
 
     public bool r236() //acidic waters
     {
-        return false;
+        return true;
     }
 
     public bool r237() //children at play
     {
-        return false;
+        return true;
     }
 
     public bool r238() //extinction - as of right now there should be no requirements, i just jave this here as a precautionary detail for further use
     {
-        return false;
+        return true;
     }
 
     public bool r239() //isolated ecosystems
     {
-        return false;
+        return true;
     }
 
     public bool r240() //temperature drop
     {
-        return false;
+        return true;
     }
 
     public bool r241() //ideal conditions
     {
-        return false;
+        return true;
     }
 
     public bool r242() //invasive invertebrate species
     {
-        return false;
+        return true;
     }
 
     public bool r243() //web of life
     {
-        return false;
+        return true;
     }
 
     public bool r244() //relocate species
     {
-        return false;
+        return true;
     }
 
     public bool r245() //forest fire
     {
-        return false;
+        return true;
     }
 
 

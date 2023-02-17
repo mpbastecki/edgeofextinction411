@@ -286,7 +286,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     if (DraggedInstance.name == GameManager.Instance.Person.Hand[i].CardName)
                     {
                         DraggedInstance.transform.localScale = new Vector3(1.0f, 1.0f, 0); //sets the size to fit the placement area                     
-                        GameManager.Instance.Person.DiscardPlacement.Add(GameManager.Instance.Person.Hand[i]); //adds the card to the discard list
+                        GameManager.Instance.Person.DiscardPlacement.Add(GameManager.Instance.Person.Hand[i]); //adds the card to the discard list//|||added Computer|||
                         GameManager.Instance.Person.Hand.Remove(GameManager.Instance.Person.Hand[i]); //removes the card from the hand list
 
                         GameManager.Instance.Person.CardDiscarded = true;

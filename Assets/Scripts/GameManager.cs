@@ -253,8 +253,8 @@ public class GameManager : MonoBehaviour {
         //goes through each player and executes accordingly
         if (pPlayerName == "Person")
         {
-            Cursor.visible = false; //hides the mouse from the user
-            Cursor.lockState = CursorLockMode.Locked; //you cannot use the cursor  
+            Cursor.visible = true; //hides the mouse from the user
+           // Cursor.lockState = CursorLockMode.Locked; //you cannot use the cursor  
             HideShow.ShowCP1();
             CP1.CreateDeckInfo();
             CP1.StartTurn();
@@ -262,11 +262,25 @@ public class GameManager : MonoBehaviour {
         }
         else if (pPlayerName == "CP1")
         {
-            HideShow.ShowCP2();
-            CP2.CreateDeckInfo();
-            CP2.StartTurn();
+            //-------------------------------------------------------
+            //updates the game manager round
+            UpdateRound();
+            //shows mouse
+            Cursor.visible = true;
+            //enables mouse
+            Cursor.lockState = CursorLockMode.None;
+            //shows the human player
+            HideShow.ShowPlayer();
+            //after the round has changed the player can draw again
+            Person.CanDraw = true;
+            //starts the players turn automatically 
+            Person.StartTurn();
+            //--------------------------------------
+            //HideShow.ShowCP2();
+            //CP2.CreateDeckInfo();
+            //CP2.StartTurn();
         }
-        else if (pPlayerName == "CP2")
+       /* else if (pPlayerName == "CP2")
         {
             HideShow.ShowCP3();
             CP3.CreateDeckInfo();
@@ -286,7 +300,7 @@ public class GameManager : MonoBehaviour {
             Person.CanDraw = true;
             //starts the players turn automatically 
             Person.StartTurn();
-        }
+        }*/
     }
 
     /*
