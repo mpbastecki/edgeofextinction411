@@ -19,24 +19,24 @@ public class OpenURL : MonoBehaviour
      */
     public void AlleghenyBuy()
     {
-        Application.OpenURL("https://squareup.com/store/twosistersinthewild/item/allegheny-national-forest-starter-deck");
+        Application.OpenURL("https://www.tswgames.com/products/allegheny-national-forest-starter-deck");
         Application.Quit();
     }
     public void AppalachianBuy()
     {
-        Application.OpenURL("https://squareup.com/store/twosistersinthewild/item/appalachian-homestead-starter-deck");
+        Application.OpenURL("https://www.tswgames.com/products/appalachian-homestead-starter-deck");
         Application.Quit();
     }
 
     public void PeatBogsBuy()
     {
-        Application.OpenURL("https://squareup.com/store/twosistersinthewild/item/peat-bogs-of-the-allegheny-front-starter-deck");
+        Application.OpenURL("https://www.tswgames.com/products/peat-bogs-of-the-allegheny-front-starter-deck");
         Application.Quit();
     }
 
     public void ClarionRiverBuy()
     {
-        Application.OpenURL("https://squareup.com/store/twosistersinthewild/item/clarion-river-starter-deck");
+        Application.OpenURL("https://www.tswgames.com/products/clarion-river-starter-deck");
         Application.Quit();
     }
 
@@ -48,7 +48,7 @@ public class OpenURL : MonoBehaviour
      */
     public void OpenHomePage()
     {
-        Application.OpenURL("https://www.twosistersinthewild.com/");
+        Application.OpenURL("https://www.tswgames.com/");
         Application.Quit(); //just closes the application
     }
 
@@ -60,7 +60,7 @@ public class OpenURL : MonoBehaviour
      */
     public void OpenFacebook()
     {
-        Application.OpenURL("https://www.facebook.com/pg/twosistersinthewild/reviews/?ref=page_internal");
+        Application.OpenURL("https://www.tswgames.com/");
         Application.Quit(); //just closes the application
     }
 
