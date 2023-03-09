@@ -559,7 +559,10 @@ public class Reqs
 
         if (count >= 5)
             return true;
-        else return false;
+        else if (ExplorerPlayed())
+            return true;
+        else
+            return false;
     }
     public bool r038() //1 forest region
     {
@@ -3101,6 +3104,21 @@ public class Reqs
     public bool r245() //forest fire
     {
         return true;
+    }
+
+    public bool ExplorerPlayed()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Explorer"))
+                count++;
+        }
+        if (count > 0)
+            return true;
+        else
+            return false;
     }
 
 
