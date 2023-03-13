@@ -38,12 +38,15 @@ public class HoverClass : MonoBehaviour
      */
     public void OnMouseEnter()
     {
-        //storing the original sorting order
-        OriginalOrder = Rend.sortingOrder;
-        //setting the max sorting order, so it will always appear on top
-        Rend.sortingOrder = 999;
-        //increasing the renderer's localScale by 50% while the mouse is on it
-        Rend.transform.localScale += new Vector3(0.4F, 0.4F);
+        if (Cursor.visible == true)
+        {
+            //storing the original sorting order
+            OriginalOrder = Rend.sortingOrder;
+            //setting the max sorting order, so it will always appear on top
+            Rend.sortingOrder = 999;
+            //increasing the renderer's localScale by 50% while the mouse is on it
+            Rend.transform.localScale += new Vector3(0.4F, 0.4F);
+        }
     }
 
     /*
