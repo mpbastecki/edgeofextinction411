@@ -176,9 +176,9 @@ public class GameManager : MonoBehaviour {
         //this will all be moved to the pick deck class but for now we have the game manager being created from the main camera inthe playerboard scene
         //hard codes deck for now
         Person.Deck = Decks[0];
-        CP1.Deck = Decks[1];
-        CP2.Deck = Decks[2];
-        CP3.Deck = Decks[3];
+        CP1.Deck = Decks[0];
+        CP2.Deck = Decks[0];
+        CP3.Deck = Decks[0];
 
         //instantiates colors and names
         AppalachianColor = new Color32(166, 135, 82, 128);

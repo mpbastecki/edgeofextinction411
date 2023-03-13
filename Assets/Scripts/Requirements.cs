@@ -544,7 +544,7 @@ public class Reqs
             return true;
         else return false;
     }
-    public bool r037() //5 any regions
+    public bool r037() //5 any regions or Explorer played
     {
         int count = 0;
 
@@ -817,15 +817,18 @@ public class Reqs
     }
     public bool r057() //2 forest regions
     {
-        int count = 0;
+        int forestCount = ThePlayer.ForestCount;
 
-        count += ThePlayer.ForestCount;
-
-        if (count >= 2)
+        if (forestCount >= 2)
             return true;
-        else return false;
+
+
+        else { 
+        Debug.Log("Forest False");
+        return false;
+        }
     }
-    public bool r058() //1 canopy plant
+    public bool r058() //1 canopy plant 
     {
         int count = 0;
 
@@ -837,7 +840,8 @@ public class Reqs
 
         if (count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
     public bool r059() //1 groundcover plant
     {
@@ -851,13 +855,14 @@ public class Reqs
 
         if (count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
-    public bool r060() //1 mountain range
+    public bool r060() //1 mountain range 
     {
         int count = 0;
 
-        count += ThePlayer.MountainRange;
+        count += ThePlayer.ConditionPlacement.Count;
 
         if (count >= 1)
             return true;
@@ -3106,6 +3111,7 @@ public class Reqs
         return true;
     }
 
+    //Checks to see if the explorer is played in the field. Condition card can be played without necessary requirements if Explorer is played.
     public bool ExplorerPlayed()
     {
         int count = 0;
