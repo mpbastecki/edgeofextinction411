@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour {
         CreateDecks();
 
         //populates decks in deck list
-        gameObject.AddComponent<phpImport>();
+        //gameObject.AddComponent<phpImport>();
 
         //  sets initial round number
         Round = 1;
