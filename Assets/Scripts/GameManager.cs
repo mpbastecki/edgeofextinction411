@@ -262,10 +262,22 @@ public class GameManager : MonoBehaviour {
         }
         else if (pPlayerName == "CP1")
         {
-            HideShow.ShowCP2();
-            CP2.CreateDeckInfo();
-            CP2.StartTurn();
+            UpdateRound();
+            //shows mouse
+            Cursor.visible = true;
+            //enables mouse
+            Cursor.lockState = CursorLockMode.None;
+            //shows the human player
+            HideShow.ShowPlayer();
+            //after the round has changed the player can draw again
+            Person.CanDraw = true;
+            //starts the players turn automatically 
+            Person.StartTurn();
+            //HideShow.ShowCP2();
+            //CP2.CreateDeckInfo();
+            //CP2.StartTurn();
         }
+        /*
         else if (pPlayerName == "CP2")
         {
             HideShow.ShowCP3();
@@ -286,7 +298,7 @@ public class GameManager : MonoBehaviour {
             Person.CanDraw = true;
             //starts the players turn automatically 
             Person.StartTurn();
-        }
+        }*/
     }
 
     /*
