@@ -3073,7 +3073,14 @@ public class Reqs
 
     public bool r238() //extinction - as of right now there should be no requirements, i just jave this here as a precautionary detail for further use
     {
-        return true;
+        if (TwoSistersPlayed())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     public bool r239() //isolated ecosystems
@@ -3093,6 +3100,7 @@ public class Reqs
 
     public bool r242() //invasive invertebrate species
     {
+        
         return true;
     }
 
@@ -3127,7 +3135,65 @@ public class Reqs
             return false;
     }
 
+    public bool BiologistPlayed()
+    {
+        int count = 0;
 
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Biologist"))
+                count++;
+        }
+        if (count > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public bool BotanistPlayed()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Botanist"))
+                count++;
+        }
+        if (count > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public bool RangerPlayed()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Ranger"))
+                count++;
+        }
+        if (count > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public bool TwoSistersPlayed()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Two Sisters In The Wild"))
+                count++;
+        }
+        if (count > 0)
+            return true;
+        else
+            return false;
+    }
     //accessors and mutators
     public Player ThePlayer { get => thePlayer; set => thePlayer = value; }
 }

@@ -75,6 +75,13 @@ public class GameManager : MonoBehaviour {
     public List<string[]> requirementIDs;
     public List<string[]> actionIDs;
 
+    public bool playerProtectedFromInvasiveAnimal = false;
+    public bool playerProtectedFromInvasivePlant = false;
+    public bool playerNoConditionRequirements = false;
+    public bool playerProtectedFromBlight = false;
+    public bool playerProtectedFromExtinction = false;
+
+
     //  stores round number
     private int round;
 
