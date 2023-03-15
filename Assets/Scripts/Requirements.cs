@@ -821,12 +821,8 @@ public class Reqs
 
         if (forestCount >= 2)
             return true;
-
-
-        else { 
-        Debug.Log("Forest False");
-        return false;
-        }
+        else
+            return false;
     }
     public bool r058() //1 canopy plant 
     {
