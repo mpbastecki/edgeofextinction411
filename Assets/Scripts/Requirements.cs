@@ -548,6 +548,8 @@ public class Reqs
     {
         int count = 0;
         ExplorerPlayed()
+        if (GameManager.Instance.Person.noConditionRequirements)
+            return true;
         count += ThePlayer.AridCount;
         count += ThePlayer.ForestCount;
         count += ThePlayer.GrasslandsCount;
@@ -558,8 +560,6 @@ public class Reqs
         count += ThePlayer.MountainRange;
 
         if (count >= 5)
-            return true;
-        else if (GameManager.Instance.Person.noConditionRequirements)
             return true;
         else
             return false;
