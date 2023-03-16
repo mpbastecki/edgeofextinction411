@@ -101,19 +101,19 @@ public class Player : MonoBehaviour
      */
     //  necessary variables for actions and standing actions
     //  extinction flags
-    private bool protectedFromExtinction;
-    private bool protectedFromInvasiveAnimal;
-    private bool protectedFromInvasivePlant;
-    private bool noConditionRequirements;
-    private bool protectedFromBlight;
-    private bool pausedOneTurn;
-    private bool protectedFromWeb;
-    private bool noDiscard;
-    private bool drawExtraCard;
+    public bool protectedFromExtinction;
+    public bool protectedFromInvasiveAnimal;
+    public bool protectedFromInvasivePlant;
+    public bool noConditionRequirements;
+    public bool protectedFromBlight;
+    public bool pausedOneTurn;
+    public bool protectedFromWeb;
+    public bool noDiscard;
+    public bool drawExtraCard;
     //  all player ecosystems connected flag
-    private bool ecosystemsConnected;
-    private bool twentyPointNoDiscard;
-    private bool protectedFromInvertebrate;
+    public bool ecosystemsConnected;
+    public bool twentyPointNoDiscard;
+    public bool protectedFromInvertebrate;
     //  lists player region individual/total counts
     private int aridCount;
     private int forestCount;

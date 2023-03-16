@@ -547,7 +547,7 @@ public class Reqs
     public bool r037() //5 any regions or Explorer played
     {
         int count = 0;
-
+        ExplorerPlayed()
         count += ThePlayer.AridCount;
         count += ThePlayer.ForestCount;
         count += ThePlayer.GrasslandsCount;
@@ -559,7 +559,7 @@ public class Reqs
 
         if (count >= 5)
             return true;
-        else if (ExplorerPlayed())
+        else if (GameManager.Instance.Person.noConditionRequirements)
             return true;
         else
             return false;
@@ -3120,7 +3120,7 @@ public class Reqs
     }
 
     //Checks to see if the explorer is played in the field. Condition card can be played without necessary requirements if Explorer is played.
-    public bool ExplorerPlayed()
+    public void ExplorerPlayed()
     {
         int count = 0;
 
@@ -3130,9 +3130,9 @@ public class Reqs
                 count++;
         }
         if (count > 0)
-            return true;
+            GameManager.Instance.Person.noConditionRequirements = true;
         else
-            return false;
+            GameManager.Instance.Person.noConditionRequirements = false;
     }
 
     public bool BiologistPlayed()
@@ -3165,7 +3165,7 @@ public class Reqs
             return false;
     }
 
-    public bool RangerPlayed()
+    public void RangerPlayed()
     {
         int count = 0;
 
@@ -3175,9 +3175,13 @@ public class Reqs
                 count++;
         }
         if (count > 0)
-            return true;
+        {
+            
+            
+        }
         else
-            return false;
+            
+        
     }
 
     public bool TwoSistersPlayed()
