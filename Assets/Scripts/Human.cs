@@ -34,6 +34,7 @@ public class Human : Player
     void Update()
     {
         Debug.Log("Testing in human.cs");
+       
     }
 
     /*

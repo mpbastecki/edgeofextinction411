@@ -39,7 +39,7 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
     private Button buttonMultiComputerThree;
     private Computer comp;
 
-
+    private Human person = GameManager.Instance.Person;
 
 
     // Use this for initialization
@@ -269,6 +269,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
 
     ///****************************************************/
     ///****************************************************/
+    void DestroyGameObject()
+    {
+        //GameManager.Instance.Person.ChangeScore(-(GameManager.Instance.Person.DiscardPlacement.PointValue));
+        Destroy(gameObject);
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -278,7 +283,7 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
             //shows the card info board
             GameManager.Instance.HideShow.ShowCardInfo();
 
-
+            //DestroyGameObject();
 
             //assigns the objects to UI objects
             NameOfCard = GameObject.Find("CardName").GetComponent<Text>();
@@ -291,13 +296,13 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
             Transform parentHolder = this.gameObject.transform.parent;
 
             //goes through and matches the name, then proceeds to print the actions
-            for (int i = 0; i < ThePlayer.Hand.Count; i++)
+            /*for (int i = 0; i < ThePlayer.Hand.Count; i++)
             {
                 if (ThePlayer.Hand[i].CardName == nameHolder)
                 {
                     CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
                 }
-            }
+            }*/
 
             if (nameHolder.Contains("Special")) //special region filter
             {
@@ -330,11 +335,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.RegionPlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.RegionPlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.RegionPlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 
@@ -367,11 +372,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.PlantPlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.PlantPlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.PlantPlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 
@@ -411,11 +416,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.MultiPlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.MultiPlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.MultiPlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 
@@ -447,11 +452,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.ConditionPlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.ConditionPlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.ConditionPlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 
@@ -483,11 +488,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.InvertebratePlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.InvertebratePlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.InvertebratePlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 
@@ -519,11 +524,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.FungiPlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.FungiPlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.FungiPlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 
@@ -555,11 +560,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.HumanPlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.HumanPlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i];
+                        CardHolder = person.HumanPlacement[i];
                     }
                 }
 
@@ -591,11 +596,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.AnimalPlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.AnimalPlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.AnimalPlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 
@@ -627,11 +632,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < ThePlayer.Hand.Count; i++)
+                for (int i = 0; i < person.MicrobePlacement.Count; i++)
                 {
-                    if (ThePlayer.Hand[i].CardName == nameHolder)
+                    if (person.MicrobePlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.MicrobePlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 

@@ -81,17 +81,17 @@ public class Player : MonoBehaviour
     private Transform cardParent;
 
     //  create lists for player card placements
-    private List<Card> regionPlacement;
-    private List<Card> specialRegionPlacement;
-    private List<Card> plantPlacement;
-    private List<Card> animalPlacement;
-    private List<Card> invertebratePlacement;
-    private List<Card> microbePlacement;
-    private List<Card> humanPlacement;
-    private List<Card> multiPlacement;
-    private List<Card> fungiPlacement;
-    private List<Card> conditionPlacement;
-    private List<Card> discardPlacement;
+    public List<Card> regionPlacement;
+    public List<Card> specialRegionPlacement;
+    public List<Card> plantPlacement;
+    public List<Card> animalPlacement;
+    public List<Card> invertebratePlacement;
+    public List<Card> microbePlacement;
+    public List<Card> humanPlacement;
+    public List<Card> multiPlacement;
+    public List<Card> fungiPlacement;
+    public List<Card> conditionPlacement;
+    public List<Card> discardPlacement;
 
     /*
      *  @TODO:
