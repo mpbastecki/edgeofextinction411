@@ -215,7 +215,11 @@ public class Player : MonoBehaviour
     void Start(){}
 
     // Update is called once per frame
-    void Update(){}
+    void Update()
+    {
+        //doesnt actually do shit
+        Debug.Log("Hello");
+    }
 
       /*
     *  @name       GetTotalRegions()

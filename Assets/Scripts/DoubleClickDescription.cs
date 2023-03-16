@@ -96,7 +96,10 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
     }
 
     // Update is called once per frame
-    void Update(){ }
+    void Update(){
+
+        Debug.Log("Testing from DoubleClick");
+    }
 
 
     ///****************************************************/

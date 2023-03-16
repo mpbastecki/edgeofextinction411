@@ -74,7 +74,7 @@
 //                    cardAction.checkAction(GameManager.Instance.MultiPlacement[j]); //executes cards actions
 
 //                    //WHERE THE Multiplayer CARD SHOULD BE REMOVED AND PUT INTO THE DISCARD PILE
-//                    multiCard = GameManager.Instance.MultiPlacement[j]; //sets the human card to this
+                    //multiCard = GameManager.Instance.MultiPlacement[j]; //sets the human card to this
 //                    GameManager.Instance.DiscardPlacement.Add(multiCard); //adds this to the discard placementlist
 
 //                    Destroy(cardObject);

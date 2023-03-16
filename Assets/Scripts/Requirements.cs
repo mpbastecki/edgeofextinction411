@@ -3186,7 +3186,7 @@ public class Reqs
 
         for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
         {
-            if (ThePlayer.HumanPlacement[i].CardName.Contains("Two Sisters In The Wild"))
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Two-Sisters-In-The-Wild"))
                 count++;
         }
         if (count > 0)

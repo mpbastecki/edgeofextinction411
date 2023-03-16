@@ -102,7 +102,7 @@ public class Computer : Player
     // Update is called once per frame
     void Update()
         {
-
+        Debug.Log("Testing from computer.cs");
         }
 
     /*
