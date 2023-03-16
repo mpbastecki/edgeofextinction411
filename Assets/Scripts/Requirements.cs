@@ -547,7 +547,7 @@ public class Reqs
     public bool r037() //5 any regions or Explorer played
     {
         int count = 0;
-        ExplorerPlayed()
+        ExplorerPlayed();
         if (GameManager.Instance.Person.noConditionRequirements)
             return true;
         count += ThePlayer.AridCount;
@@ -3176,10 +3176,10 @@ public class Reqs
         }
         if (count > 0)
         {
-            
-            
+
+
         }
-        else
+        else { }
             
         
     }
