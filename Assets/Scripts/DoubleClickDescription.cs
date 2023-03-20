@@ -23,7 +23,14 @@ public class CardDoubleClickInfo : MonoBehaviour, IPointerClickHandler
     private Button buttonMultiComputerThree;
     private Computer comp;
 
+<<<<<<< HEAD
     // Script Initialization:
+=======
+    private Human person = GameManager.Instance.Person;
+
+
+    // Use this for initialization
+>>>>>>> main
     void Start()
     {
         //Player Initialization:
@@ -67,9 +74,15 @@ public class CardDoubleClickInfo : MonoBehaviour, IPointerClickHandler
     }
 
     // Update is called once per frame
+<<<<<<< HEAD
     void Update()
     {
 
+=======
+    void Update(){
+
+        Debug.Log("Testing from DoubleClick");
+>>>>>>> main
     }
 
 
@@ -265,8 +278,20 @@ public class CardDoubleClickInfo : MonoBehaviour, IPointerClickHandler
         GameManager.Instance.HideShow.ShowPlayer();
     }
 
+<<<<<<< HEAD
     //End of Multi-Player Button Effect Section:
     //*******************************************************************************************//
+=======
+    ////end of multiplayer stuff
+
+    ///****************************************************/
+    ///****************************************************/
+    void DestroyGameObject()
+    {
+        //GameManager.Instance.Person.ChangeScore(-(GameManager.Instance.Person.DiscardPlacement.PointValue));
+        Destroy(gameObject);
+    }
+>>>>>>> main
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -282,10 +307,391 @@ public class CardDoubleClickInfo : MonoBehaviour, IPointerClickHandler
             //Display the card information
             GameManager.Instance.HideShow.ShowCardInfo();
 
-
+            //DestroyGameObject();
 
             //Assign the card information objects (name, sprite, description) to the UI objects
             ImageOfCard = GameObject.Find("CardImage").GetComponent<Image>();
+<<<<<<< HEAD
+=======
+            DescriptionOfCard = GameObject.Find("CardDescription").GetComponent<Text>();
+            //ButtonActionEnabler = GameObject.Find("ActionButton").GetComponent<Button>();
+
+            //SETTING THE FILTERS FOR THE CARDS NAMES SO THAT THEY PRINT OUT PROPERLY
+            string nameHolder = this.gameObject.name; //this will be used to hold the name until it is correct
+            Transform parentHolder = this.gameObject.transform.parent;
+
+            //goes through and matches the name, then proceeds to print the actions
+            /*for (int i = 0; i < ThePlayer.Hand.Count; i++)
+            {
+                if (ThePlayer.Hand[i].CardName == nameHolder)
+                {
+                    CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
+                }
+            }*/
+
+            if (nameHolder.Contains("Special")) //special region filter
+            {
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 2; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction.ToString();
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Region")) //region name filter
+            {
+
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.RegionPlacement.Count; i++)
+                {
+                    if (person.RegionPlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.RegionPlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
+                Description();
+
+                if (nameHolder.Contains("Forest"))
+                    NameOfCard.text = "Forest";
+                else if (nameHolder.Contains("Running-Water"))
+                    NameOfCard.text = "Running Water";
+                else if (nameHolder.Contains("Standing-Water"))
+                    NameOfCard.text = "Standing Water";
+                else if (nameHolder.Contains("Grasslands"))
+                    NameOfCard.text = "Grasslands";
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Plant")) //plant name filter
+            {
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.PlantPlacement.Count; i++)
+                {
+                    if (person.PlantPlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.PlantPlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 1; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Multi")) //multiplayer name filter
+            {
+
+
+                //shows the multiplayer buttons on screen
+                //ShowMultiplayerButtons();
+
+
+                //check here
+
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.MultiPlacement.Count; i++)
+                {
+                    if (person.MultiPlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.MultiPlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 1; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    // ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Condition")) //condition name filter
+            {
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.ConditionPlacement.Count; i++)
+                {
+                    if (person.ConditionPlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.ConditionPlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 1; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Invertebrate")) //invertebrate name filter
+            {
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.InvertebratePlacement.Count; i++)
+                {
+                    if (person.InvertebratePlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.InvertebratePlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 1; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Fungi")) //fungi name filter
+            {
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.FungiPlacement.Count; i++)
+                {
+                    if (person.FungiPlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.FungiPlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 1; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                   // ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Human")) //humam name filter
+            {
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.HumanPlacement.Count; i++)
+                {
+                    if (person.HumanPlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.HumanPlacement[i];
+                    }
+                }
+
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 1; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Animal")) //animal name filter
+            {
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.AnimalPlacement.Count; i++)
+                {
+                    if (person.AnimalPlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.AnimalPlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 1; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+            else if (nameHolder.Contains("Microbe")) //microbe name filter
+            {
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.MicrobePlacement.Count; i++)
+                {
+                    if (person.MicrobePlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.MicrobePlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
+                Description();
+
+                string[] name = nameHolder.Split('-');
+                string anotherName = "";
+
+                for (int i = 1; i < name.Length; i++)
+                    anotherName += name[i] + " ";
+
+                NameOfCard.text = anotherName;
+
+                //prints the actions
+                DescriptionOfCard.text += "\n" + CardHolder.StandingAction;
+
+                if (CardHolder.SpecialAction == "" || CardHolder.SpecialAction == null)
+                {
+                    //ButtonActionEnabler.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DescriptionOfCard.text += "\n" + CardHolder.SpecialAction.ToString();
+                    //ButtonActionEnabler.gameObject.SetActive(true);
+                }
+            }
+
+            //sets the image to the current image of card
+            ImageOfCard.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+>>>>>>> main
         }
     }
 
