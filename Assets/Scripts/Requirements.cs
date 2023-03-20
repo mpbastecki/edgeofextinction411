@@ -544,10 +544,12 @@ public class Reqs
             return true;
         else return false;
     }
-    public bool r037() //5 any regions
+    public bool r037() //5 any regions or Explorer played
     {
         int count = 0;
-
+        ExplorerPlayed();
+        if (GameManager.Instance.Person.noConditionRequirements)
+            return true;
         count += ThePlayer.AridCount;
         count += ThePlayer.ForestCount;
         count += ThePlayer.GrasslandsCount;
@@ -558,8 +560,6 @@ public class Reqs
         count += ThePlayer.MountainRange;
 
         if (count >= 5)
-            return true;
-        else if (ExplorerPlayed())
             return true;
         else
             return false;
@@ -817,15 +817,18 @@ public class Reqs
     }
     public bool r057() //2 forest regions
     {
-        int count = 0;
+        int forestCount = ThePlayer.ForestCount;
 
-        count += ThePlayer.ForestCount;
-
-        if (count >= 2)
+        if (forestCount >= 2)
             return true;
-        else return false;
+
+
+        else { 
+        Debug.Log("Forest False");
+        return false;
+        }
     }
-    public bool r058() //1 canopy plant
+    public bool r058() //1 canopy plant 
     {
         int count = 0;
 
@@ -837,7 +840,8 @@ public class Reqs
 
         if (count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
     public bool r059() //1 groundcover plant
     {
@@ -851,13 +855,14 @@ public class Reqs
 
         if (count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
-    public bool r060() //1 mountain range
+    public bool r060() //1 mountain range 
     {
         int count = 0;
 
-        count += ThePlayer.MountainRange;
+        count += ThePlayer.ConditionPlacement.Count;
 
         if (count >= 1)
             return true;
@@ -3068,7 +3073,14 @@ public class Reqs
 
     public bool r238() //extinction - as of right now there should be no requirements, i just jave this here as a precautionary detail for further use
     {
-        return true;
+        if (TwoSistersPlayed())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     public bool r239() //isolated ecosystems
@@ -3088,6 +3100,7 @@ public class Reqs
 
     public bool r242() //invasive invertebrate species
     {
+        
         return true;
     }
 
@@ -3106,7 +3119,8 @@ public class Reqs
         return true;
     }
 
-    public bool ExplorerPlayed()
+    //Checks to see if the explorer is played in the field. Condition card can be played without necessary requirements if Explorer is played.
+    public void ExplorerPlayed()
     {
         int count = 0;
 
@@ -3116,12 +3130,74 @@ public class Reqs
                 count++;
         }
         if (count > 0)
+            GameManager.Instance.Person.noConditionRequirements = true;
+        else
+            GameManager.Instance.Person.noConditionRequirements = false;
+    }
+
+    public bool BiologistPlayed()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Biologist"))
+                count++;
+        }
+        if (count > 0)
             return true;
         else
             return false;
     }
 
+    public bool BotanistPlayed()
+    {
+        int count = 0;
 
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Botanist"))
+                count++;
+        }
+        if (count > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public void RangerPlayed()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Ranger"))
+                count++;
+        }
+        if (count > 0)
+        {
+
+
+        }
+        else { }
+            
+        
+    }
+
+    public bool TwoSistersPlayed()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        {
+            if (ThePlayer.HumanPlacement[i].CardName.Contains("Two-Sisters-In-The-Wild"))
+                count++;
+        }
+        if (count > 0)
+            return true;
+        else
+            return false;
+    }
     //accessors and mutators
     public Player ThePlayer { get => thePlayer; set => thePlayer = value; }
 }

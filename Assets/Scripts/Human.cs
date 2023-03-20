@@ -31,7 +31,11 @@ public class Human : Player
     }
 
     // Update is called once per frame
-    void Update(){}
+    void Update()
+    {
+        Debug.Log("Testing in human.cs");
+       
+    }
 
     /*
  *  @name       Initialize Objects() extend from parent class and ads additon info specific to human

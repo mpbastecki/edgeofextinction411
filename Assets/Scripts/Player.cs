@@ -81,17 +81,17 @@ public class Player : MonoBehaviour
     private Transform cardParent;
 
     //  create lists for player card placements
-    private List<Card> regionPlacement;
-    private List<Card> specialRegionPlacement;
-    private List<Card> plantPlacement;
-    private List<Card> animalPlacement;
-    private List<Card> invertebratePlacement;
-    private List<Card> microbePlacement;
-    private List<Card> humanPlacement;
-    private List<Card> multiPlacement;
-    private List<Card> fungiPlacement;
-    private List<Card> conditionPlacement;
-    private List<Card> discardPlacement;
+    public List<Card> regionPlacement;
+    public List<Card> specialRegionPlacement;
+    public List<Card> plantPlacement;
+    public List<Card> animalPlacement;
+    public List<Card> invertebratePlacement;
+    public List<Card> microbePlacement;
+    public List<Card> humanPlacement;
+    public List<Card> multiPlacement;
+    public List<Card> fungiPlacement;
+    public List<Card> conditionPlacement;
+    public List<Card> discardPlacement;
 
     /*
      *  @TODO:
@@ -101,19 +101,19 @@ public class Player : MonoBehaviour
      */
     //  necessary variables for actions and standing actions
     //  extinction flags
-    private bool protectedFromExtinction;
-    private bool protectedFromInvasiveAnimal;
-    private bool protectedFromInvasivePlant;
-    private bool noConditionRequirements;
-    private bool protectedFromBlight;
-    private bool pausedOneTurn;
-    private bool protectedFromWeb;
-    private bool noDiscard;
-    private bool drawExtraCard;
+    public bool protectedFromExtinction;
+    public bool protectedFromInvasiveAnimal;
+    public bool protectedFromInvasivePlant;
+    public bool noConditionRequirements;
+    public bool protectedFromBlight;
+    public bool pausedOneTurn;
+    public bool protectedFromWeb;
+    public bool noDiscard;
+    public bool drawExtraCard;
     //  all player ecosystems connected flag
-    private bool ecosystemsConnected;
-    private bool twentyPointNoDiscard;
-    private bool protectedFromInvertebrate;
+    public bool ecosystemsConnected;
+    public bool twentyPointNoDiscard;
+    public bool protectedFromInvertebrate;
     //  lists player region individual/total counts
     private int aridCount;
     private int forestCount;
@@ -215,7 +215,11 @@ public class Player : MonoBehaviour
     void Start(){}
 
     // Update is called once per frame
-    void Update(){}
+    void Update()
+    {
+        //doesnt actually do shit
+        Debug.Log("Hello");
+    }
 
       /*
     *  @name       GetTotalRegions()
