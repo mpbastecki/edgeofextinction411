@@ -306,6 +306,17 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
 
             if (nameHolder.Contains("Special")) //special region filter
             {
+                DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
+
+                //goes through andmatches the name, then proceeds to print the actions
+                for (int i = 0; i < person.SpecialRegionPlacement.Count; i++)
+                {
+                    if (person.SpecialRegionPlacement[i].CardName == nameHolder)
+                    {
+                        CardHolder = person.SpecialRegionPlacement[i]; //sets the card holder for the rest of the things needed to be set
+                    }
+                }
+
                 Description();
 
                 string[] name = nameHolder.Split('-');

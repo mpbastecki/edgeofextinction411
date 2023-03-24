@@ -15,6 +15,7 @@ public class Human : Player
 {
     //used to pass in current object to differnt classes
     private Human currentPlayer;
+    private Human person = GameManager.Instance.Person;
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -34,7 +35,7 @@ public class Human : Player
     void Update()
     {
         Debug.Log("Testing in human.cs");
-       
+        CheckStandingCards();
     }
 
     /*
@@ -85,7 +86,48 @@ public class Human : Player
         Draw(DrawCount);
         //makes the human player unable to draw again
         CanDraw = false;
+
+        
+
     }
+
+    public void CheckStandingCards()
+    {
+        for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
+        {
+            switch(CurrentPlayer.HumanPlacement[i].CardName)
+            {
+                case "Human-Biologist":
+                    Debug.Log("biologist");
+                    CurrentPlayer.ProtectedFromInvasiveAnimal = true;
+                    break;
+                case "Human-Botanist":
+                    Debug.Log("botanist");
+                    CurrentPlayer.ProtectedFromInvasivePlant = true;
+                    break;
+                case "Human-Explorer":
+                    Debug.Log("asshole");
+                    CurrentPlayer.NoConditionRequirements = true;
+                    break;
+                case "Human-Ranger":
+                    Debug.Log("ranger");
+                    CurrentPlayer.ProtectedFromBlight = true;
+                    break;
+                case "Human-Two-Sisters-In-The-Wild":
+                    Debug.Log("sisters");
+                    CurrentPlayer.ProtectedFromExtinction = true;
+                    break;
+                default:
+                    Debug.Log("No human effects");
+                    CurrentPlayer.ProtectedFromExtinction = false;
+                    break;
+            }
+            
+            
+        }
+    }
+
+
 
         /*
      *  @name       GenerateCardObjects() extend from parent class and ads additon info specific to human

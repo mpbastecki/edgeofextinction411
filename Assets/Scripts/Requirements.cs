@@ -68,7 +68,7 @@ public class Requirements : MonoBehaviour
             }
             catch(Exception e)
             {
-                Debug.Log("had issues with card");
+                Debug.Log("had issues with card :(");
             }
 
             //if iot didnt return false then it returned true which means the requirements worked 
@@ -548,7 +548,7 @@ public class Reqs
     {
         int count = 0;
         ExplorerPlayed();
-        if (GameManager.Instance.Person.noConditionRequirements)
+        if (GameManager.Instance.Person.NoConditionRequirements)
             return true;
         count += ThePlayer.AridCount;
         count += ThePlayer.ForestCount;
@@ -3130,9 +3130,9 @@ public class Reqs
                 count++;
         }
         if (count > 0)
-            GameManager.Instance.Person.noConditionRequirements = true;
+            GameManager.Instance.Person.NoConditionRequirements = true;
         else
-            GameManager.Instance.Person.noConditionRequirements = false;
+            GameManager.Instance.Person.NoConditionRequirements = false;
     }
 
     public bool BiologistPlayed()
