@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -274,6 +275,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -329,7 +331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.75, y: -499.1}
+  m_AnchoredPosition: {x: 7.75, y: -494.00787}
   m_SizeDelta: {x: 464.9, y: 1302}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &152900817
@@ -347,13 +349,14 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -363,39 +366,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\nHOW TO PLAY\r\n\nHow to Win\r\nThe player who has the most points in
-    their ecosystem at the end of 10 rounds wins the game.\r\n\nGame Setup\r\nEach
-    player shuffles their own deck and draws five cards off the top. If a player does
-    not draw\r\nany region cards, they can reshuffle and draw again. The youngest
-    player starts the game.\n\r\nOn a player\u2019s turn, they complete the following
-    steps:\r\n\n\t1. Draw one card from the top of their deck. Draw an additional
-    card for every five regions\r within their ecosystem.\r\n\t2. Play none, any or
-    all playable cards from their hand into their ecosystem\r\n\t3. End their turn
-    by discarding one card. If they have no cards left in their hand, they can\r end
-    their turn without discarding. The player to the left then begins their turn.\r\n\nWhen
-    all the players have completed their first turn, the first round is complete.
-    Rounds 2-10\rare completed the same way.\r\n\nBuilding your Ecosystem\r\nRegions
-    are the foundation of an ecosystem. They are the lands and waters everything else
-    lives\r on and in. They don\u2019t have requirements, and you can play them at
-    any time during your turn.\r\n\nThe rest of the cards have a requirements section.
-    A card\u2019s requirements need to be met\r (already in the ecosystem) before
-    the card can be played.\r\n\nThe bulk of an ecosystem\u2019s points will be comprised
-    of animal, plant, invertebrate, fungi,\r microbe and condition cards. Understanding
-    when and how to play these cards is the key to\r winning the game. Good Luck!\r\n\nThe
-    Three Card Burst\r\nOnce each game, each player has the ability to draw three
-    cards whenever they want. Many\r times, this \u201CThree Card Burst\u201D is used
-    when they run out of cards or don\u2019t want to discard an\r important card in
-    their hand.\r\n\nHuman Cards\r\nHumans have Standing Actions and sometimes Special
-    Actions. Standing Actions are in effect\r while the human is within the ecosystem.
-    Special Actions take effect when you discard the\r human card. Note: Up to three
-    humans can be within an ecosystem at any one time.\r\n\nSpecial Region Cards\r\nSpecial
-    Regions are cards that combine the value of more than one region and/or condition\r
-    into one card. The more cards they represent, the lower their point value. Many
-    of these cards\r have negative point values. At the end of the game when counting
-    point totals, negative point\r cards count against your total score.\r\n\nMulti-Player
-    Cards\r\nMulti-player cards change the gameplay or affect one or more ecosystems
-    when played. Each\r multi-player card has unique instructions to follow when using
-    it. Unless it states otherwise,\r the card is discarded after use.\n"
+  m_Text: "Gameplay:\r\nClick the deck to draw cards at the beginning of your turn.\r\nYou
+    will draw six cards on your first turn and one card on each turn after.\r\nYou
+    may draw an extra card each turn for every five regions played.\r\nThree Card
+    Burst is available to use once per game. It gives players three extra cards.\r\n\r\nEach
+    card has requirements that must be fulfilled before the card can be played.\r\nDrag
+    playable cards into their corresponding pile on the field.\r\nDouble click cards
+    on the field for more information about the card.\r\nTo end your turn, drag one
+    card into the discard pile. \r\nIf no cards are left in your hand, your turn
+    will end automatically\r\n\r\nEach card has a corresponding point value that
+    is added to your score when played.\r\nThe player with the highest score at the
+    end of ten rounds is the winner.\r\n\r\nHuman Cards:\r\nEach human card contains
+    a standing action and a special action.\r\nThe standing action is active while
+    the card is in the field.\r\nTo activate the special action, double click the
+    card and press the \"Activate Special Action\" button.\r\nThe card is then moved
+    to the discard pile.\r\n\r\nMultiplayer Cards:\r\nMultiplayer cards have an effect
+    to be used against your opponent.\r\nTo activate these cards, place the multiplayer
+    card onto the field, double click the card, and select the opponent to use the
+    card against."
 --- !u!222 &152900818
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -485,8 +473,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 127987427}
   m_HandleRect: {fileID: 127987426}
   m_Direction: 2
-  m_Value: 0.9999749
-  m_Size: 0.23329493
+  m_Value: 0.9284045
+  m_Size: 0.1143364
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -506,6 +494,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -579,6 +568,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -631,10 +621,10 @@ RectTransform:
   m_Father: {fileID: 1956007}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1, y: 0}
-  m_SizeDelta: {x: -301.70007, y: -165.20001}
+  m_AnchorMin: {x: 0.33923104, y: 0.15284714}
+  m_AnchorMax: {x: 0.65453804, y: 0.7836306}
+  m_AnchoredPosition: {x: 3, y: 10}
+  m_SizeDelta: {x: 122.29993, y: -49.200012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534394499
 MonoBehaviour:
@@ -664,6 +654,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.392}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -792,6 +783,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -931,6 +923,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -987,8 +980,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14.6, y: -0.024994}
-  m_SizeDelta: {x: 489, y: 303.75}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 0}
+  m_SizeDelta: {x: 317.29993, y: 148.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1657161296
 MonoBehaviour:
@@ -1010,7 +1003,7 @@ MonoBehaviour:
   m_Inertia: 1
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
-  m_Viewport: {fileID: 0}
+  m_Viewport: {fileID: 1534394498}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1434632072}
   m_HorizontalScrollbarVisibility: 0

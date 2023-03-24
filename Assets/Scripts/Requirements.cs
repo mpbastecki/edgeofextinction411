@@ -821,12 +821,8 @@ public class Reqs
 
         if (forestCount >= 2)
             return true;
-
-
-        else { 
-        Debug.Log("Forest False");
-        return false;
-        }
+        else
+            return false;
     }
     public bool r058() //1 canopy plant 
     {
@@ -3150,54 +3146,67 @@ public class Reqs
             return false;
     }
 
-    public bool BotanistPlayed()
+    public bool r246() //Barred Owl to be played from deck or discard
     {
-        int count = 0;
+        //Variables hold the number of canopy plants and if the requirement is satisfied
+        bool canopyCheck = false;
+        int canopyCount = 0;
 
-        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
+        //Checks through each played plant for type canopy
+        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
         {
-            if (ThePlayer.HumanPlacement[i].CardName.Contains("Botanist"))
-                count++;
+            //Counts each canopy plant
+            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
+                canopyCount++;
         }
-        if (count > 0)
+
+        //Satisfies the requirement if there are at least three played
+        if (canopyCount >= 3)
+            canopyCheck = true;
+
+        //Variables hold the number of tiny or small animals and if the requirement is satisfied
+        bool animalCheck = false;
+        int animalCount = 0;
+
+        //Checks through each played animal for tiny or small size
+        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+        {
+            //Counts each tiny or small animal
+            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
+                animalCount++;
+        }
+
+        //Satisfies the requirement if there are at least two tiny or small animals
+        if (animalCount >= 2)
+            animalCheck = true;
+
+        //Checks all requirements including playable requirements
+        if (canopyCheck && animalCheck && r013() && r014() && r015() && r016())
             return true;
-        else
-            return false;
+
+        return false;
+
     }
 
-    public void RangerPlayed()
+    public bool r247() //Darkling beetle larvae to be played from deck or discard
     {
-        int count = 0;
+        //Variable holds if the requirement is satisfied
+        bool humanCheck = false;
 
-        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
-        {
-            if (ThePlayer.HumanPlacement[i].CardName.Contains("Ranger"))
-                count++;
-        }
-        if (count > 0)
-        {
+        //Checks if three humans are played
+        if (ThePlayer.HumanPlacement.Count >= 3)
+            humanCheck = false;
+
+        //Checks all requirements
+        if (humanCheck && r046() && r047())
+            return true;
+
+        return false;
+    }
 
 
-        }
-        else { }
-            
+
         
-    }
-
-    public bool TwoSistersPlayed()
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
-        {
-            if (ThePlayer.HumanPlacement[i].CardName.Contains("Two-Sisters-In-The-Wild"))
-                count++;
-        }
-        if (count > 0)
-            return true;
-        else
-            return false;
-    }
     //accessors and mutators
     public Player ThePlayer { get => thePlayer; set => thePlayer = value; }
 }
