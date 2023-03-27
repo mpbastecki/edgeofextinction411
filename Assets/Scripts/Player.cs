@@ -53,8 +53,8 @@ public class Player : MonoBehaviour
     private string roundGameObject;
     private string humanScoreGameObject;
     private string cP1ScoreGameObject;
-    private string cP2ScoreGameObject;
-    private string cP3ScoreGameObject;
+    //private string cP2ScoreGameObject;
+    //private string cP3ScoreGameObject;
 
     //  Creates objects  to interact with UI canvas
     //  stores values for round text information
@@ -66,8 +66,8 @@ public class Player : MonoBehaviour
     //this is to change all of the score texts on the screen for each player
     private Text humanScoreText;
     private Text cP1ScoreText;
-    private Text cP2ScoreText;
-    private Text cP3ScoreText;
+    //private Text cP2ScoreText;
+    //private Text cP3ScoreText;
 
 
     //graphics and card objects
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
     public virtual void InitializeObjects(string pScoreGameObject, string pRoundGameObject, string pHandGameObject, string pRegionGameObject, string pConditionGameObject, 
         string pPlantGameObject, string pInvertebrateGameObject, string pAnimalGameObject, string pSpecialRegionGameObject, string pMultiplayerGameObject, 
         string pMicrobeGameObject, string pFungiGameObject, string pDiscardGameObject, string pHumanGameObject, string pDeckColorGameObject, string pDeckTextGameObject,
-        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pCP2ScoreGameObject, string pCP3ScoreGameObject, string pPlayerName)
+        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pPlayerName)
     {
      
         //this will all be stuff from parent class below
@@ -159,8 +159,8 @@ public class Player : MonoBehaviour
         DeckTextGameObject = pDeckTextGameObject;
         HumanScoreGameObject= pHumanScoreGameObject;
         CP1ScoreGameObject= pCP1ScoreGameObject;
-        CP2ScoreGameObject= pCP2ScoreGameObject;
-        CP3ScoreGameObject= pCP3ScoreGameObject;
+        //CP2ScoreGameObject= pCP2ScoreGameObject;
+        //CP3ScoreGameObject= pCP3ScoreGameObject;
 
         //game values
         Score = 0;
@@ -286,11 +286,11 @@ public class Player : MonoBehaviour
         CP1ScoreText = GameObject.Find(CP1ScoreGameObject).GetComponent<Text>();
         CP1ScoreText.text = GameManager.Instance.CP1.Score.ToString();
         //updates CP2 score
-        CP2ScoreText = GameObject.Find(CP2ScoreGameObject).GetComponent<Text>();
-        CP2ScoreText.text = GameManager.Instance.CP2.Score.ToString();
+        //CP2ScoreText = GameObject.Find(CP2ScoreGameObject).GetComponent<Text>();
+        //CP2ScoreText.text = GameManager.Instance.CP2.Score.ToString();
         //updates CP3 score
-        CP3ScoreText = GameObject.Find(CP3ScoreGameObject).GetComponent<Text>();
-        CP3ScoreText.text = GameManager.Instance.CP3.Score.ToString();
+        //CP3ScoreText = GameObject.Find(CP3ScoreGameObject).GetComponent<Text>();
+        //CP3ScoreText.text = GameManager.Instance.CP3.Score.ToString();
     }
 
         /*
@@ -473,12 +473,12 @@ public class Player : MonoBehaviour
     public bool ThreeCardBurstAvailable { get => threeCardBurstAvailable; set => threeCardBurstAvailable = value; }
     public string HumanScoreGameObject { get => humanScoreGameObject; set => humanScoreGameObject = value; }
     public string CP1ScoreGameObject { get => cP1ScoreGameObject; set => cP1ScoreGameObject = value; }
-    public string CP2ScoreGameObject { get => cP2ScoreGameObject; set => cP2ScoreGameObject = value; }
-    public string CP3ScoreGameObject { get => cP3ScoreGameObject; set => cP3ScoreGameObject = value; }
+    //public string CP2ScoreGameObject { get => cP2ScoreGameObject; set => cP2ScoreGameObject = value; }
+    //public string CP3ScoreGameObject { get => cP3ScoreGameObject; set => cP3ScoreGameObject = value; }
     public Text HumanScoreText { get => humanScoreText; set => humanScoreText = value; }
     public Text CP1ScoreText { get => cP1ScoreText; set => cP1ScoreText = value; }
-    public Text CP2ScoreText { get => cP2ScoreText; set => cP2ScoreText = value; }
-    public Text CP3ScoreText { get => cP3ScoreText; set => cP3ScoreText = value; }
+    //public Text CP2ScoreText { get => cP2ScoreText; set => cP2ScoreText = value; }
+    //public Text CP3ScoreText { get => cP3ScoreText; set => cP3ScoreText = value; }
     public string PlayerName { get => playerName; set => playerName = value; }
 }
 

@@ -45,13 +45,13 @@ public class Human : Player
     public override void InitializeObjects(string pScoreGameObject, string pRoundGameObject, string pHandGameObject, string pRegionGameObject, string pConditionGameObject,
         string pPlantGameObject, string pInvertebrateGameObject, string pAnimalGameObject, string pSpecialRegionGameObject, string pMultiplayerGameObject,
         string pMicrobeGameObject, string pFungiGameObject, string pDiscardGameObject, string pHumanGameObject, string pDeckColorGameObject, string pDeckTextGameObject,
-        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pCP2ScoreGameObject, string pCP3ScoreGameObject, string pPlayerName)
+        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pPlayerName)
     {
         //gets base parent class info
         base.InitializeObjects(pScoreGameObject, pRoundGameObject, pHandGameObject, pRegionGameObject, pConditionGameObject,
         pPlantGameObject, pInvertebrateGameObject, pAnimalGameObject, pSpecialRegionGameObject, pMultiplayerGameObject,
         pMicrobeGameObject, pFungiGameObject, pDiscardGameObject, pHumanGameObject, pDeckColorGameObject, pDeckTextGameObject,
-        pHumanScoreGameObject, pCP1ScoreGameObject, pCP2ScoreGameObject, pCP3ScoreGameObject, pPlayerName);
+        pHumanScoreGameObject, pCP1ScoreGameObject, pPlayerName);
         //info specific to human
         CurrentPlayer = this;
         CanDraw = true;
