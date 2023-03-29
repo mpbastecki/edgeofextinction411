@@ -683,7 +683,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         ////double click will not work on cards in your hand or in the discard pile
         if (ParentReturn.name != "Hand" && ParentReturn.name != "Discard Pile Placement")
         {
-            DraggedInstance.AddComponent<CardDoubleClickInfo>(); //once placed, adds the option to be double clicked
+            DraggedInstance.AddComponent<DoubleClickDescription>(); //once placed, adds the option to be double clicked
         }
         /**********************************************************************************************/
         /**********************************************************************************************/
