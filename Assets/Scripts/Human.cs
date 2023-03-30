@@ -36,6 +36,7 @@ public class Human : Player
     {
         Debug.Log("Testing in human.cs");
         CheckStandingCards();
+        CheckExtinction();
     }
 
     /*
@@ -90,41 +91,144 @@ public class Human : Player
         
 
     }
+    public void CheckExtinction()
+    {
+        bool foundExtinction = false;
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+        {
+            if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+            {
+                foundExtinction = true;
+            }
+        }
 
+        if (CurrentPlayer.ProtectedFromExtinction && foundExtinction)
+        {
+            for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
+            {
+                if (CurrentPlayer.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                {
+                    
+                    Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                    MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+                    
+                    //adds the card to the discard list
+                                                                                //ThePlayer.HumanPlacement[i].Destroy;
+
+                }
+            }
+            for (int i = 0; i < MultiplayerPlacement.Count; i++)
+            {
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                {
+                    Destroy(GameObject.Find("Multi-Extinction"));
+                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                }
+            }
+            CurrentPlayer.ProtectedFromExtinction = false;
+        }
+    }
+
+
+    //Checks human cards to set the right flags for protection from exinction, invasive species, etc
     public void CheckStandingCards()
     {
+        bool foundBiologist = false;
+        bool foundBotanist = false;
+        bool foundExplorer = false;
+        bool foundRanger = false;
+        bool foundTwoSisters = false;
+
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
+
+            
             switch(CurrentPlayer.HumanPlacement[i].CardName)
             {
                 case "Human-Biologist":
-                    Debug.Log("biologist");
-                    CurrentPlayer.ProtectedFromInvasiveAnimal = true;
+                    
+                    foundBiologist = true;
                     break;
                 case "Human-Botanist":
-                    Debug.Log("botanist");
-                    CurrentPlayer.ProtectedFromInvasivePlant = true;
+                    
+                    foundBotanist = true;
                     break;
                 case "Human-Explorer":
-                    Debug.Log("asshole");
-                    CurrentPlayer.NoConditionRequirements = true;
+                    
+                    foundExplorer = true;
                     break;
                 case "Human-Ranger":
-                    Debug.Log("ranger");
-                    CurrentPlayer.ProtectedFromBlight = true;
+                    
+                    foundRanger = true;
                     break;
                 case "Human-Two-Sisters-In-The-Wild":
-                    Debug.Log("sisters");
-                    CurrentPlayer.ProtectedFromExtinction = true;
+                    
+                    foundTwoSisters = true;
                     break;
                 default:
-                    Debug.Log("No human effects");
-                    CurrentPlayer.ProtectedFromExtinction = false;
+                    
                     break;
             }
-            
-            
+
+
         }
+
+        if (foundBiologist)
+        {
+            Debug.Log("biologist");
+            CurrentPlayer.ProtectedFromInvasiveAnimal = true;
+        }
+        else
+        {
+            Debug.Log("NOT biologist");
+            CurrentPlayer.ProtectedFromInvasiveAnimal = false;
+        }
+
+        if (foundBotanist)
+        {
+            Debug.Log("botanist");
+            CurrentPlayer.ProtectedFromInvasivePlant = true;
+        }
+        else
+        {
+            Debug.Log("NOT botanist");
+            CurrentPlayer.ProtectedFromInvasivePlant = false;
+        }
+
+        if (foundExplorer)
+        {
+            Debug.Log("explorer");
+            CurrentPlayer.NoConditionRequirements = true;
+        }
+        else
+        {
+            Debug.Log("NOT explorer");
+            CurrentPlayer.NoConditionRequirements = false;
+        }
+
+        if (foundRanger)
+        {
+            Debug.Log("ranger");
+            CurrentPlayer.ProtectedFromBlight = true;
+        }
+        else
+        {
+            Debug.Log("NOT ranger");
+            CurrentPlayer.ProtectedFromBlight = false;
+        }
+
+        if (foundTwoSisters)
+        {
+            Debug.Log("sisters");
+            CurrentPlayer.ProtectedFromExtinction = true;
+        }
+        else
+        {
+            Debug.Log("NOT sisters");
+            CurrentPlayer.ProtectedFromExtinction = false;
+        }
+
     }
 
 

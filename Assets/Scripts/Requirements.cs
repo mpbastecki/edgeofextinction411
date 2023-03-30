@@ -18,6 +18,10 @@ public class Requirements : MonoBehaviour
     {
     }
 
+    void DestroyGameObject()
+    {
+        Destroy(gameObject);
+    }
     /*
       * @name    requirementCheck()
       * @purpose checks to see if the current card passed in passes reuirements and also assigns the player object of the class
@@ -547,8 +551,7 @@ public class Reqs
     public bool r037() //5 any regions or Explorer played
     {
         int count = 0;
-        ExplorerPlayed();
-        if (GameManager.Instance.Person.NoConditionRequirements)
+        if (ThePlayer.NoConditionRequirements)
             return true;
         count += ThePlayer.AridCount;
         count += ThePlayer.ForestCount;
@@ -3070,7 +3073,7 @@ public class Reqs
     public bool r238() //extinction - as of right now there should be no requirements, i just jave this here as a precautionary detail for further use
     {
         
-        return true;
+            return true;
         
     }
 
@@ -3110,36 +3113,9 @@ public class Reqs
         return true;
     }
 
-    //Checks to see if the explorer is played in the field. Condition card can be played without necessary requirements if Explorer is played.
-    public void ExplorerPlayed()
-    {
-        int count = 0;
+    //Checks to see if the explorer is played in the field. Condition card can be played without necessary requirements if Explorer is played
 
-        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
-        {
-            if (ThePlayer.HumanPlacement[i].CardName.Contains("Explorer"))
-                count++;
-        }
-        if (count > 0)
-            GameManager.Instance.Person.NoConditionRequirements = true;
-        else
-            GameManager.Instance.Person.NoConditionRequirements = false;
-    }
-
-    public bool BiologistPlayed()
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
-        {
-            if (ThePlayer.HumanPlacement[i].CardName.Contains("Biologist"))
-                count++;
-        }
-        if (count > 0)
-            return true;
-        else
-            return false;
-    }
+   
 
     public bool r246() //Barred Owl to be played from deck or discard
     {
