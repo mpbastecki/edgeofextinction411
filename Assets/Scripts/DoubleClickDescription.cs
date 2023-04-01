@@ -41,7 +41,7 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
 
     private Human person = GameManager.Instance.Person;
 
-
+    
     // Use this for initialization
     void Start()
     {
@@ -301,10 +301,16 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
             NameOfCard = GameObject.Find("CardName").GetComponent<Text>();
             ImageOfCard = GameObject.Find("CardImage").GetComponent<Image>();
             DescriptionOfCard = GameObject.Find("CardDescription").GetComponent<Text>();
-            //ButtonActionEnabler = GameObject.Find("ActionButton").GetComponent<Button>();
+           // ButtonActionEnabler = GameObject.Find("ActionButton").GetComponent<Button>();
 
-            //SETTING THE FILTERS FOR THE CARDS NAMES SO THAT THEY PRINT OUT PROPERLY
-            string nameHolder = this.gameObject.name; //this will be used to hold the name until it is correct
+            //==========================================
+            //if (ButtonActionEnabler != null)
+            //{
+            //    ActionButton.SetActive(true);
+            //}
+            //===================
+//SETTING THE FILTERS FOR THE CARDS NAMES SO THAT THEY PRINT OUT PROPERLY
+string nameHolder = this.gameObject.name; //this will be used to hold the name until it is correct
             Transform parentHolder = this.gameObject.transform.parent;
 
             //goes through and matches the name, then proceeds to print the actions
