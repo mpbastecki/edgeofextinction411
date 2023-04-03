@@ -176,56 +176,56 @@ public class Human : Player
 
         if (foundBiologist)
         {
-            Debug.Log("biologist");
+            //Debug.Log("biologist");
             CurrentPlayer.ProtectedFromInvasiveAnimal = true;
         }
         else
         {
-            Debug.Log("NOT biologist");
+            //Debug.Log("NOT biologist");
             CurrentPlayer.ProtectedFromInvasiveAnimal = false;
         }
 
         if (foundBotanist)
         {
-            Debug.Log("botanist");
+            //Debug.Log("botanist");
             CurrentPlayer.ProtectedFromInvasivePlant = true;
         }
         else
         {
-            Debug.Log("NOT botanist");
+            //Debug.Log("NOT botanist");
             CurrentPlayer.ProtectedFromInvasivePlant = false;
         }
 
         if (foundExplorer)
         {
-            Debug.Log("explorer");
+            //Debug.Log("explorer");
             CurrentPlayer.NoConditionRequirements = true;
         }
         else
         {
-            Debug.Log("NOT explorer");
+            //Debug.Log("NOT explorer");
             CurrentPlayer.NoConditionRequirements = false;
         }
 
         if (foundRanger)
         {
-            Debug.Log("ranger");
+            //Debug.Log("ranger");
             CurrentPlayer.ProtectedFromBlight = true;
         }
         else
         {
-            Debug.Log("NOT ranger");
+            //Debug.Log("NOT ranger");
             CurrentPlayer.ProtectedFromBlight = false;
         }
 
         if (foundTwoSisters)
         {
-            Debug.Log("sisters");
+            //Debug.Log("sisters");
             CurrentPlayer.ProtectedFromExtinction = true;
         }
         else
         {
-            Debug.Log("NOT sisters");
+            //Debug.Log("NOT sisters");
             CurrentPlayer.ProtectedFromExtinction = false;
         }
 
