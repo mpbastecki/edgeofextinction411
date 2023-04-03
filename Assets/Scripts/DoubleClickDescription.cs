@@ -271,8 +271,18 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
     ///****************************************************/
     void DestroyGameObject()
     {
-        //GameManager.Instance.Person.ChangeScore(-(GameManager.Instance.Person.DiscardPlacement.PointValue));
-        Destroy(gameObject);
+
+        GameManager.Instance.Person.DiscardPlacement.Add(GameManager.Instance.Person.HumanPlacement[0]);
+        GameManager.Instance.Person.ChangeScore(-(GameManager.Instance.Person.DiscardPlacement[0].PointValue));
+        //adds the card to the discard list
+                                                                                      //ThePlayer.HumanPlacement[i].Destroy
+        GameManager.Instance.Person.HumanPlacement.Remove(GameManager.Instance.Person.HumanPlacement[0]);
+
+        for (int i = 0; i < GameManager.Instance.Person.HumanPlacement.Count; i++)
+        {
+            Debug.Log(GameManager.Instance.Person.DiscardPlacement[i].CardName);
+            
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -280,6 +290,8 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
         //makes sure that it was double clicked
         if (eventData.clickCount == 2)
         {
+            Debug.Log(gameObject);
+            //DestroyGameObject();
             //shows the card info board
             GameManager.Instance.HideShow.ShowCardInfo();
 
@@ -427,11 +439,11 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < person.MultiPlacement.Count; i++)
+                for (int i = 0; i < person.MultiplayerPlacement.Count; i++)
                 {
-                    if (person.MultiPlacement[i].CardName == nameHolder)
+                    if (person.MultiplayerPlacement[i].CardName == nameHolder)
                     {
-                        CardHolder = person.MultiPlacement[i]; //sets the card holder for the rest of the things needed to be set
+                        CardHolder = person.MultiplayerPlacement[i]; //sets the card holder for the rest of the things needed to be set
                     }
                 }
 

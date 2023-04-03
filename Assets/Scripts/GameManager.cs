@@ -95,10 +95,10 @@ public class GameManager : MonoBehaviour {
     private Human person;
     private GameObject cP1GO;
     private Computer cP1;
-    private GameObject cP2GO;
-    private Computer cP2;
-    private GameObject cP3GO;
-    private Computer cP3;
+    //private GameObject cP2GO;
+    //private Computer cP2;
+    //private GameObject cP3GO;
+    //private Computer cP3;
 
     //this is to be able to hide and show the boards
     private GameObject hideShowGO;
@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour {
         Person.InitializeObjects("PlayerScoreText", "PlayerRoundText", "Hand", "Region Card Placement", "Condition Card Placement", 
             "Plant Card Placement", "Invertebrate Card Placement", "Animal Card Placement", "Special Region Card Placement", "Multiplayer Card Placement",
             "Microbe Card Placement", "Fungi Card Placement", "Discard Pile Placement", "Human Card Placement", "PlayerColor", "PlayerDeckText", 
-            "PlayerScoreText", "ComputerOneScoreText", "ComputerTwoScoreText", "ComputerThreeScoreText", "Person");
+            "PlayerScoreText", "ComputerOneScoreText", "Person");
 
         //Initilizing CP1 Player
         CP1GO = new GameObject("CP1");
@@ -152,10 +152,9 @@ public class GameManager : MonoBehaviour {
             "Computer One Board/Invertebrate Card Placement", "Computer One Board/Animal Card Placement", "Computer One Board/Special Region Card Placement", 
             "Computer One Board/Multiplayer Card Placement", "Computer One Board/Microbe Card Placement", "Computer One Board/Fungi Card Placement", 
             "Computer One Board/Discard Pile Placement", "Computer One Board/Human Card Placement", "CP1Color", "CP1DeckText", "Computer One Board/Main Images and Placements/PlayerButton/PlayerScoreText",
-            "Computer One Board/Main Images and Placements/Computer1Button/ComputerOneScoreText", "Computer One Board/Main Images and Placements/Computer2Button/ComputerTwoScoreText",
-            "Computer One Board/Main Images and Placements/Computer3Button/ComputerThreeScoreText", "CP1");
+            "Computer One Board/Main Images and Placements/Computer1Button/ComputerOneScoreText", "CP1");
 
-        //Initilizing CP2 Player
+        /*Initilizing CP2 Player
         CP2GO = new GameObject("CP2");
         CP2GO.AddComponent<Computer>();
         CP2 = GameObject.Find("CP2").GetComponent<Computer>();
@@ -178,7 +177,7 @@ public class GameManager : MonoBehaviour {
             "Computer Three Board/Discard Pile Placement", "Computer Three Board/Human Card Placement", "CP3Color", "CP3DeckText", "Computer Three Board/Main Images and Placements/PlayerButton/PlayerScoreText",
             "Computer Three Board/Main Images and Placements/Computer1Button/ComputerOneScoreText", "Computer Three Board/Main Images and Placements/Computer2Button/ComputerTwoScoreText",
             "Computer Three Board/Main Images and Placements/Computer3Button/ComputerThreeScoreText","CP3");
-
+        */
 
 
         /******************************************************/
@@ -187,8 +186,8 @@ public class GameManager : MonoBehaviour {
         //hard codes deck for now
         Person.Deck = Decks[0];
         CP1.Deck = Decks[0];
-        CP2.Deck = Decks[0];
-        CP3.Deck = Decks[0];
+        //CP2.Deck = Decks[0];
+        //CP3.Deck = Decks[0];
 
         //instantiates colors and names
         AppalachianColor = new Color32(166, 135, 82, 128);
@@ -205,10 +204,10 @@ public class GameManager : MonoBehaviour {
         Person.Deck.DeckColor = AlleghenyColor;
         CP1.Deck.DeckName = Appalachian;
         CP1.Deck.DeckColor = AppalachianColor;
-        CP2.Deck.DeckName = Peat;
-        CP2.Deck.DeckColor = PeatBogsColor;
-        CP3.Deck.DeckName = Clarion;
-        CP3.Deck.DeckColor = ClarionRiverColor;     
+        //CP2.Deck.DeckName = Peat;
+        //CP2.Deck.DeckColor = PeatBogsColor;
+        //CP3.Deck.DeckName = Clarion;
+        //CP3.Deck.DeckColor = ClarionRiverColor;     
     }
 
     /*
@@ -253,10 +252,10 @@ public class GameManager : MonoBehaviour {
         //quickly goes through each canvas and sets the correct score values that way they are all up to date
         HideShow.ShowPlayer();
         Person.ChangeAllScore();
-        HideShow.ShowCP3();
-        CP3.ChangeAllScore();
-        HideShow.ShowCP2();
-        CP2.ChangeAllScore();
+        //HideShow.ShowCP3();
+        //CP3.ChangeAllScore();
+        //HideShow.ShowCP2();
+        //CP2.ChangeAllScore();
         HideShow.ShowCP1();
         CP1.ChangeAllScore();
 
@@ -336,7 +335,7 @@ public class GameManager : MonoBehaviour {
     public void winOrLose()
     {
         //  if human playerScore is less than computer player scores
-        if (Person.Score < CP1.Score || Person.Score < CP2.Score || Person.Score < CP3.Score)
+        if (Person.Score < CP1.Score)
         {
             //  load game-lose screen
             SceneManager.LoadScene("LoseScene");
@@ -353,8 +352,8 @@ public class GameManager : MonoBehaviour {
         //  clear human and computer player hands
         Person.Hand.Clear();
         CP1.Hand.Clear();
-        CP2.Hand.Clear();
-        CP3.Hand.Clear();
+        //CP2.Hand.Clear();
+        //CP3.Hand.Clear();
     }
 
     /*
@@ -395,10 +394,10 @@ public class GameManager : MonoBehaviour {
     public Human Person { get => person; set => person = value; }
     public GameObject CP1GO { get => cP1GO; set => cP1GO = value; }
     public Computer CP1 { get => cP1; set => cP1 = value; }
-    public GameObject CP2GO { get => cP2GO; set => cP2GO = value; }
-    public Computer CP2 { get => cP2; set => cP2 = value; }
-    public GameObject CP3GO { get => cP3GO; set => cP3GO = value; }
-    public Computer CP3 { get => cP3; set => cP3 = value; }
+    //public GameObject CP2GO { get => cP2GO; set => cP2GO = value; }
+    //public Computer CP2 { get => cP2; set => cP2 = value; }
+    //public GameObject CP3GO { get => cP3GO; set => cP3GO = value; }
+    //public Computer CP3 { get => cP3; set => cP3 = value; }
     public GameObject HideShowGO { get => hideShowGO; set => hideShowGO = value; }
     public HideShowBoards HideShow { get => hideShow; set => hideShow = value; }
     public int Round { get => round; set => round = value; }
