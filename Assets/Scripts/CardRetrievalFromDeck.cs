@@ -35,7 +35,7 @@ public class CardRetrievalFromDeck : ScriptableObject
                     {
                         CardDrawHolder = Random.Range(0, (pCurrentPlayer.Deck.Cards.Count - 1));
 
-                        if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName == "Multi-Extinction")
+                        if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName == "Multi-Children-At-Play")
                         {
                             CardNameHolder = pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName;
                             //  adds card to GameManager instance's hand

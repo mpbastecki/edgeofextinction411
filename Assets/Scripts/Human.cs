@@ -63,32 +63,62 @@ public class Human : Player
     *  @name       StartTurn() extends from parent
     *  @purpose    deals the player 5 cards if its round one then starts the players turn
     */
+    bool foundChildrenAtPlay = false;
+    bool foundTemperatureDrop = false;
     public override void StartTurn()
     {
-        //execute parent method
-        base.StartTurn();
-        //allowing colliders to work
-        Physics.queriesHitTriggers = true;
-        //after the round has changed the player needs to discard again
-        CardDiscarded = false;
-        //gets the text component so it can be changed
-        DrawText = GameObject.Find("DrawText").GetComponent<Text>(); //gets the text component so it can be changed
-        //if it is the first round then deal 5 cards automatically
-        if (Round == 1 && CanDraw == true) //only happens in the first round
-        {
-            CreateButtonObjects();
-            Draw(5);
-        }
-        DrawText.text = "Step 1: Play Card(s) \n Step 2: Discard to End Your Turn";
-         //gets the right amount of cards to draw based off regions its a parent function
-        DrawAmount();
-        //draws the apropriate amount
-        Debug.Log("testing");
-        Draw(DrawCount);
-        //makes the human player unable to draw again
-        CanDraw = false;
 
-        
+        if (CurrentPlayer.SkipTurn == true && foundTemperatureDrop == true)
+        {
+            base.StartTurn();
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+            {
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Temperature-Drop")
+                {
+                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+                }
+            }
+            CurrentPlayer.SkipTurn = false;
+        }
+
+        else if (CurrentPlayer.SkipTurn == true && foundChildrenAtPlay == true)
+        {
+            base.StartTurn();
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+            {
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                {
+                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+                }
+            }
+            CurrentPlayer.SkipTurn = false;
+        }
+        else
+        {
+
+            //execute parent method
+            base.StartTurn();
+            //allowing colliders to work
+            Physics.queriesHitTriggers = true;
+            //after the round has changed the player needs to discard again
+            CardDiscarded = false;
+            //gets the text component so it can be changed
+            DrawText = GameObject.Find("DrawText").GetComponent<Text>(); //gets the text component so it can be changed
+                                                                         //if it is the first round then deal 5 cards automatically
+            if (Round == 1 && CanDraw == true) //only happens in the first round
+            {
+                CreateButtonObjects();
+                Draw(5);
+            }
+            DrawText.text = "Step 1: Play Card(s) \n Step 2: Discard to End Your Turn";
+            //gets the right amount of cards to draw based off regions its a parent function
+            DrawAmount();
+            //draws the apropriate amount
+            Debug.Log("testing");
+            Draw(DrawCount);
+            //makes the human player unable to draw again
+            CanDraw = false;
+        }
 
     }
     public void CheckExtinction()
@@ -139,6 +169,25 @@ public class Human : Player
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
+        foundChildrenAtPlay = false;
+        foundTemperatureDrop = false;
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+        {
+            switch(CurrentPlayer.MultiplayerPlacement[i].CardName)
+            {
+                case "Multi-Children-At-Play":
+
+                    foundChildrenAtPlay = true;
+                    break;
+                case "Multi-Temperature-Drop":
+
+                    foundTemperatureDrop = true;
+                    break;
+
+                default:
+                    break;
+            }
+        }
 
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
@@ -173,7 +222,25 @@ public class Human : Player
 
 
         }
-
+        
+        if (foundChildrenAtPlay)
+        {
+            Debug.Log("Found children at play"); 
+            CurrentPlayer.SkipTurn = true;
+        }
+        else
+        {
+            CurrentPlayer.SkipTurn = false;
+        }
+        if (foundTemperatureDrop)
+        {
+            Debug.Log("Found temperature drop");
+            CurrentPlayer.SkipTurn = true;
+        }
+        else
+        {
+            CurrentPlayer.SkipTurn = false;
+        }
         if (foundBiologist)
         {
             Debug.Log("biologist");
@@ -336,6 +403,8 @@ public class Human : Player
         //when the button is clicked, this is what occurs
         ThreeCardBurstButton.onClick.AddListener(ThreeCardExecute);
     }
+
+    
 
     //accessors and mutators
     public bool CanDraw { get => canDraw; set => canDraw = value; }
