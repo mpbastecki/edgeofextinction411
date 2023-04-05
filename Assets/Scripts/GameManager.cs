@@ -210,6 +210,22 @@ public class GameManager : MonoBehaviour {
         //CP3.Deck.DeckColor = ClarionRiverColor;     
     }
 
+
+
+    // Update is called once per frame
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) == true && Screen.fullScreen == true)
+        {
+            Screen.fullScreen = false;
+            Debug.Log("Exit full screen");
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) == true && Screen.fullScreen == false)
+        {
+            Screen.fullScreen = true;
+            Debug.Log("Enter full screen");
+        }
+    }
     /*
  *  @name       CreateDecks()
  *  @purpose    Hard code deck IDs to a list then creates a deck and adds it to deck list with an id associated with it

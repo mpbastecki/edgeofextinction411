@@ -16,10 +16,12 @@ public class ExitFullScreen : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) == true && Screen.fullScreen == true)
         {
             Screen.fullScreen = false;
+            Debug.Log("Exit full screen");
         }
         else if (Input.GetKeyDown(KeyCode.Escape) == true && Screen.fullScreen == false)
         {
             Screen.fullScreen = true;
+            Debug.Log("Enter full screen");
         }    
     }
 }
