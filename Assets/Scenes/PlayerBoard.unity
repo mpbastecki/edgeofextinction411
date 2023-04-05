@@ -12820,8 +12820,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.75, y: -499.12512}
-  m_SizeDelta: {x: 464.9, y: 1302}
+  m_AnchoredPosition: {x: 12.05, y: -117.285}
+  m_SizeDelta: {x: 464.9, y: 538.3198}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1213392359
 MonoBehaviour:
@@ -12855,24 +12855,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Gameplay:\r\nClick the deck to draw cards at the beginning of your turn.\r\nYou
+  m_Text: "\nGameplay:\r\nClick the deck to draw cards at the beginning of your turn.\r\nYou
     will draw six cards on your first turn and one card on each turn after.\r\nYou
     may draw an extra card each turn for every five regions played.\r\nThree Card
-    Burst is available to use once per game. It gives players three extra cards.\r\n\r\nEach
-    card has requirements that must be fulfilled before the card can be played.\r\nDrag
-    playable cards into their corresponding pile on the field.\r\nDouble click cards
-    on the field for more information about the card.\r\nTo end your turn, drag one
-    card into the discard pile. \r\nIf no cards are left in your hand, your turn
-    will end automatically\r\n\r\nEach card has a corresponding point value that
-    is added to your score when played.\r\nThe player with the highest score at the
-    end of ten rounds is the winner.\r\n\r\nHuman Cards:\r\nEach human card contains
-    a standing action and a special action.\r\nThe standing action is active while
-    the card is in the field.\r\nTo activate the special action, double click the
-    card and press the \"Activate Special Action\" button.\r\nThe card is then moved
-    to the discard pile.\r\n\r\nMultiplayer Cards:\r\nMultiplayer cards have an effect
-    to be used against your opponent.\r\nTo activate these cards, place the multiplayer
-    card onto the field, double click the card, and select the opponent to use the
-    card against."
+    Burst is available to use once per game. It gives players three extra cards.\r\nPressing
+    escape at any time will window the game.\n\r\nEach card has requirements that
+    must be fulfilled before the card can be played.\r\nDrag playable cards into
+    their corresponding pile on the field.\r\nDouble click cards on the field for
+    more information about the card.\r\nTo end your turn, drag one card into the
+    discard pile. \r\nIf no cards are left in your hand, your turn will end automatically\r\n\r\nEach
+    card has a corresponding point value that is added to your score when played.\r\nThe
+    player with the highest score at the end of ten rounds is the winner.\r\n\r\nHuman
+    Cards:\r\nEach human card contains a standing action and a special action.\r\nThe
+    standing action is active while the card is in the field.\r\nTo activate the
+    special action, double click the card and press the \"Activate Special Action\"
+    button.\r\nThe card is then moved to the discard pile.\r\n\r\nMultiplayer Cards:\r\nMultiplayer
+    cards have an effect to be used against your opponent.\r\nTo activate these cards,
+    place the multiplayer card onto the field, double click the card, and select
+    the opponent to use the card against."
 --- !u!222 &1213392360
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13978,8 +13978,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 425978015}
   m_HandleRect: {fileID: 425978014}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.23329493
+  m_Value: 1.0000004
+  m_Size: 0.56425565
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
