@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Human : Player
 {
     //used to pass in current object to differnt classes
@@ -126,7 +127,7 @@ public class Human : Player
             CurrentPlayer.ProtectedFromExtinction = false;
         }
     }
-
+   
 
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
     public void CheckStandingCards()
@@ -137,6 +138,8 @@ public class Human : Player
         bool foundRanger = false;
         bool foundTwoSisters = false;
 
+       
+               
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
 

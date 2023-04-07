@@ -210,7 +210,9 @@ public class Player : MonoBehaviour
         ThreeCardBurstAvailable = true;
 
     }
-
+//======================================================================================================================================================
+   
+    //============================================================================================================================================
     // Start is called before the first frame update
     void Start(){}
 
@@ -317,8 +319,8 @@ public class Player : MonoBehaviour
         CardParent = GameObject.Find(HandGameObject).transform;
 
         ////to keep from a null excpetion error
-        if (Hand.Count > 0)
-            Destroy(CardParent.GetChild(0).gameObject);
+       // if (Hand.Count > 0)
+         //   Destroy(CardParent.GetChild(0).gameObject);
     }
 
 

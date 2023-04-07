@@ -11,13 +11,8 @@ using UnityEngine;
  *  @author     CIS 411
  *  @date       2020/04/13
  */
-public class Requirements : MonoBehaviour
+public class Requirements : Player
 {
-    // Use this for initialization
-    void Start()
-    {
-    }
-
     void DestroyGameObject()
     {
         Destroy(gameObject);
@@ -3115,8 +3110,6 @@ public class Reqs
 
     //Checks to see if the explorer is played in the field. Condition card can be played without necessary requirements if Explorer is played
 
-   
-
     public bool r246() //Barred Owl to be played from deck or discard
     {
         //Variables hold the number of canopy plants and if the requirement is satisfied
@@ -3158,6 +3151,7 @@ public class Reqs
         return false;
 
     }
+
 
     public bool r247() //Darkling beetle larvae to be played from deck or discard
     {
