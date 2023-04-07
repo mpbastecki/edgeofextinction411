@@ -25,17 +25,29 @@ public class Human : Player
 
     //to make the three card burst butto visibile ane not visible
     private Button threeCardBurstButton;
+    //private GameObject reqGO;
+    //private Requirements req;
+    
+    //assigns the script to the game object
+
+    //assigns the game object to the script withe the game object
 
     // Start is called before the first frame update
     void Start()
     {
+        //ReqGO = new GameObject("Req");
+        ////assigns the script to the game object
+        //ReqGO.AddComponent<Requirements>();
+        ////assigns the game object to the script withe the game object
+        //Req = GameObject.Find("Req").GetComponent<Requirements>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         Debug.Log("Testing in human.cs");
-        CheckStandingCards();
+        CheckStandingCards(CurrentPlayer);
         CheckExtinction();
     }
 
@@ -57,6 +69,7 @@ public class Human : Player
         CurrentPlayer = this;
         CanDraw = true;
         CardDiscarded = false;
+
     }
 
     /*
@@ -132,16 +145,36 @@ public class Human : Player
 
 
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
-    public void CheckStandingCards()
+    public void CheckStandingCards(Human pCurrentPlayer)
     {
+        Reqs req = new Reqs(pCurrentPlayer);
         bool foundBiologist = false;
         bool foundBotanist = false;
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
 
+        if (req.r247())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, Deck.Cards, InvertebratePlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if(CurrentPlayer.DiscardPlacement[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, DiscardPlacement, InvertebratePlacement, false);
+                }
+            }
+        }
+
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
+            
 
             
             switch(CurrentPlayer.HumanPlacement[i].CardName)
@@ -176,56 +209,56 @@ public class Human : Player
 
         if (foundBiologist)
         {
-            //Debug.Log("biologist");
+            Debug.Log("biologist");
             CurrentPlayer.ProtectedFromInvasiveAnimal = true;
         }
         else
         {
-            //Debug.Log("NOT biologist");
+            Debug.Log("NOT biologist");
             CurrentPlayer.ProtectedFromInvasiveAnimal = false;
         }
 
         if (foundBotanist)
         {
-            //Debug.Log("botanist");
+            Debug.Log("botanist");
             CurrentPlayer.ProtectedFromInvasivePlant = true;
         }
         else
         {
-            //Debug.Log("NOT botanist");
+            Debug.Log("NOT botanist");
             CurrentPlayer.ProtectedFromInvasivePlant = false;
         }
 
         if (foundExplorer)
         {
-            //Debug.Log("explorer");
+            Debug.Log("explorer");
             CurrentPlayer.NoConditionRequirements = true;
         }
         else
         {
-            //Debug.Log("NOT explorer");
+            Debug.Log("NOT explorer");
             CurrentPlayer.NoConditionRequirements = false;
         }
 
         if (foundRanger)
         {
-            //Debug.Log("ranger");
+            Debug.Log("ranger");
             CurrentPlayer.ProtectedFromBlight = true;
         }
         else
         {
-            //Debug.Log("NOT ranger");
+            Debug.Log("NOT ranger");
             CurrentPlayer.ProtectedFromBlight = false;
         }
 
         if (foundTwoSisters)
         {
-            //Debug.Log("sisters");
+            Debug.Log("sisters");
             CurrentPlayer.ProtectedFromExtinction = true;
         }
         else
         {
-            //Debug.Log("NOT sisters");
+            Debug.Log("NOT sisters");
             CurrentPlayer.ProtectedFromExtinction = false;
         }
 
@@ -343,5 +376,7 @@ public class Human : Player
     public Text DrawText { get => drawText; set => drawText = value; }
     public Human CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     public Button ThreeCardBurstButton { get => threeCardBurstButton; set => threeCardBurstButton = value; }
+   // public GameObject ReqGO { get => reqGO; set => reqGO = value; }
+   // public Requirements Req { get => req; set => req = value; }
 }
 
