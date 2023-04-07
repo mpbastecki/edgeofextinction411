@@ -200,6 +200,25 @@ public class Computer : Player
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
                     MoveCard(z, SpecialRegionGameObject, SpecialRegionPlacement, false);
+
+                    //Adds regions to the total count when special region cards are played
+                    if (Hand[z].CardName.Contains("Farmers"))
+                    {
+                        GrasslandsCount++;
+                        RunningWaterCount++;
+                    }
+                    else if (Hand[z].CardName.Contains("Strohmstead"))
+                    {
+                        ForestCount++;
+                        GrasslandsCount++;
+                        RunningWaterCount++;
+                        StandingWaterCount++;
+                    }
+                    else if (Hand[z].CardName.Contains("Hunters"))
+                    {
+                        ForestCount++;
+                        GrasslandsCount++;
+                    }
                 }
                 else if (Hand[z].CardType == "Multi-Player") //puts the card into the multiplayer pile
                 {

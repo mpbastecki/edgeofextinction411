@@ -315,14 +315,15 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                             GameManager.Instance.Person.ForestCount++;
                         else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Grasslands"))
                             GameManager.Instance.Person.GrasslandsCount++;
-                        else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Running-Water"))
+                        else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Running"))
                             GameManager.Instance.Person.RunningWaterCount++;
                         else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Salt-Water"))
                             GameManager.Instance.Person.SaltWaterCount++;
-                        else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Standing-Water"))
+                        else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Standing"))
                             GameManager.Instance.Person.StandingWaterCount++;
                         else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Sub-Zero"))
                             GameManager.Instance.Person.SubZeroCount++;
+                        
 
                         DraggedInstance.transform.localScale = new Vector3(1f, 1f, 0); //sets the size to fit the placement area
 
@@ -505,6 +506,25 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                         if (GameManager.Instance.Person.Hand[i].CardName.Contains("Mountain"))
                             GameManager.Instance.Person.MountainRange++;
 
+                        //Adds regions to the total count when special region cards are played
+                        if (GameManager.Instance.Person.Hand[i].CardName.Contains("Farmers"))
+                        {
+                            GameManager.Instance.Person.GrasslandsCount++;
+                            GameManager.Instance.Person.RunningWaterCount++;
+                        }
+                        else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Strohmstead"))
+                        {
+                            GameManager.Instance.Person.ForestCount++;
+                            GameManager.Instance.Person.GrasslandsCount++;
+                            GameManager.Instance.Person.RunningWaterCount++;
+                            GameManager.Instance.Person.StandingWaterCount++;
+                        }
+                        else if (GameManager.Instance.Person.Hand[i].CardName.Contains("Hunters"))
+                        {
+                            GameManager.Instance.Person.ForestCount++;
+                            GameManager.Instance.Person.GrasslandsCount++;
+                        }
+
                         //changes the player score
                         GameManager.Instance.Person.ChangeScore(GameManager.Instance.Person.Hand[i].PointValue);
 
@@ -523,13 +543,13 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                                 if (GameManager.Instance.Person.SpecialRegionPlacement[j].ActionID.Count != 0) //only goes in if there are action
                                 {
                                     /**********************************************************************************************/
-                                    /**********************************************************************************************/
-                                    //i commented everything to do with actions out until we are ready to work with it
-                                    //Debug.Log("im in");
-                                    //standingActions = GameObject.Find("Main Camera").GetComponent<ActionsStanding>(); //gets the script
-                                    //standingActions.checkStandingAction(GameManager.Instance.Person.SpecialRegionPlacement[j]); //executes cards actions
-                                    /**********************************************************************************************/
-                                    /**********************************************************************************************/
+                                        /**********************************************************************************************/
+                                        //i commented everything to do with actions out until we are ready to work with it
+                                        //Debug.Log("im in");
+                                        //standingActions = GameObject.Find("Main Camera").GetComponent<ActionsStanding>(); //gets the script
+                                        //standingActions.checkStandingAction(GameManager.Instance.Person.SpecialRegionPlacement[j]); //executes cards actions
+                                        /**********************************************************************************************/
+                                        /**********************************************************************************************/
                                 }
                                 else
                                 {
