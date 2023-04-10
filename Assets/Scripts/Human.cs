@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class Human : Player
 {
     //used to pass in current object to differnt classes
@@ -26,14 +25,29 @@ public class Human : Player
 
     //to make the three card burst butto visibile ane not visible
     private Button threeCardBurstButton;
+    //private GameObject reqGO;
+    //private Requirements req;
+    
+    //assigns the script to the game object
 
-  
+    //assigns the game object to the script withe the game object
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //ReqGO = new GameObject("Req");
+        ////assigns the script to the game object
+        //ReqGO.AddComponent<Requirements>();
+        ////assigns the game object to the script withe the game object
+        //Req = GameObject.Find("Req").GetComponent<Requirements>();
+        
+    }
 
     // Update is called once per frame
     void Update()
     {
         Debug.Log("Testing in human.cs");
-        CheckStandingCards();
+        CheckStandingCards(CurrentPlayer);
         CheckExtinction();
     }
 
@@ -55,6 +69,7 @@ public class Human : Player
         CurrentPlayer = this;
         CanDraw = true;
         CardDiscarded = false;
+
     }
 
     /*
@@ -127,21 +142,39 @@ public class Human : Player
             CurrentPlayer.ProtectedFromExtinction = false;
         }
     }
-   
+
 
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
-    public void CheckStandingCards()
+    public void CheckStandingCards(Human pCurrentPlayer)
     {
+        Reqs req = new Reqs(pCurrentPlayer);
         bool foundBiologist = false;
         bool foundBotanist = false;
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
 
-       
-               
+        if (req.r247())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, Deck.Cards, InvertebratePlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if(CurrentPlayer.DiscardPlacement[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, DiscardPlacement, InvertebratePlacement, false);
+                }
+            }
+        }
+
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
+            
 
             
             switch(CurrentPlayer.HumanPlacement[i].CardName)
@@ -343,5 +376,7 @@ public class Human : Player
     public Text DrawText { get => drawText; set => drawText = value; }
     public Human CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     public Button ThreeCardBurstButton { get => threeCardBurstButton; set => threeCardBurstButton = value; }
+   // public GameObject ReqGO { get => reqGO; set => reqGO = value; }
+   // public Requirements Req { get => req; set => req = value; }
 }
 

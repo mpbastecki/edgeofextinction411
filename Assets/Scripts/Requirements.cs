@@ -3159,14 +3159,20 @@ public class Reqs
         bool humanCheck = false;
 
         //Checks if three humans are played
-        if (ThePlayer.HumanPlacement.Count >= 3)
-            humanCheck = false;
-
+        
+        if (thePlayer.HumanPlacement.Count >= 3)
+        {
+            humanCheck = true;
+        }
         //Checks all requirements
-        if (humanCheck && r046() && r047())
+        if (humanCheck)
+        {
             return true;
-
-        return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 
@@ -3174,6 +3180,7 @@ public class Reqs
         
     //accessors and mutators
     public Player ThePlayer { get => thePlayer; set => thePlayer = value; }
+    
 }
 
 

@@ -197,7 +197,7 @@ public class Player : MonoBehaviour
         ProtectedFromInvasivePlant = false;
         NoConditionRequirements = false;
         ProtectedFromBlight = false;
-        PausedOneTurn = false;
+        SkipTurn = false;
         ProtectedFromWeb = false;
         NoDiscard = false;
         DrawExtraCard = false;
@@ -210,9 +210,7 @@ public class Player : MonoBehaviour
         ThreeCardBurstAvailable = true;
 
     }
-//======================================================================================================================================================
-   
-    //============================================================================================================================================
+
     // Start is called before the first frame update
     void Start(){}
 
@@ -319,8 +317,8 @@ public class Player : MonoBehaviour
         CardParent = GameObject.Find(HandGameObject).transform;
 
         ////to keep from a null excpetion error
-       // if (Hand.Count > 0)
-         //   Destroy(CardParent.GetChild(0).gameObject);
+        //if (Hand.Count > 0)
+            //Destroy(CardParent.GetChild(0).gameObject);
     }
 
 
@@ -479,7 +477,7 @@ public class Player : MonoBehaviour
     public bool ProtectedFromInvasivePlant { get => protectedFromInvasivePlant; set => protectedFromInvasivePlant = value; }
     public bool NoConditionRequirements { get => noConditionRequirements; set => noConditionRequirements = value; }
     public bool ProtectedFromBlight { get => protectedFromBlight; set => protectedFromBlight = value; }
-    public bool PausedOneTurn { get => pausedOneTurn; set => pausedOneTurn = value; }
+    public bool SkipTurn { get => pausedOneTurn; set => pausedOneTurn = value; }
     public bool ProtectedFromWeb { get => protectedFromWeb; set => protectedFromWeb = value; }
     public bool NoDiscard { get => noDiscard; set => noDiscard = value; }
     public bool DrawExtraCard { get => drawExtraCard; set => drawExtraCard = value; }
