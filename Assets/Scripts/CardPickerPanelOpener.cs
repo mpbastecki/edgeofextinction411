@@ -8,7 +8,7 @@ using UnityEngine;
 public class CardPickerPanelOpener : Player
 {
 
-    private CardPickerPanelOpener currentPlayer;
+  //  private CardPickerPanelOpener currentPlayer;
    
    //CurrentPlayer.this;
     public GameObject CardInfoPanel;
@@ -22,17 +22,17 @@ public class CardPickerPanelOpener : Player
         {            
             CardInfoPanel.SetActive(false);
         }
-        for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
-        {
-            if (CurrentPlayer.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
-            {
+      //  for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
+      //  {
+      //      if (CurrentPlayer.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+     //       {
 
-                Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
-                MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
-            }
-        }
+     //           Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+     //           MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+     //       }
+      //  }
     }
 
-    public CardPickerPanelOpener CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
+  // public CardPickerPanelOpener CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
 
 }
