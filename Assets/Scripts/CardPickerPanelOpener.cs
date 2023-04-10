@@ -2,37 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardPickerPanelOpener : MonoBehaviour
+//This script is used to make the action botton in the cardinforpanal under the cardinforcanvas to do things
+
+
+public class CardPickerPanelOpener : Player
 {
 
-    //public override void InitializeObjects(string pCardPickerHand)
-  //  {
-    //    base.InitializeObject(pCardPickerHand);
-   // }
+    private CardPickerPanelOpener currentPlayer;
+   
+   //CurrentPlayer.this;
+    public GameObject CardInfoPanel;
+    // public GameObject CardPickerPanel;
 
-
-    public GameObject CardPickerPanel;
+    
+   
    public void OpenCardPickerPanel()
-    {
-        //base.OpenCardPickerPanel(pAmount);
-
-        if (CardPickerPanel != null)
-        {
-            CardPickerPanel.SetActive(true);
-            
+   {
+        if (CardInfoPanel != null)
+        {            
+            CardInfoPanel.SetActive(false);
         }
-
-       
-
-    }
-
-    public void CloseCardPickerPanel()
-    {
-
-        if (CardPickerPanel != null)
+        for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
-            CardPickerPanel.SetActive(false);
+            if (CurrentPlayer.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+            {
+
+                Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+            }
         }
     }
+
+    public CardPickerPanelOpener CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
 
 }

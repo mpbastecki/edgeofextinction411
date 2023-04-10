@@ -108,7 +108,7 @@ public class Reqs
       */
     public void CastPlayer(Player pPlayer)
     {
-
+     
         if (ThePlayer.GetType() == typeof(Human))
         {
             ThePlayer = (Human)pPlayer;
@@ -117,7 +117,8 @@ public class Reqs
         {
             ThePlayer = (Computer)pPlayer;
         }
-    }
+    
+        }
 
 
     /*

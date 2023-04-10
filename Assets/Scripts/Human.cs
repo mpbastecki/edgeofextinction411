@@ -48,7 +48,7 @@ public class Human : Player
     {
         Debug.Log("Testing in human.cs");
         CheckStandingCards(CurrentPlayer);
-        CheckExtinction();
+       // CheckExtinction();
     }
 
     /*
@@ -104,6 +104,8 @@ public class Human : Player
         
 
     }
+
+  
     public void CheckExtinction()
     {
         bool foundExtinction = false;
@@ -117,6 +119,7 @@ public class Human : Player
 
         if (CurrentPlayer.ProtectedFromExtinction && foundExtinction)
         {
+            //====================================================================================================
             for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
             {
                 if (CurrentPlayer.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
@@ -126,10 +129,12 @@ public class Human : Player
                     MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
                     
                     //adds the card to the discard list
-                                                                                //ThePlayer.HumanPlacement[i].Destroy;
+                    //ThePlayer.HumanPlacement[i].Destroy;
+                    //ThePlayer.HumanPlacement[i].Destroy;
 
                 }
             }
+            //================================================================================================
             for (int i = 0; i < MultiplayerPlacement.Count; i++)
             {
                 if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
@@ -142,7 +147,7 @@ public class Human : Player
             CurrentPlayer.ProtectedFromExtinction = false;
         }
     }
-
+    
 
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
     public void CheckStandingCards(Human pCurrentPlayer)
