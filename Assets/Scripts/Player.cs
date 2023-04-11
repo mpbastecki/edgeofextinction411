@@ -434,22 +434,24 @@ public class Player : MonoBehaviour
         DeckText.text = Deck.DeckName.ToString();
     }
 
-        /*
-    *  @name       StartTurn()
-    *  @purpose    deals the player 5 cards if its round one then starts the players turn
-    */
+    /*
+*  @name       StartTurn()
+*  @purpose    deals the player 5 cards if its round one then starts the players turn
+*/
+
+ 
     public virtual void StartTurn()
     {
-        //assigns deck info and color
-        //CreateDeckInfo();
-        //Updates the round to current
-        ChangeRound();
-        //updates the score board
-        ChangeAllScore();
-        //creating an "instance" of the CardRetrievalFromDeck script, allows it to be retrieved as an object
-        ScriptInstance = ScriptableObject.CreateInstance("CardRetrievalFromDeck"); //so you can use the script
-        Holder = ScriptableObject.FindObjectOfType<CardRetrievalFromDeck>(); //access to script
-        //CameraHolder = GameObject.Find("Main Camera"); //sets the object to just the main camera
+            //assigns deck info and color
+            //CreateDeckInfo();
+            //Updates the round to current
+            ChangeRound();
+            //updates the score board
+            ChangeAllScore();
+            //creating an "instance" of the CardRetrievalFromDeck script, allows it to be retrieved as an object
+            ScriptInstance = ScriptableObject.CreateInstance("CardRetrievalFromDeck"); //so you can use the script
+            Holder = ScriptableObject.FindObjectOfType<CardRetrievalFromDeck>(); //access to script
+                                                                                 //CameraHolder = GameObject.Find("Main Camera"); //sets the object to just the main camera
     }
 
     //accessors and mutators

@@ -42,9 +42,22 @@ public class Computer : Player
         RequirementsWork = false;
     }
 
+    public bool foundTemperatureDrop { get => foundTemperatureDrop; set => foundTemperatureDrop = value; }
+    public bool foundChildrenAtPlay { get => foundChildrenAtPlay; set => foundChildrenAtPlay = value; }
     //starts the turn of the computer initially dealing 5 cards
     public override void StartTurn()
     {
+        if (SkipTurn == true && foundTemperatureDrop == true)
+        {
+            Debug.Log("Round should change");
+        }
+
+        else if (SkipTurn == true && foundChildrenAtPlay == true)
+        {
+            Debug.Log("Round should change");
+        }
+        else
+        { 
         //execute parent method
         base.StartTurn();
         //if it is the first round then deal 5 cards automatically
@@ -54,7 +67,8 @@ public class Computer : Player
         }
         //after the 5 cards aredealt, the procedexd with computer AI alogorithm
         StartCoroutine(ComputerPerforms()); //goes through the function needed for the AI
-        //ComputerPerforms();
+                                            //ComputerPerforms();
+        }
     }
 
         /*

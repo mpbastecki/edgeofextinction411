@@ -16,6 +16,7 @@ public class Human : Player
     //used to pass in current object to differnt classes
     private Human currentPlayer;
     private Human person = GameManager.Instance.Person;
+    private Computer comp = GameManager.Instance.CP1;
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -67,39 +68,11 @@ public class Human : Player
     bool foundTemperatureDrop = false;
     public override void StartTurn()
     {
-
-        if (CurrentPlayer.SkipTurn == true && foundTemperatureDrop == true)
-        {
-            base.StartTurn();
-            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
-            {
-                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Temperature-Drop")
-                {
-                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
-                }
-            }
-            CurrentPlayer.SkipTurn = false;
-        }
-
-        else if (CurrentPlayer.SkipTurn == true && foundChildrenAtPlay == true)
-        {
-            base.StartTurn();
-            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
-            {
-                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
-                {
-                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
-                }
-            }
-            CurrentPlayer.SkipTurn = false;
-        }
-        else
-        {
-
-            //execute parent method
-            base.StartTurn();
-            //allowing colliders to work
-            Physics.queriesHitTriggers = true;
+        //execute parent method
+        base.StartTurn();
+        Debug.Log("Person player name is: " + GameManager.Instance.Person.PlayerName);
+        //allowing colliders to work
+        Physics.queriesHitTriggers = true;
             //after the round has changed the player needs to discard again
             CardDiscarded = false;
             //gets the text component so it can be changed
@@ -109,6 +82,7 @@ public class Human : Player
             {
                 CreateButtonObjects();
                 Draw(5);
+                
             }
             DrawText.text = "Step 1: Play Card(s) \n Step 2: Discard to End Your Turn";
             //gets the right amount of cards to draw based off regions its a parent function
@@ -118,25 +92,25 @@ public class Human : Player
             Draw(DrawCount);
             //makes the human player unable to draw again
             CanDraw = false;
-        }
-
+        
     }
+  
     public void CheckExtinction()
     {
         bool foundExtinction = false;
-        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+        for (int i = 0; i < comp.MultiplayerPlacement.Count; i++)
         {
-            if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+            if (comp.MultiplayerPlacement[i].CardName == "Multi-Extinction")
             {
                 foundExtinction = true;
             }
         }
 
-        if (CurrentPlayer.ProtectedFromExtinction && foundExtinction)
+        if (comp.ProtectedFromExtinction && foundExtinction)
         {
-            for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
+            for (int i = 0; i < comp.HumanPlacement.Count; i++)
             {
-                if (CurrentPlayer.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                if (comp.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
                 {
                     
                     Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
@@ -149,14 +123,14 @@ public class Human : Player
             }
             for (int i = 0; i < MultiplayerPlacement.Count; i++)
             {
-                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                if (comp.MultiplayerPlacement[i].CardName == "Multi-Extinction")
                 {
                     Destroy(GameObject.Find("Multi-Extinction"));
                     MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
 
                 }
             }
-            CurrentPlayer.ProtectedFromExtinction = false;
+            comp.ProtectedFromExtinction = false;
         }
     }
 
@@ -169,8 +143,8 @@ public class Human : Player
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
-        foundChildrenAtPlay = false;
-        foundTemperatureDrop = false;
+        bool foundChildrenAtPlay = false;
+        bool foundTemperatureDrop = false;
         for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
         {
             switch(CurrentPlayer.MultiplayerPlacement[i].CardName)
@@ -222,11 +196,21 @@ public class Human : Player
 
 
         }
-        
         if (foundChildrenAtPlay)
         {
-            Debug.Log("Found children at play"); 
-            CurrentPlayer.SkipTurn = true;
+            Debug.Log("Found children at play");
+            Debug.Log("Skip the turn");
+            CurrentPlayer.CanDraw = false;
+            CurrentPlayer.CardDiscarded = true;
+
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+            {
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                {
+                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+                }
+            }
+
         }
         else
         {
@@ -324,6 +308,7 @@ public class Human : Player
     */
     public override void Draw(int pAmount)
     {
+        Debug.Log("Skip the turn part 2");
         //gets parent info
         base.Draw(pAmount);
         //makes sure you can opnly draw once basically
