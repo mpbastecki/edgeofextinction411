@@ -13,19 +13,7 @@ public class ActionButton : Player
     public GameObject newObject;
     
 
-    //This finction closes the cardinfo panel to go back to the game board when you click the action button
-    //that is in the cardinfo canvise 
-    public void CloseInfoPanal()
-    {
-       // CardName = GameObject.Find("CardName").GetComponent<Text>();
-
-        if (CardInfoPanel != null)
-        {
-            CardInfoPanel.SetActive(false);
-        }
-
-    }
-
+   
     //This function figures out what card affects what function needs to be called when you 
     //click the action button on the card info panel
     public void WhatActionIsHappening()
@@ -35,20 +23,20 @@ public class ActionButton : Player
         CardName = GameObject.Find("CardName").GetComponent<Text>();
 
         int i = 2;
-        switch (i)
+        switch (CardName.text)
         {
-            case (0):
+            case ("Forest"):
                 TestFuncOne();
                 break;
-            case 1:
+            case ("Extinction"):
                 TestFuncTwo();
                 break;
-            case 2:
+            case (""):
                 TestFuncThree();
                 break;
         }
 
-        Debug.Log(CardName);
+        Debug.Log(CardName.text);
     }
 
 
@@ -68,6 +56,7 @@ public class ActionButton : Player
 
     }
 
+ 
     public Text CardName { get => cardName; set => cardName = value; }
 
 }
