@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ActionButton.cs" />
     <Compile Include="Assets\Scripts\Actions.cs" />
     <Compile Include="Assets\Scripts\ActionsCP1.cs" />
     <Compile Include="Assets\Scripts\ActionsCP2.cs" />
@@ -71,7 +72,6 @@
     <Compile Include="Assets\Scripts\ActionsStanding.cs" />
     <Compile Include="Assets\Scripts\CSVParser.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
-    <Compile Include="Assets\Scripts\CardPickerPanelOpener.cs" />
     <Compile Include="Assets\Scripts\CardRetrievalFromDeck.cs" />
     <Compile Include="Assets\Scripts\ChangeScenes.cs" />
     <Compile Include="Assets\Scripts\CheckDeckAndDiscardPlayer.cs" />
