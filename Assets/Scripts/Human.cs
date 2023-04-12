@@ -207,7 +207,11 @@ public class Human : Player
             {
                 if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
                 {
+                    Destroy(GameObject.Find("Multi-Children-At-Play"));
                     MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+                    GameManager.Instance.NextPlayer(GameManager.Instance.Person.PlayerName);
+                    CurrentPlayer.CanDraw = false;
+                    CurrentPlayer.CardDiscarded = true; 
                 }
             }
 
