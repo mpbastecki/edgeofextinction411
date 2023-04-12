@@ -192,7 +192,7 @@ TextureImporter:
       213: 21300124
     second: Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_62
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -209,9 +209,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -220,12 +223,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -243,9 +246,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -297,6 +306,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
     buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1643,9 +1676,72 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_0: 21300000
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_1: 21300002
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_10: 21300020
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_11: 21300022
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_12: 21300024
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_13: 21300026
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_14: 21300028
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_15: 21300030
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_16: 21300032
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_17: 21300034
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_18: 21300036
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_19: 21300038
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_2: 21300004
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_20: 21300040
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_21: 21300042
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_22: 21300044
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_23: 21300046
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_24: 21300048
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_25: 21300050
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_26: 21300052
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_27: 21300054
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_28: 21300056
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_29: 21300058
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_3: 21300006
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_30: 21300060
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_31: 21300062
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_32: 21300064
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_33: 21300066
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_34: 21300068
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_35: 21300070
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_36: 21300072
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_37: 21300074
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_38: 21300076
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_39: 21300078
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_4: 21300008
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_40: 21300080
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_41: 21300082
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_42: 21300084
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_43: 21300086
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_44: 21300088
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_45: 21300090
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_46: 21300092
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_47: 21300094
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_48: 21300096
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_49: 21300098
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_5: 21300010
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_50: 21300100
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_51: 21300102
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_52: 21300104
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_53: 21300106
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_54: 21300108
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_55: 21300110
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_56: 21300112
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_57: 21300114
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_58: 21300116
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_59: 21300118
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_6: 21300012
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_60: 21300120
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_61: 21300122
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_62: 21300124
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_7: 21300014
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_8: 21300016
+      Sprite-Sheet-Appalachian-Homestead-Starter-Deck-Web_9: 21300018
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

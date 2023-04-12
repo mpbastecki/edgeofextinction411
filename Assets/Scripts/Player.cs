@@ -93,6 +93,9 @@ public class Player : MonoBehaviour
     private List<Card> conditionPlacement;
     private List<Card> discardPlacement;
 
+    private Human humanPerson = GameManager.Instance.Person;
+    private Computer computerPerson = GameManager.Instance.CP1;
+
     /*
      *  @TODO:
      *      Refactor.
@@ -219,12 +222,102 @@ public class Player : MonoBehaviour
     {
         //doesnt actually do shit
         Debug.Log("Hello");
+        CheckExtinction();
     }
 
-      /*
-    *  @name       GetTotalRegions()
-    *  @purpose    adds up all the regions and returns that value so the amount if cards drawn can be determined
-    */
+    public void CheckExtinction()
+    {
+        bool foundExtinction = false;
+
+        if (PlayerName == "Person")
+        {
+            for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+            {
+                if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                {
+                    foundExtinction = true;
+                }
+            }
+
+            if (humanPerson.ProtectedFromExtinction && foundExtinction)
+            {
+                for (int i = 0; i < humanPerson.HumanPlacement.Count; i++)
+                {
+                    if (humanPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                    {
+
+                        Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                        MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+
+                        //adds the card to the discard list
+                        //ThePlayer.HumanPlacement[i].Destroy;
+
+                    }
+                }
+                for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+                {
+                    if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                    {
+                        Destroy(GameObject.Find("Multi-Extinction"));
+                        MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                    }
+                }
+                humanPerson.ProtectedFromExtinction = false;
+            }
+        }
+
+        
+        else if (PlayerName == "CP1")
+        {
+            foundExtinction = false;
+            for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+            {
+                if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                {
+                    foundExtinction = true;
+                }
+            }
+
+            if (computerPerson.ProtectedFromExtinction && foundExtinction)
+            {
+                for (int i = 0; i < computerPerson.HumanPlacement.Count; i++)
+                {
+                    if (computerPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                    {
+
+                        Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                        MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+
+                        //adds the card to the discard list
+                        //ThePlayer.HumanPlacement[i].Destroy;
+
+                    }
+                }
+                for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+                {
+                    if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                    {
+                        Destroy(GameObject.Find("Multi-Extinction"));
+                        MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                    }
+                }
+                computerPerson.ProtectedFromExtinction = false;
+            }
+        }
+    }
+
+
+
+
+
+
+
+    /*
+  *  @name       GetTotalRegions()
+  *  @purpose    adds up all the regions and returns that value so the amount if cards drawn can be determined
+  */
     public int GetTotalRegions()
     {
         //local variable to keep track of regions
