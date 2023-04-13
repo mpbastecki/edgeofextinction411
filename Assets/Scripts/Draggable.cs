@@ -34,8 +34,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     /*************************************************************************************************************/
     /*************************************************************************************************************/
     //temporaily took this out and everyhting with actons everywhere until we are ready o work on that -ben
-    private Actions cardAction; //to determine the action
-    private ActionsStanding standingActions; //used for the standing actions
+    //private Actions cardAction; //to determine the action
+    //private ActionsStanding standingActions; //used for the standing actions
     /*************************************************************************************************************/
     /*************************************************************************************************************/
 
@@ -90,7 +90,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;
 
-        CardAction = DraggedInstance.GetComponent<Actions>(); //to access the actions scripts
+        //CardAction = DraggedInstance.GetComponent<Actions>(); //to access the actions scripts
 
         /**** CODE BELOW USED TO MAKE THE CORRECT HALO GLOW FOR THE PLACEMENTS ****/
         /**** USES A LOT OF IF STATEMENTS BUT MAKES IT A LITTLE EASIER TO UNDERSTAND WITH JUST USING ONE TYPE VARIABLE ****/
@@ -746,8 +746,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public GameObject DiscardPlacement { get => discardPlacement; set => discardPlacement = value; }
     public Component PlacementHalo { get => placementHalo; set => placementHalo = value; }
     public Component DiscardHalo { get => discardHalo; set => discardHalo = value; }
-    public Actions CardAction { get => cardAction; set => cardAction = value; }
-    public ActionsStanding StandingActions { get => standingActions; set => standingActions = value; }
+    //public Actions CardAction { get => cardAction; set => cardAction = value; }
+    //public ActionsStanding StandingActions { get => standingActions; set => standingActions = value; }
     public Transform ParentReturn { get => parentReturn; set => parentReturn = value; }
     public string CType { get => cType; set => cType = value; }
     public bool RequirementsWork { get => requirementsWork; set => requirementsWork = value; }

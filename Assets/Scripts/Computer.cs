@@ -15,6 +15,8 @@ public class Computer : Player
 {
    //this is to pass what ever version of computer is being used into methods
     private Computer currentPlayer;
+    private Computer computerPerson = GameManager.Instance.CP1;
+    private Human humanPerson = GameManager.Instance.Person;
 
     //these will hold the values to create an object from the script for Requirements
     private GameObject reqGO;
@@ -103,7 +105,49 @@ public class Computer : Player
     void Update()
         {
         Debug.Log("Testing from computer.cs");
+        CheckExtinction();
+    }
+
+    public void CheckExtinction()
+    {
+        bool foundExtinction = false;
+        for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+        {
+            if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+            {
+                foundExtinction = true;
+            }
         }
+
+        if (humanPerson.ProtectedFromExtinction && foundExtinction)
+        {
+            for (int i = 0; i < humanPerson.HumanPlacement.Count; i++)
+            {
+                if (humanPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                {
+
+                    Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                    MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+
+                    //adds the card to the discard list
+                    //ThePlayer.HumanPlacement[i].Destroy;
+
+                }
+            }
+            for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+            {
+                if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                {
+                    Destroy(GameObject.Find("Multi-Extinction"));
+                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                }
+            }
+            humanPerson.ProtectedFromExtinction = false;
+        }
+    }
+
+
 
     /*
      *  @name       ThreeCardExecute() extends parent method

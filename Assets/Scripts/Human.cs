@@ -15,7 +15,8 @@ public class Human : Player
 {
     //used to pass in current object to differnt classes
     private Human currentPlayer;
-    private Human person = GameManager.Instance.Person;
+    private Human humanPerson = GameManager.Instance.Person;
+    private Computer computerPerson = GameManager.Instance.CP1;
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -48,7 +49,7 @@ public class Human : Player
     {
         Debug.Log("Testing in human.cs");
         CheckStandingCards(CurrentPlayer);
-        
+        CheckExtinction();
     }
 
     /*
@@ -104,6 +105,47 @@ public class Human : Player
         
 
     }
+
+
+    public void CheckExtinction()
+    {
+                 
+            bool foundExtinction = false;
+            for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+            {
+                if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                {
+                    foundExtinction = true;
+                }
+            }
+
+            if (computerPerson.ProtectedFromExtinction && foundExtinction)
+            {
+                for (int i = 0; i < computerPerson.HumanPlacement.Count; i++)
+                {
+                    if (computerPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                    {
+
+                        Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                        MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+
+                        //adds the card to the discard list
+                        //ThePlayer.HumanPlacement[i].Destroy;
+
+                    }
+                }
+                for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+                {
+                    if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                    {
+                        Destroy(GameObject.Find("Multi-Extinction"));
+                        MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                    }
+                }
+                computerPerson.ProtectedFromExtinction = false;
+            }
+     }
     
 
 

@@ -222,91 +222,12 @@ public class Player : MonoBehaviour
     {
         //doesnt actually do shit
         Debug.Log("Hello");
-        CheckExtinction();
-    }
-
-    public void CheckExtinction()
-    {
-        bool foundExtinction = false;
-
-        if (PlayerName == "Person")
-        {
-            for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
-            {
-                if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
-                {
-                    foundExtinction = true;
-                }
-            }
-
-            if (humanPerson.ProtectedFromExtinction && foundExtinction)
-            {
-                for (int i = 0; i < humanPerson.HumanPlacement.Count; i++)
-                {
-                    if (humanPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
-                    {
-
-                        Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
-                        MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
-
-                        //adds the card to the discard list
-                        //ThePlayer.HumanPlacement[i].Destroy;
-
-                    }
-                }
-                for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
-                {
-                    if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
-                    {
-                        Destroy(GameObject.Find("Multi-Extinction"));
-                        MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
-
-                    }
-                }
-                humanPerson.ProtectedFromExtinction = false;
-            }
-        }
-
         
-        else if (PlayerName == "CP1")
-        {
-            foundExtinction = false;
-            for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
-            {
-                if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
-                {
-                    foundExtinction = true;
-                }
-            }
-
-            if (computerPerson.ProtectedFromExtinction && foundExtinction)
-            {
-                for (int i = 0; i < computerPerson.HumanPlacement.Count; i++)
-                {
-                    if (computerPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
-                    {
-
-                        Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
-                        MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
-
-                        //adds the card to the discard list
-                        //ThePlayer.HumanPlacement[i].Destroy;
-
-                    }
-                }
-                for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
-                {
-                    if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
-                    {
-                        Destroy(GameObject.Find("Multi-Extinction"));
-                        MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
-
-                    }
-                }
-                computerPerson.ProtectedFromExtinction = false;
-            }
-        }
     }
+
+
+    // Checks for the extinction card to remove Two Sisters in the Wild from play
+    public void CheckExtinction(){}
 
 
 
