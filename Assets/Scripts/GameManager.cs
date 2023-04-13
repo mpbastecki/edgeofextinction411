@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 
     //  ensures GameManager can be used in all scripts (interact with other game objects)
     private static GameManager _instance = null;
+   // bool GameFlag = true;
 
     /*
      * @name    Instance
@@ -313,6 +314,7 @@ public class GameManager : MonoBehaviour {
      */
     public void StartHumanTurn()
     {
+      // if (GameFlag =! false)
         if (round == 1)
         {
             CreateBoards(); 

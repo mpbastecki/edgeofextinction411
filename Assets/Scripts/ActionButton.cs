@@ -12,10 +12,6 @@ public class ActionButton : Player
     public GameObject CardInfoPanel;
     public GameObject newObject;
     
-
-   
-    //This function figures out what card affects what function needs to be called when you 
-    //click the action button on the card info panel
     public void WhatActionIsHappening()
     {
         
