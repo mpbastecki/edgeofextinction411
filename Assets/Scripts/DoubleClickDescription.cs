@@ -25,9 +25,10 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
     private Image imageOfCard;
     private Text descriptionOfCard;
     private Text actions;
-    private Button buttonActionEnabler;
+    private Image buttonActionEnabler;
     private Card cardHolder;
     private Player thePlayer; //will be used to hold the card info 
+   // public GameObject ActionButton;
 
     ///*********************************************************************/
     ////this is all added for the multiplayer functionality
@@ -102,173 +103,6 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
     }
 
 
-    ///****************************************************/
-    ///****************************************************/
-    ////this is all stuff for the multi player
-
-    //void ButtonOneClick()
-    //{
-    //    MultiplayerButtonClick("ComputerOne");
-    //}
-    //void ButtonTwoClick()
-    //{
-    //    MultiplayerButtonClick("ComputerTwo");
-    //}
-    //void ButtonThreeClick()
-    //{
-    //    MultiplayerButtonClick("ComputerThree");
-    //}
-
-    //public void ShowMultiplayerButtons()
-    //{
-    //    ButtonMultiComputerOne.interactable = true;
-    //    ButtonMultiComputerTwo.interactable = true;
-    //    ButtonMultiComputerThree.interactable = true;
-    //}
-
-    ////assigns the correct computer object based off whoch butto was clicked
-    //public void AssignComputer(string pComputer)
-    //{
-    //    if (pComputer == "ComputerOne")
-    //    {
-    //        Comp = GameManager.Instance.CP1;
-    //    }
-    //    else if (pComputer == "ComputerTwo")
-    //    {
-    //        Comp = GameManager.Instance.CP2;
-    //    }
-    //    else if (pComputer == "ComputerThree")
-    //    {
-    //        Comp = GameManager.Instance.CP3;
-    //    }
-    //}
-
-    //public void ShowBoards()
-    //{
-    //    if (Comp == GameManager.Instance.CP1)
-    //    {
-    //        GameManager.Instance.HideShow.ShowCP1();
-    //    }
-    //    else if (Comp == GameManager.Instance.CP2)
-    //    {
-    //        GameManager.Instance.HideShow.ShowCP2();
-    //    }
-    //    else if (Comp == GameManager.Instance.CP3)
-    //    {
-    //        GameManager.Instance.HideShow.ShowCP3();
-    //    }
-    //}
-
-    //public void MultiplayerButtonClick(string pComputer)
-    //{
-    //    Debug.Log("Multi click");
-    //    //assigns the correct computer to the computer object
-    //    AssignComputer(pComputer);
-    //    //calls the test function to carry out the moving of cards
-    //    MoveMultiCard();
-    //}
-
-
-    //public void MoveMultiCard()
-    //{
-    //    Debug.Log("begin test function");
-    //    //makes sure that the approapiate canvas is displayed quickly so the graphic can be painted becasue you cant change
-    //    //ui elements without the screen being visible
-    //    ShowBoards();
-    //    Debug.Log("show baords was called");
-    //    //this is to take the current instacnce which is the card that was double clicked and assigns it to temp object
-    //    //SETTING THE FILTERS FOR THE CARDS NAMES SO THAT THEY PRINT OUT PROPERLY
-    //    string nameHolder = this.gameObject.name; //this will be used to hold the name until it is correct
-    //    Transform parentHolder = this.gameObject.transform.parent;
-
-    //    //goes through and matches the name, then proceeds to print the actions
-    //    for (int i = 0; i < ThePlayer.Hand.Count; i++)
-    //    {
-    //        if (ThePlayer.Hand[i].CardName == nameHolder)
-    //        {
-    //            CardHolder = ThePlayer.Hand[i]; //sets the card holder for the rest of the things needed to be set
-    //        }
-    //    }
-
-    //    if (nameHolder.Contains("Special")) //special region filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.SpecialRegionGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.SpecialRegionPlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Region")) //region name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.RegionGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.RegionPlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Plant")) //plant name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.PlantGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.PlantPlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Multi")) //multiplayer name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.MultiplayerGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.MultiPlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Condition")) //condition name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.ConditionGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.ConditionPlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Invertebrate")) //invertebrate name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.InvertebrateGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.InvertebratePlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Fungi")) //fungi name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.FungiGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.FungiPlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Human")) //humam name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.HumanGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.HumanPlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Animal")) //animal name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.AnimalGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.AnimalPlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-    //    else if (nameHolder.Contains("Microbe")) //microbe name filter
-    //    {
-    //        this.transform.SetParent(GameObject.Find(Comp.MicrobeGameObject).transform);
-    //        this.transform.localScale = new Vector3(1.0f, 1.0f, 0);
-    //        Comp.MicrobePlacement.Add(CardHolder);
-    //        ThePlayer.Hand.Remove(CardHolder);
-    //    }
-
-    //    //shows the human canvas screen
-    //    GameManager.Instance.HideShow.ShowPlayer();
-    //}
-
-    ////end of multiplayer stuff
-
-    ///****************************************************/
-    ///****************************************************/
     void DestroyGameObject()
     {
 
@@ -301,13 +135,14 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
             NameOfCard = GameObject.Find("CardName").GetComponent<Text>();
             ImageOfCard = GameObject.Find("CardImage").GetComponent<Image>();
             DescriptionOfCard = GameObject.Find("CardDescription").GetComponent<Text>();
-           // ButtonActionEnabler = GameObject.Find("ActionButton").GetComponent<Button>();
+
+           // ButtonActionEnabler = GameObject.Find("ActionButton").GetComponent<Image>();
 
             //==========================================
-            //if (ButtonActionEnabler != null)
-            //{
-            //    ActionButton.SetActive(true);
-            //}
+           // if (ActionButton != null)
+           // {
+           //    ActionButton.SetActive(true);
+           // }
             //===================
 //SETTING THE FILTERS FOR THE CARDS NAMES SO THAT THEY PRINT OUT PROPERLY
 string nameHolder = this.gameObject.name; //this will be used to hold the name until it is correct
@@ -775,7 +610,7 @@ string nameHolder = this.gameObject.name; //this will be used to hold the name u
     public Image ImageOfCard { get => imageOfCard; set => imageOfCard = value; }
     public Text DescriptionOfCard { get => descriptionOfCard; set => descriptionOfCard = value; }
     public Text Actions { get => actions; set => actions = value; }
-    public Button ButtonActionEnabler { get => buttonActionEnabler; set => buttonActionEnabler = value; }
+    public Image ButtonActionEnabler { get => buttonActionEnabler; set => buttonActionEnabler = value; }
     public Card CardHolder { get => cardHolder; set => cardHolder = value; }
     public string MultiplayerComputer { get => multiplayerComputer; set => multiplayerComputer = value; }
     public Button ButtonMultiComputerOne { get => buttonMultiComputerOne; set => buttonMultiComputerOne = value; }
