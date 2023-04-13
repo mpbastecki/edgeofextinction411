@@ -3,56 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActionButton : Player
+//Michael Plants
+//this script is what makes the action button work
+//it has all the function to allow the cards action functions to be called
+//when a user presses the action button
+
+public class ActionButton : MonoBehaviour
 {
-
     private Text cardName;
-   
 
-    public GameObject CardInfoPanel;
-    public GameObject newObject;
-    
+   
+    //this function decides what action function to use
+    //we are using a switch cased based off of the cards name to decide on what function to call.
+    //where the CardName object
+    //PlayerBored Scene >> CardInfoCanvas >> CardInfoPanal >> CardName
     public void WhatActionIsHappening()
     {
-        
-       
+        //This is finding the cards name by finding the game object Cardname and using its text component to set it to our variabl.
         CardName = GameObject.Find("CardName").GetComponent<Text>();
 
-        int i = 2;
+
+        //Using the switch case with the cardname as our condition, using (.text) to derefrence
+        //what is inside the CardName variable. If we didn't do that then it will only show
+        //the memory address not the name.
         switch (CardName.text)
         {
-            case ("Forest"):
-                TestFuncOne();
+            case ("Biologist "):
+                Biologist();
                 break;
-            case ("Extinction"):
-                TestFuncTwo();
+
+            case ("Botanist "):
+                Botanist();
                 break;
-            case (""):
-                TestFuncThree();
+
+            case ("Ranger "):
+                Ranger();
                 break;
+
+            case ("Explorer "):
+                Explorer();
+                break;
+
+            case ("Sisters At Play "):
+                TwoSisters();
+                break;
+
         }
 
-        Debug.Log(CardName.text);
+        //used to test if we figured out how to find the name of the card or not
+        //Debug.Log(CardName.text);
     }
 
-
-    public void TestFuncOne()
+    public void Biologist()
     {
-        Debug.Log("First test func worked");
+        
     }
-
-    public void TestFuncTwo()
+    public void Botanist()
     {
-        Debug.Log("Second test func worked");
     }
-
-    public void TestFuncThree()
+    public void Ranger()
     {
-        Debug.Log("Third test func worked");
-
+    }
+    public void Explorer()
+    {
+    }
+    public void TwoSisters()
+    {
     }
 
- 
+    //getters and setters
     public Text CardName { get => cardName; set => cardName = value; }
 
 }

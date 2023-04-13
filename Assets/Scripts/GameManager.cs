@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 
     //  ensures GameManager can be used in all scripts (interact with other game objects)
     private static GameManager _instance = null;
+   // bool GameFlag = true;
 
     /*
      * @name    Instance
@@ -113,7 +114,6 @@ public class GameManager : MonoBehaviour {
         _instance = this;
         DontDestroyOnLoad(_instance);
     }
-
     /*
      *  @name       Start
      *  @purpose    initialize GameManager object 
@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour {
 
         //instantiates colors and names
         AppalachianColor = new Color32(166, 135, 82, 128);
-        AlleghenyColor = new Color32(58, 102, 44, 128);
+        AlleghenyColor = new Color32(58, 102, 44, 128);       
         ClarionRiverColor = new Color32(116, 126, 140, 128);
         PeatBogsColor = new Color32(124, 56, 58, 128);
         Allegheny = "Allegheny National Forest";
@@ -314,6 +314,7 @@ public class GameManager : MonoBehaviour {
      */
     public void StartHumanTurn()
     {
+      // if (GameFlag =! false)
         if (round == 1)
         {
             CreateBoards(); 
