@@ -221,13 +221,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
 
-=======
         //doesnt actually do shit
         Debug.Log("Hello");
         
->>>>>>> main
+
     }
 
 

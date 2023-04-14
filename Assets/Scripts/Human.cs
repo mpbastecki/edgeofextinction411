@@ -16,11 +16,9 @@ public class Human : Player
     //used to pass in current object to differnt classes
     private Human currentPlayer;
     private Human humanPerson = GameManager.Instance.Person;
-<<<<<<< HEAD
+
     private Computer computerPerson = GameManager.Instance.CP1;
-=======
-    
->>>>>>> main
+
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -113,8 +111,7 @@ public class Human : Player
             CanDraw = false;
         
     }
-<<<<<<< HEAD
-  
+
     public void CheckExtinction()
     {
         bool foundExtinction = false;
@@ -132,66 +129,47 @@ public class Human : Player
             {
                 if (computerPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
                 {
-                    
+
                     Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
                     MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
-                    
+
                     //adds the card to the discard list
-                                                                                //ThePlayer.HumanPlacement[i].Destroy;
+                    //ThePlayer.HumanPlacement[i].Destroy;
 
                 }
             }
-            for (int i = 0; i < MultiplayerPlacement.Count; i++)
-=======
-
-
-    public void CheckExtinction()
-    {
-            Computer computerPerson = GameManager.Instance.CP1;
-            bool foundExtinction = false;
-            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
->>>>>>> main
-            {
-                if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+            
+                if (computerPerson.ProtectedFromExtinction && foundExtinction)
                 {
-                    foundExtinction = true;
+                    for (int i = 0; i < computerPerson.HumanPlacement.Count; i++)
+                    {
+                        if (computerPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                        {
+
+                            Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                            MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+
+                            //adds the card to the discard list
+                            //ThePlayer.HumanPlacement[i].Destroy;
+
+                        }
+                    }
+                    for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+                    {
+                        if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                        {
+                            Destroy(GameObject.Find("Multi-Extinction"));
+                            MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                        }
+                    }
+                    computerPerson.ProtectedFromExtinction = false;
                 }
-            }
-<<<<<<< HEAD
-            computerPerson.ProtectedFromExtinction = false;
         }
     }
-=======
-
-            if (computerPerson.ProtectedFromExtinction && foundExtinction)
-            {
-                for (int i = 0; i < computerPerson.HumanPlacement.Count; i++)
-                {
-                    if (computerPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
-                    {
-
-                        Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
-                        MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
-
-                        //adds the card to the discard list
-                        //ThePlayer.HumanPlacement[i].Destroy;
-
-                    }
-                }
-                for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
-                {
-                    if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
-                    {
-                        Destroy(GameObject.Find("Multi-Extinction"));
-                        MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
-
-                    }
-                }
-                computerPerson.ProtectedFromExtinction = false;
-            }
-     }
+     
     
->>>>>>> main
+
 
 
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
@@ -203,12 +181,12 @@ public class Human : Player
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
-<<<<<<< HEAD
+
         bool foundChildrenAtPlay = false;
         bool foundTemperatureDrop = false;
         for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
         {
-            switch(CurrentPlayer.MultiplayerPlacement[i].CardName)
+            switch (CurrentPlayer.MultiplayerPlacement[i].CardName)
             {
                 case "Multi-Children-At-Play":
 
@@ -221,7 +199,8 @@ public class Human : Player
 
                 default:
                     break;
-=======
+            }
+        }
         //checks for darkling larvae beetle
         if (req.r247())
         {
@@ -282,7 +261,7 @@ public class Human : Player
                 {
                     MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
                 }
->>>>>>> main
+
             }
         }
 
@@ -527,11 +506,9 @@ public class Human : Player
     public Text DrawText { get => drawText; set => drawText = value; }
     public Human CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     public Button ThreeCardBurstButton { get => threeCardBurstButton; set => threeCardBurstButton = value; }
-<<<<<<< HEAD
-    
-=======
-   // public GameObject ReqGO { get => reqGO; set => reqGO = value; }
-   // public Requirements Req { get => req; set => req = value; }
->>>>>>> main
+
+   //public GameObject ReqGO { get => reqGO; set => reqGO = value; }
+   //public Requirements Req { get => req; set => req = value; }
+
 }
 

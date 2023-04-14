@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour {
         _instance = this;
         DontDestroyOnLoad(_instance);
     }
-<<<<<<< HEAD
+
 
         /*
          *  @name       Start
@@ -123,12 +123,12 @@ public class GameManager : MonoBehaviour {
 
 
     
-=======
+
     /*
      *  @name       Start
      *  @purpose    initialize GameManager object 
      */
->>>>>>> main
+
     void Start () {
 
         Debug.Log("GameManagerCreated");
