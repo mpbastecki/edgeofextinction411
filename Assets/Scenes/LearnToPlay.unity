@@ -369,8 +369,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -101.12615}
-  m_SizeDelta: {x: 464.9, y: 516.4121}
+  m_AnchoredPosition: {x: 7.75, y: -521.06696}
+  m_SizeDelta: {x: 464.9, y: 1302}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &152900817
 MonoBehaviour:
@@ -404,24 +404,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\nGameplay:\r\nClick the deck to draw cards at the beginning of your turn.\r\nYou
+  m_Text: "Gameplay:\r\nClick the deck to draw cards at the beginning of your turn.\r\nYou
     will draw six cards on your first turn and one card on each turn after.\r\nYou
     may draw an extra card each turn for every five regions played.\r\nThree Card
-    Burst is available to use once per game. It gives players three extra cards.\r\nPressing
-    escape at any time will window the game.\n\r\nEach card has requirements that
-    must be fulfilled before the card can be played.\r\nDrag playable cards into
-    their corresponding pile on the field.\r\nDouble click cards on the field for
-    more information about the card.\r\nTo end your turn, drag one card into the
-    discard pile. \r\nIf no cards are left in your hand, your turn will end automatically\r\n\r\nEach
-    card has a corresponding point value that is added to your score when played.\r\nThe
-    player with the highest score at the end of ten rounds is the winner.\r\n\r\nHuman
-    Cards:\r\nEach human card contains a standing action and a special action.\r\nThe
-    standing action is active while the card is in the field.\r\nTo activate the
-    special action, double click the card and press the \"Activate Special Action\"
-    button.\r\nThe card is then moved to the discard pile.\r\n\r\nMultiplayer Cards:\r\nMultiplayer
-    cards have an effect to be used against your opponent.\r\nTo activate these cards,
-    place the multiplayer card onto the field, double click the card, and select
-    the opponent to use the card against."
+    Burst is available to use once per game. It gives players three extra cards.\r\n\r\nEach
+    card has requirements that must be fulfilled before the card can be played.\r\nDrag
+    playable cards into their corresponding pile on the field.\r\nDouble click cards
+    on the field for more information about the card.\r\nTo end your turn, drag one
+    card into the discard pile. \r\nIf no cards are left in your hand, your turn
+    will end automatically\r\n\r\nEach card has a corresponding point value that
+    is added to your score when played.\r\nThe player with the highest score at the
+    end of ten rounds is the winner.\r\n\r\nHuman Cards:\r\nEach human card contains
+    a standing action and a special action.\r\nThe standing action is active while
+    the card is in the field.\r\nTo activate the special action, double click the
+    card and press the \"Activate Special Action\" button.\r\nThe card is then moved
+    to the discard pile.\r\n\r\nMultiplayer Cards:\r\nMultiplayer cards have an effect
+    to be used against your opponent.\r\nTo activate these cards, place the multiplayer
+    card onto the field, double click the card, and select the opponent to use the
+    card against."
 --- !u!222 &152900818
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -466,8 +466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 259, y: 2.1243}
-  m_SizeDelta: {x: 31.7, y: 321.32434}
+  m_AnchoredPosition: {x: 259, y: 0.000069618}
+  m_SizeDelta: {x: 31.7, y: 303.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1434632072
 MonoBehaviour:
@@ -511,8 +511,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 127987427}
   m_HandleRect: {fileID: 127987426}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.48054606
+  m_Value: 0.9407279
+  m_Size: 0.091945246
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -590,8 +590,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.33923104, y: 0.15284714}
   m_AnchorMax: {x: 0.65453804, y: 0.7836306}
-  m_AnchoredPosition: {x: 2.4926, y: 4.6489}
-  m_SizeDelta: {x: 296.154, y: 9.297699}
+  m_AnchoredPosition: {x: 3, y: 10}
+  m_SizeDelta: {x: 122.29993, y: -49.200012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534394499
 MonoBehaviour:
@@ -678,7 +678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00024605, y: -162}
+  m_AnchoredPosition: {x: 1, y: -187}
   m_SizeDelta: {x: 182.6, y: 36.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1556179319
@@ -872,7 +872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000017047, y: 160.13}
+  m_AnchoredPosition: {x: 0.000017047, y: 127.21}
   m_SizeDelta: {x: 548.4, y: 76.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1629914021
@@ -947,8 +947,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000076293945, y: -33}
-  m_SizeDelta: {x: 317.29993, y: 109.70488}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 0}
+  m_SizeDelta: {x: 317.29993, y: 148.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1657161296
 MonoBehaviour:
@@ -1028,6 +1028,7 @@ GameObject:
   - component: {fileID: 1990703480}
   - component: {fileID: 1990703479}
   - component: {fileID: 1990703482}
+  - component: {fileID: 1990703478}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1035,6 +1036,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1990703478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990703477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61e109cfe204dda44af3cb4570e05101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &1990703479
 Behaviour:
   m_ObjectHideFlags: 0

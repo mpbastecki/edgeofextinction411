@@ -16,8 +16,8 @@ public class HideShowBoards : MonoBehaviour {
     //these are to change the position in canvas group to bring to front of canvas to be seen
     private CanvasGroup personCG;
     private CanvasGroup cp1CG;
-    private CanvasGroup cp2CG;
-    private CanvasGroup cp3CG;
+    //private CanvasGroup cp2CG;
+    //private CanvasGroup cp3CG;
     private CanvasGroup pauseCG;
     private CanvasGroup showDeckDiscardCG;
     private CanvasGroup cardInfoPanelCG;
@@ -27,8 +27,8 @@ public class HideShowBoards : MonoBehaviour {
     //these set the canvas active so they can be seen
     private GameObject showPerson; //for showin the player and cp boards
     private GameObject showCP1;
-    private GameObject showCP2;
-    private GameObject showCP3;
+    //private GameObject showCP2;
+    //private GameObject showCP3;
     private GameObject showPause;
     private GameObject showDeckDiscard;
     private GameObject showCardInfoPanel;
@@ -46,8 +46,8 @@ public class HideShowBoards : MonoBehaviour {
         //Initializes all objects to the appropriate canvas groups
         PersonCG = GameObject.Find("Player Board").GetComponent<CanvasGroup>();      
         Cp1CG = GameObject.Find("CP1 Board").GetComponent<CanvasGroup>();
-        Cp2CG = GameObject.Find("CP2 Board").GetComponent<CanvasGroup>();
-        Cp3CG = GameObject.Find("CP3 Board").GetComponent<CanvasGroup>();
+        //Cp2CG = GameObject.Find("CP2 Board").GetComponent<CanvasGroup>();
+        //Cp3CG = GameObject.Find("CP3 Board").GetComponent<CanvasGroup>();
         PauseCG = GameObject.Find("Pause").GetComponent<CanvasGroup>();
         ShowDeckDiscardCG = GameObject.Find("ShowDeckDiscard").GetComponent<CanvasGroup>();
         CardInfoPanelCG = GameObject.Find("CardInfoPanel").GetComponent<CanvasGroup>();
@@ -56,8 +56,8 @@ public class HideShowBoards : MonoBehaviour {
         //instializes objects to the appropriate canvas
         ShowPerson = GameObject.Find("Player");
         ShowCP11 = GameObject.Find("CP1 Board");
-        ShowCP21 = GameObject.Find("CP2 Board");
-        ShowCP31 = GameObject.Find("CP3 Board");
+        //ShowCP21 = GameObject.Find("CP2 Board");
+        //ShowCP31 = GameObject.Find("CP3 Board");
         ShowPause1 = GameObject.Find("Pause"); 
         ShowDeckDiscard1 = GameObject.Find("ShowDeckDiscard"); 
         ShowCardInfoPanel = GameObject.Find("CardInfoPanel"); 
@@ -92,7 +92,7 @@ public class HideShowBoards : MonoBehaviour {
     }
 
     //will show computer board 2
-    public void ShowCP2()
+    /*public void ShowCP2()
     {
         ShowNone();
         Cp2CG.alpha = 1f;
@@ -110,7 +110,7 @@ public class HideShowBoards : MonoBehaviour {
         Cp3CG.interactable = true;
         ShowCP31.SetActive(true);
     }
-
+    */
     //will show pause menu
     public void ShowPause()
     {
@@ -179,7 +179,7 @@ public class HideShowBoards : MonoBehaviour {
         Cp1CG.interactable = false;
         ShowCP11.SetActive(false);
 
-        //disables cp2
+        /*disables cp2
         Cp2CG.alpha = 0f;
         Cp2CG.blocksRaycasts = false;
         Cp2CG.interactable = false;
@@ -190,7 +190,7 @@ public class HideShowBoards : MonoBehaviour {
         Cp3CG.blocksRaycasts = false;
         Cp3CG.interactable = false;
         ShowCP31.SetActive(false);
-
+        */
         //disables pause
         PauseCG.alpha = 0f;
         PauseCG.blocksRaycasts = false;
@@ -226,8 +226,8 @@ public class HideShowBoards : MonoBehaviour {
     //accessors and mutators
     public CanvasGroup PersonCG { get => personCG; set => personCG = value; }
     public CanvasGroup Cp1CG { get => cp1CG; set => cp1CG = value; }
-    public CanvasGroup Cp2CG { get => cp2CG; set => cp2CG = value; }
-    public CanvasGroup Cp3CG { get => cp3CG; set => cp3CG = value; }
+    //public CanvasGroup Cp2CG { get => cp2CG; set => cp2CG = value; }
+    //public CanvasGroup Cp3CG { get => cp3CG; set => cp3CG = value; }
     public CanvasGroup PauseCG { get => pauseCG; set => pauseCG = value; }
     public CanvasGroup ShowDeckDiscardCG { get => showDeckDiscardCG; set => showDeckDiscardCG = value; }
     public CanvasGroup CardInfoPanelCG { get => cardInfoPanelCG; set => cardInfoPanelCG = value; }
@@ -235,8 +235,8 @@ public class HideShowBoards : MonoBehaviour {
     public CanvasGroup LearnToPlayCG { get => learnToPlayCG; set => learnToPlayCG = value; }
     public GameObject ShowPerson { get => showPerson; set => showPerson = value; }
     public GameObject ShowCP11 { get => showCP1; set => showCP1 = value; }
-    public GameObject ShowCP21 { get => showCP2; set => showCP2 = value; }
-    public GameObject ShowCP31 { get => showCP3; set => showCP3 = value; }
+    //public GameObject ShowCP21 { get => showCP2; set => showCP2 = value; }
+    //public GameObject ShowCP31 { get => showCP3; set => showCP3 = value; }
     public GameObject ShowPause1 { get => showPause; set => showPause = value; }
     public GameObject ShowDeckDiscard1 { get => showDeckDiscard; set => showDeckDiscard = value; }
     public GameObject ShowCardInfoPanel { get => showCardInfoPanel; set => showCardInfoPanel = value; }

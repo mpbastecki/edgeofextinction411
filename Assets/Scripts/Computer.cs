@@ -15,12 +15,18 @@ public class Computer : Player
 {
    //this is to pass what ever version of computer is being used into methods
     private Computer currentPlayer;
+    private Computer computerPerson = GameManager.Instance.CP1;
+    private Human humanPerson = GameManager.Instance.Person;
 
     //these will hold the values to create an object from the script for Requirements
     private GameObject reqGO;
     private Requirements req;
     //will help determine if the card should be placed or not
     private bool requirementsWork;
+    //this is for human
+    private bool canDraw;
+    //i forget what this is used for- so find out
+    private bool cardDiscarded;
 
 
     /*
@@ -30,21 +36,34 @@ public class Computer : Player
     public override void InitializeObjects(string pScoreGameObject, string pRoundGameObject, string pHandGameObject, string pRegionGameObject, string pConditionGameObject,
         string pPlantGameObject, string pInvertebrateGameObject, string pAnimalGameObject, string pSpecialRegionGameObject, string pMultiplayerGameObject,
         string pMicrobeGameObject, string pFungiGameObject, string pDiscardGameObject, string pHumanGameObject, string pDeckColorGameObject, string pDeckTextGameObject,
-        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pCP2ScoreGameObject, string pCP3ScoreGameObject, string pPlayerName)
+        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pPlayerName)
     {
         //gets base parent class info
         base.InitializeObjects(pScoreGameObject, pRoundGameObject, pHandGameObject, pRegionGameObject, pConditionGameObject,
         pPlantGameObject, pInvertebrateGameObject, pAnimalGameObject, pSpecialRegionGameObject, pMultiplayerGameObject,
         pMicrobeGameObject, pFungiGameObject, pDiscardGameObject, pHumanGameObject, pDeckColorGameObject, pDeckTextGameObject,
-        pHumanScoreGameObject, pCP1ScoreGameObject, pCP2ScoreGameObject, pCP3ScoreGameObject, pPlayerName);
+        pHumanScoreGameObject, pCP1ScoreGameObject, pPlayerName);
         //info specific to computers
         CurrentPlayer = this;
         RequirementsWork = false;
     }
 
+    public bool foundTemperatureDrop { get => foundTemperatureDrop; set => foundTemperatureDrop = value; }
+    public bool foundChildrenAtPlay { get => foundChildrenAtPlay; set => foundChildrenAtPlay = value; }
     //starts the turn of the computer initially dealing 5 cards
     public override void StartTurn()
     {
+        if (SkipTurn == true && foundTemperatureDrop == true)
+        {
+            Debug.Log("Round should change");
+        }
+
+        else if (SkipTurn == true && foundChildrenAtPlay == true)
+        {
+            Debug.Log("Round should change");
+        }
+        else
+        { 
         //execute parent method
         base.StartTurn();
         //if it is the first round then deal 5 cards automatically
@@ -54,7 +73,8 @@ public class Computer : Player
         }
         //after the 5 cards aredealt, the procedexd with computer AI alogorithm
         StartCoroutine(ComputerPerforms()); //goes through the function needed for the AI
-        //ComputerPerforms();
+                                            //ComputerPerforms();
+        }
     }
 
         /*
@@ -103,7 +123,50 @@ public class Computer : Player
     void Update()
         {
         Debug.Log("Testing from computer.cs");
+        CheckExtinction();
+    }
+
+    public void CheckExtinction()
+    {
+        Human humanPerson = GameManager.Instance.Person;
+        bool foundExtinction = false;
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+        {
+            if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+            {
+                foundExtinction = true;
+            }
         }
+
+        if (humanPerson.ProtectedFromExtinction && foundExtinction)
+        {
+            for (int i = 0; i < humanPerson.HumanPlacement.Count; i++)
+            {
+                if (humanPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                {
+
+                    Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                    MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+
+                    //adds the card to the discard list
+                    //ThePlayer.HumanPlacement[i].Destroy;
+
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+            {
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                {
+                    Destroy(GameObject.Find("Multi-Extinction"));
+                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                }
+            }
+            humanPerson.ProtectedFromExtinction = false;
+        }
+    }
+
+
 
     /*
      *  @name       ThreeCardExecute() extends parent method
@@ -223,7 +286,7 @@ public class Computer : Player
                 else if (Hand[z].CardType == "Multi-Player") //puts the card into the multiplayer pile
                 {
                     //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, MultiplayerGameObject, MultiPlacement, false);
+                    MoveCard(z, MultiplayerGameObject, MultiplayerPlacement, false);
                 }
                 else if (Hand[z].CardType == "Microbe") //puts the card into the microbe pile
                 {
@@ -268,33 +331,41 @@ public class Computer : Player
     public void MoveCard(int pZ, string pParent, List<Card> pListPlacement, bool pDiscard)
     {
         //assigns where the game object with go to a object
+        Debug.Log("Moving cards");
         CardParent = GameObject.Find(pParent).transform;
+        Debug.Log(CardParent + "Moved");
         //sets the name so the sprite can show the front of card
         Holder.CardNameHolder = Hand[pZ].CardName;
-        //creates a new card object
+        ////creates a new card object
         GenerateCardObject();
-        //creates the new sprite with the correct image
+        ////creates the new sprite with the correct image
         Holder.setSprite(Sr);
-        //tells the current game object at play where to go to
-        //CardObject.transform.SetParent(CardParent);
-        //resizes the card so it fits nicely on the placements
+        ////tells the current game object at play where to go to
+        ////CardObject.transform.SetParent(CardParent);
+        ////resizes the card so it fits nicely on the placements
         CardObject.transform.localScale = new Vector3(1.0f, 1.0f, 0);
 
         if (pDiscard == false)
         ChangeScore(Hand[pZ].PointValue);
   
-        //adds the card from the hand to the correct list
+        ////adds the card from the hand to the correct list
         pListPlacement.Add(Hand[pZ]);
-        //removes the card just played from the hand
+        ////removes the card just played from the hand
         Hand.Remove(Hand[pZ]);
 
-        //resets the card parent that way if anything funky happens it will return to the hand
-        //but since its a computer nothing like that would probably happen casue there is no dragability for the computer
+        ////resets the card parent that way if anything funky happens it will return to the hand
+        ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
         CardParent = GameObject.Find(HandGameObject).transform;
 
-        //to keep from a null excpetion error
+        ////to keep from a null excpetion error
         if (Hand.Count > 0)
             Destroy(CardParent.GetChild(0).gameObject);
+    }
+    public void CSkipRound()
+    {
+        Round = GameManager.Instance.Round;
+        RoundText = GameObject.Find(RoundGameObject).GetComponent<Text>();
+        RoundText.text = Round.ToString();
     }
 
     //accessors and mutators

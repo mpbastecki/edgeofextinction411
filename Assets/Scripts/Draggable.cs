@@ -79,6 +79,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             return;
 
         DraggedInstance = gameObject; //determines initial positiong of the cards
+        
         _startPosition = transform.position;
         _zDistanceToCamera = Mathf.Abs(_startPosition.z - Camera.main.transform.position.z);
 
@@ -285,6 +286,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 {
                     if (DraggedInstance.name == GameManager.Instance.Person.Hand[i].CardName)
                     {
+                        //Debug.Log()
                         DraggedInstance.transform.localScale = new Vector3(1.0f, 1.0f, 0); //sets the size to fit the placement area                     
                         GameManager.Instance.Person.DiscardPlacement.Add(GameManager.Instance.Person.Hand[i]); //adds the card to the discard list
                         GameManager.Instance.Person.Hand.Remove(GameManager.Instance.Person.Hand[i]); //removes the card from the hand list
@@ -575,7 +577,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
                         Destroy(DraggedInstance.GetComponent<Draggable>()); //makes them no longer be abe to be dragged
 
-                        GameManager.Instance.Person.MultiPlacement.Add(GameManager.Instance.Person.Hand[i]); //adds the card to the Multiplayer list
+                        GameManager.Instance.Person.MultiplayerPlacement.Add(GameManager.Instance.Person.Hand[i]); //adds the card to the Multiplayer list
                         GameManager.Instance.Person.Hand.Remove(GameManager.Instance.Person.Hand[i]); //removes the card from the hand list
                     }
                 }

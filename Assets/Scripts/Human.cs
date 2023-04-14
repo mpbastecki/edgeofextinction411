@@ -15,7 +15,8 @@ public class Human : Player
 {
     //used to pass in current object to differnt classes
     private Human currentPlayer;
-    private Human person = GameManager.Instance.Person;
+    private Human humanPerson = GameManager.Instance.Person;
+    private Computer computerPerson = GameManager.Instance.CP1;
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -25,17 +26,29 @@ public class Human : Player
 
     //to make the three card burst butto visibile ane not visible
     private Button threeCardBurstButton;
+    //private GameObject reqGO;
+    //private Requirements req;
+    
+    //assigns the script to the game object
 
+    //assigns the game object to the script withe the game object
     // Start is called before the first frame update
     void Start()
     {
+        //ReqGO = new GameObject("Req");
+        ////assigns the script to the game object
+        //ReqGO.AddComponent<Requirements>();
+        ////assigns the game object to the script withe the game object
+        //Req = GameObject.Find("Req").GetComponent<Requirements>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         Debug.Log("Testing in human.cs");
-        CheckStandingCards();
+        CheckStandingCards(CurrentPlayer);
+        CheckExtinction();
     }
 
     /*
@@ -45,94 +58,386 @@ public class Human : Player
     public override void InitializeObjects(string pScoreGameObject, string pRoundGameObject, string pHandGameObject, string pRegionGameObject, string pConditionGameObject,
         string pPlantGameObject, string pInvertebrateGameObject, string pAnimalGameObject, string pSpecialRegionGameObject, string pMultiplayerGameObject,
         string pMicrobeGameObject, string pFungiGameObject, string pDiscardGameObject, string pHumanGameObject, string pDeckColorGameObject, string pDeckTextGameObject,
-        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pCP2ScoreGameObject, string pCP3ScoreGameObject, string pPlayerName)
+        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pPlayerName)
     {
         //gets base parent class info
         base.InitializeObjects(pScoreGameObject, pRoundGameObject, pHandGameObject, pRegionGameObject, pConditionGameObject,
         pPlantGameObject, pInvertebrateGameObject, pAnimalGameObject, pSpecialRegionGameObject, pMultiplayerGameObject,
         pMicrobeGameObject, pFungiGameObject, pDiscardGameObject, pHumanGameObject, pDeckColorGameObject, pDeckTextGameObject,
-        pHumanScoreGameObject, pCP1ScoreGameObject, pCP2ScoreGameObject, pCP3ScoreGameObject, pPlayerName);
+        pHumanScoreGameObject, pCP1ScoreGameObject, pPlayerName);
         //info specific to human
         CurrentPlayer = this;
         CanDraw = true;
         CardDiscarded = false;
+
     }
 
     /*
     *  @name       StartTurn() extends from parent
     *  @purpose    deals the player 5 cards if its round one then starts the players turn
     */
+    bool foundChildrenAtPlay = false;
+    bool foundTemperatureDrop = false;
     public override void StartTurn()
     {
         //execute parent method
         base.StartTurn();
+        Debug.Log("Person player name is: " + GameManager.Instance.Person.PlayerName);
         //allowing colliders to work
         Physics.queriesHitTriggers = true;
-        //after the round has changed the player needs to discard again
-        CardDiscarded = false;
-        //gets the text component so it can be changed
-        DrawText = GameObject.Find("DrawText").GetComponent<Text>(); //gets the text component so it can be changed
-        //if it is the first round then deal 5 cards automatically
-        if (Round == 1 && CanDraw == true) //only happens in the first round
-        {
-            CreateButtonObjects();
-            Draw(5);
-        }
-        DrawText.text = "Step 1: Play Card(s) \n Step 2: Discard to End Your Turn";
-         //gets the right amount of cards to draw based off regions its a parent function
-        DrawAmount();
-        //draws the apropriate amount
-        Debug.Log("testing");
-        Draw(DrawCount);
-        //makes the human player unable to draw again
-        CanDraw = false;
-
+            //after the round has changed the player needs to discard again
+            CardDiscarded = false;
+            //gets the text component so it can be changed
+            DrawText = GameObject.Find("DrawText").GetComponent<Text>(); //gets the text component so it can be changed
+                                                                         //if it is the first round then deal 5 cards automatically
+            if (Round == 1 && CanDraw == true) //only happens in the first round
+            {
+                CreateButtonObjects();
+                Draw(5);
+                
+            }
+            DrawText.text = "Step 1: Play Card(s) \n Step 2: Discard to End Your Turn";
+            //gets the right amount of cards to draw based off regions its a parent function
+            DrawAmount();
+            //draws the apropriate amount
+            Debug.Log("testing");
+            Draw(DrawCount);
+            //makes the human player unable to draw again
+            CanDraw = false;
         
-
     }
 
-    public void CheckStandingCards()
+
+
+    public void CheckExtinction()
     {
+            Computer computerPerson = GameManager.Instance.CP1;
+            bool foundExtinction = false;
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+            {
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                {
+                    foundExtinction = true;
+                }
+            }
+
+            if (computerPerson.ProtectedFromExtinction && foundExtinction)
+            {
+                for (int i = 0; i < computerPerson.HumanPlacement.Count; i++)
+                {
+                    if (computerPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                    {
+
+                        Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                        MoveCard(i, DiscardGameObject, HumanPlacement, DiscardPlacement, true);
+
+                        //adds the card to the discard list
+                        //ThePlayer.HumanPlacement[i].Destroy;
+
+                    }
+                }
+                for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+                {
+                    if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                    {
+                        Destroy(GameObject.Find("Multi-Extinction"));
+                        MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                    }
+                }
+                computerPerson.ProtectedFromExtinction = false;
+            }
+     }
+    
+
+
+    //Checks human cards to set the right flags for protection from exinction, invasive species, etc
+    public void CheckStandingCards(Human pCurrentPlayer)
+    {
+        Reqs req = new Reqs(pCurrentPlayer);
+        bool foundBiologist = false;
+        bool foundBotanist = false;
+        bool foundExplorer = false;
+        bool foundRanger = false;
+        bool foundTwoSisters = false;
+        //checks for darkling larvae beetle
+        if (req.r247())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, Deck.Cards, InvertebratePlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if(CurrentPlayer.DiscardPlacement[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, DiscardPlacement, InvertebratePlacement, false);
+                }
+            }
+        }
+        //checks for barred owl
+        if (req.r246())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Animal-Barred-Owl")
+                {
+                    MoveCard(i, AnimalGameObject, Deck.Cards, AnimalPlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.DiscardPlacement[i].CardName == "Animal-Barred-Owl")
+                {
+                    MoveCard(i, AnimalGameObject, DiscardPlacement, AnimalPlacement, false);
+                }
+            }
+        }
+        //checks for big tooth aspen and white birch
+        if (req.r248())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+            }
+        }
+
+        bool foundChildrenAtPlay = false;
+        bool foundTemperatureDrop = false;
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+        {
+            switch (CurrentPlayer.MultiplayerPlacement[i].CardName)
+            {
+                case "Multi-Children-At-Play":
+
+                    foundChildrenAtPlay = true;
+                    break;
+                case "Multi-Temperature-Drop":
+
+                    foundTemperatureDrop = true;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        //checks for darkling larvae beetle
+        if (req.r247())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, Deck.Cards, InvertebratePlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if(CurrentPlayer.DiscardPlacement[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, DiscardPlacement, InvertebratePlacement, false);
+                }
+            }
+        }
+        //checks for barred owl
+        if (req.r246())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Animal-Barred-Owl")
+                {
+                    MoveCard(i, AnimalGameObject, Deck.Cards, AnimalPlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.DiscardPlacement[i].CardName == "Animal-Barred-Owl")
+                {
+                    MoveCard(i, AnimalGameObject, DiscardPlacement, AnimalPlacement, false);
+                }
+            }
+        }
+        //checks for big tooth aspen and white birch
+        if (req.r248())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+
+            }
+        }
+
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
+            
+
+            
             switch(CurrentPlayer.HumanPlacement[i].CardName)
             {
                 case "Human-Biologist":
-                    Debug.Log("biologist");
-                    CurrentPlayer.ProtectedFromInvasiveAnimal = true;
+                    
+                    foundBiologist = true;
                     break;
                 case "Human-Botanist":
-                    Debug.Log("botanist");
-                    CurrentPlayer.ProtectedFromInvasivePlant = true;
+                    
+                    foundBotanist = true;
                     break;
                 case "Human-Explorer":
-                    Debug.Log("asshole");
-                    CurrentPlayer.NoConditionRequirements = true;
+                    
+                    foundExplorer = true;
                     break;
                 case "Human-Ranger":
-                    Debug.Log("ranger");
-                    CurrentPlayer.ProtectedFromBlight = true;
+                    
+                    foundRanger = true;
                     break;
                 case "Human-Two-Sisters-In-The-Wild":
-                    Debug.Log("sisters");
-                    CurrentPlayer.ProtectedFromExtinction = true;
+                    
+                    foundTwoSisters = true;
                     break;
                 default:
-                    Debug.Log("No human effects");
-                    CurrentPlayer.ProtectedFromExtinction = false;
+                    
                     break;
             }
-            
-            
+
+
         }
+        if (foundChildrenAtPlay)
+        {
+            Debug.Log("Found children at play");
+            Debug.Log("Skip the turn");
+
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+            {
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                {
+                    Destroy(GameObject.Find("Multi-Children-At-Play"));
+                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+                    SkipRound();
+                    computerPerson.CSkipRound();
+                    humanPerson.cardDiscarded = false;
+                }
+            }
+            
+        
+        }
+        
+        else
+        {
+            CurrentPlayer.SkipTurn = false;
+        }
+        if (foundTemperatureDrop)
+        {
+            Debug.Log("Found temperature drop");
+            CurrentPlayer.SkipTurn = true;
+        }
+        else
+        {
+            CurrentPlayer.SkipTurn = false;
+        }
+        if (foundBiologist)
+        {
+            Debug.Log("biologist");
+            CurrentPlayer.ProtectedFromInvasiveAnimal = true;
+        }
+        else
+        {
+            Debug.Log("NOT biologist");
+            CurrentPlayer.ProtectedFromInvasiveAnimal = false;
+        }
+
+        if (foundBotanist)
+        {
+            Debug.Log("botanist");
+            CurrentPlayer.ProtectedFromInvasivePlant = true;
+        }
+        else
+        {
+            Debug.Log("NOT botanist");
+            CurrentPlayer.ProtectedFromInvasivePlant = false;
+        }
+
+        if (foundExplorer)
+        {
+            Debug.Log("explorer");
+            CurrentPlayer.NoConditionRequirements = true;
+        }
+        else
+        {
+            Debug.Log("NOT explorer");
+            CurrentPlayer.NoConditionRequirements = false;
+        }
+
+        if (foundRanger)
+        {
+            Debug.Log("ranger");
+            CurrentPlayer.ProtectedFromBlight = true;
+        }
+        else
+        {
+            Debug.Log("NOT ranger");
+            CurrentPlayer.ProtectedFromBlight = false;
+        }
+
+        if (foundTwoSisters)
+        {
+            Debug.Log("sisters");
+            CurrentPlayer.ProtectedFromExtinction = true;
+        }
+        else
+        {
+            Debug.Log("NOT sisters");
+            CurrentPlayer.ProtectedFromExtinction = false;
+        }
+
     }
 
 
 
-        /*
-     *  @name       GenerateCardObjects() extend from parent class and ads additon info specific to human
-     *  @purpose    this gets the card from the deck and assigns it to a game object that will be the card you will see omn the screen
-     */
+    /*
+ *  @name       GenerateCardObjects() extend from parent class and ads additon info specific to human
+ *  @purpose    this gets the card from the deck and assigns it to a game object that will be the card you will see omn the screen
+ */
+
+
     public override void GenerateCardObject()
     {
         //gets the parent class method stuff
@@ -153,6 +458,7 @@ public class Human : Player
     */
     public override void Draw(int pAmount)
     {
+        Debug.Log("Skip the turn part 2");
         //gets parent info
         base.Draw(pAmount);
         //makes sure you can opnly draw once basically
@@ -233,11 +539,17 @@ public class Human : Player
         ThreeCardBurstButton.onClick.AddListener(ThreeCardExecute);
     }
 
+    
+
     //accessors and mutators
     public bool CanDraw { get => canDraw; set => canDraw = value; }
     public bool CardDiscarded { get => cardDiscarded; set => cardDiscarded = value; }
     public Text DrawText { get => drawText; set => drawText = value; }
     public Human CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     public Button ThreeCardBurstButton { get => threeCardBurstButton; set => threeCardBurstButton = value; }
+
+   // public GameObject ReqGO { get => reqGO; set => reqGO = value; }
+   // public Requirements Req { get => req; set => req = value; }
+
 }
 

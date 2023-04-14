@@ -13,6 +13,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public GameObject deckbutton;
     //keeps track of how many regions they have to make sure they can draw the right amount if cards
     private int regionCounter;
     //keeps track of how many cards the player can draw based off of how many regions they have
@@ -53,8 +54,8 @@ public class Player : MonoBehaviour
     private string roundGameObject;
     private string humanScoreGameObject;
     private string cP1ScoreGameObject;
-    private string cP2ScoreGameObject;
-    private string cP3ScoreGameObject;
+    //private string cP2ScoreGameObject;
+    //private string cP3ScoreGameObject;
 
     //  Creates objects  to interact with UI canvas
     //  stores values for round text information
@@ -66,8 +67,8 @@ public class Player : MonoBehaviour
     //this is to change all of the score texts on the screen for each player
     private Text humanScoreText;
     private Text cP1ScoreText;
-    private Text cP2ScoreText;
-    private Text cP3ScoreText;
+    //private Text cP2ScoreText;
+    //private Text cP3ScoreText;
 
 
     //graphics and card objects
@@ -92,6 +93,9 @@ public class Player : MonoBehaviour
     private List<Card> fungiPlacement;
     private List<Card> conditionPlacement;
     private List<Card> discardPlacement;
+
+    private Human humanPerson = GameManager.Instance.Person;
+    private Computer computerPerson = GameManager.Instance.CP1;
 
     /*
      *  @TODO:
@@ -132,7 +136,7 @@ public class Player : MonoBehaviour
     public virtual void InitializeObjects(string pScoreGameObject, string pRoundGameObject, string pHandGameObject, string pRegionGameObject, string pConditionGameObject, 
         string pPlantGameObject, string pInvertebrateGameObject, string pAnimalGameObject, string pSpecialRegionGameObject, string pMultiplayerGameObject, 
         string pMicrobeGameObject, string pFungiGameObject, string pDiscardGameObject, string pHumanGameObject, string pDeckColorGameObject, string pDeckTextGameObject,
-        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pCP2ScoreGameObject, string pCP3ScoreGameObject, string pPlayerName)
+        string pHumanScoreGameObject, string pCP1ScoreGameObject, string pPlayerName)
     {
      
         //this will all be stuff from parent class below
@@ -159,8 +163,8 @@ public class Player : MonoBehaviour
         DeckTextGameObject = pDeckTextGameObject;
         HumanScoreGameObject= pHumanScoreGameObject;
         CP1ScoreGameObject= pCP1ScoreGameObject;
-        CP2ScoreGameObject= pCP2ScoreGameObject;
-        CP3ScoreGameObject= pCP3ScoreGameObject;
+        //CP2ScoreGameObject= pCP2ScoreGameObject;
+        //CP3ScoreGameObject= pCP3ScoreGameObject;
 
         //game values
         Score = 0;
@@ -177,7 +181,7 @@ public class Player : MonoBehaviour
         InvertebratePlacement = new List<Card>();
         MicrobePlacement = new List<Card>();
         HumanPlacement = new List<Card>();
-        MultiPlacement = new List<Card>();
+        MultiplayerPlacement = new List<Card>();
         FungiPlacement = new List<Card>();
         ConditionPlacement = new List<Card>();
         DiscardPlacement = new List<Card>();
@@ -197,7 +201,7 @@ public class Player : MonoBehaviour
         ProtectedFromInvasivePlant = false;
         NoConditionRequirements = false;
         ProtectedFromBlight = false;
-        PausedOneTurn = false;
+        SkipTurn = false;
         ProtectedFromWeb = false;
         NoDiscard = false;
         DrawExtraCard = false;
@@ -217,14 +221,23 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //doesnt actually do shit
         Debug.Log("Hello");
+        
     }
 
-      /*
-    *  @name       GetTotalRegions()
-    *  @purpose    adds up all the regions and returns that value so the amount if cards drawn can be determined
-    */
+
+  
+
+
+
+
+
+    /*
+  *  @name       GetTotalRegions()
+  *  @purpose    adds up all the regions and returns that value so the amount if cards drawn can be determined
+  */
     public int GetTotalRegions()
     {
         //local variable to keep track of regions
@@ -273,10 +286,62 @@ public class Player : MonoBehaviour
         CardObject.AddComponent<CanvasGroup>().blocksRaycasts = false; //will block raycasts so you can see objects behind it with mouse
     }
 
-        /*
-    *  @name       ChangeAllScore()
-    *  @purpose    Updates all the scores on the current canvas screen happens after each players turn
-    */
+
+    /*
+     *  @name       MoveCard() 
+     *  @purpose   Moves the card from the hand to the correct placement and takes in the index from the loop so it knows whch card to use
+     *  also it updates the score
+     */
+    public void MoveCard(int pZ, string pParent, List<Card> pOriginPlacement, List<Card> pDestinationPlacement, bool pDiscard)
+    {
+        //assigns where the game object with go to a object
+        Debug.Log("Moving cards");
+        CardParent = GameObject.Find(pParent).transform;
+        Debug.Log(CardParent + " Moved");
+        //sets the name so the sprite can show the front of card
+        Holder.CardNameHolder = pOriginPlacement[pZ].CardName;
+        ////creates a new card object
+        GenerateCardObject();
+        
+        ////creates the new sprite with the correct image
+        Holder.setSprite(Sr);
+        ////tells the current game object at play where to go to
+        ////CardObject.transform.SetParent(CardParent);
+        ////resizes the card so it fits nicely on the placements
+        CardObject.transform.localScale = new Vector3(1.0f, 1.0f, 0);
+
+        if (pDiscard == false)
+        {
+            ChangeScore(pOriginPlacement[pZ].PointValue);
+        }
+        else
+        {
+            
+            ChangeScore(-(pOriginPlacement[pZ].PointValue));
+            
+        }    
+
+        ////adds the card from the hand to the correct list
+        pDestinationPlacement.Add(pOriginPlacement[pZ]);
+        ////removes the card just played from the hand
+        pOriginPlacement.Remove(pOriginPlacement[pZ]);
+        GameObject temp = GameObject.Find(pDestinationPlacement[pDestinationPlacement.Count - 1].CardName);
+        Destroy(temp.GetComponent<Draggable>());
+        ////resets the card parent that way if anything funky happens it will return to the hand
+        ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
+        CardParent = GameObject.Find(HandGameObject).transform;
+
+        ////to keep from a null excpetion error
+        //if (Hand.Count > 0)
+            //Destroy(CardParent.GetChild(0).gameObject);
+    }
+
+
+
+    /*
+*  @name       ChangeAllScore()
+*  @purpose    Updates all the scores on the current canvas screen happens after each players turn
+*/
     public void ChangeAllScore()
     {
         //updates human score
@@ -286,11 +351,11 @@ public class Player : MonoBehaviour
         CP1ScoreText = GameObject.Find(CP1ScoreGameObject).GetComponent<Text>();
         CP1ScoreText.text = GameManager.Instance.CP1.Score.ToString();
         //updates CP2 score
-        CP2ScoreText = GameObject.Find(CP2ScoreGameObject).GetComponent<Text>();
-        CP2ScoreText.text = GameManager.Instance.CP2.Score.ToString();
+        //CP2ScoreText = GameObject.Find(CP2ScoreGameObject).GetComponent<Text>();
+        //CP2ScoreText.text = GameManager.Instance.CP2.Score.ToString();
         //updates CP3 score
-        CP3ScoreText = GameObject.Find(CP3ScoreGameObject).GetComponent<Text>();
-        CP3ScoreText.text = GameManager.Instance.CP3.Score.ToString();
+        //CP3ScoreText = GameObject.Find(CP3ScoreGameObject).GetComponent<Text>();
+        //CP3ScoreText.text = GameManager.Instance.CP3.Score.ToString();
     }
 
         /*
@@ -350,6 +415,13 @@ public class Player : MonoBehaviour
         RoundText.text = Round.ToString();
     }
 
+    public void SkipRound()
+    {
+        Round = GameManager.Instance.Round + 1;
+        RoundText = GameObject.Find(RoundGameObject).GetComponent<Text>();
+        RoundText.text = Round.ToString();
+    }
+
         /*
     *  @name       AssignDeck()
     *  @purpose    This loops through the deck list created in the game manager and assigns the correct deck to the player
@@ -384,22 +456,31 @@ public class Player : MonoBehaviour
         DeckText.text = Deck.DeckName.ToString();
     }
 
-        /*
-    *  @name       StartTurn()
-    *  @purpose    deals the player 5 cards if its round one then starts the players turn
-    */
+    /*
+*  @name       StartTurn()
+*  @purpose    deals the player 5 cards if its round one then starts the players turn
+*/
+
+ 
     public virtual void StartTurn()
     {
+            //assigns deck info and color
+            //CreateDeckInfo();
+            //Updates the round to current
+            ChangeRound();
+            //updates the score board
+            ChangeAllScore();
+            //creating an "instance" of the CardRetrievalFromDeck script, allows it to be retrieved as an object
+            ScriptInstance = ScriptableObject.CreateInstance("CardRetrievalFromDeck"); //so you can use the script
+            Holder = ScriptableObject.FindObjectOfType<CardRetrievalFromDeck>(); //access to script
+                                                                                 //CameraHolder = GameObject.Find("Main Camera"); //sets the object to just the main camera
+    }
+
+    public void DisableStartButton()
+    {
+
+        deckbutton.SetActive(false);
         //assigns deck info and color
-        //CreateDeckInfo();
-        //Updates the round to current
-        ChangeRound();
-        //updates the score board
-        ChangeAllScore();
-        //creating an "instance" of the CardRetrievalFromDeck script, allows it to be retrieved as an object
-        ScriptInstance = ScriptableObject.CreateInstance("CardRetrievalFromDeck"); //so you can use the script
-        Holder = ScriptableObject.FindObjectOfType<CardRetrievalFromDeck>(); //access to script
-        //CameraHolder = GameObject.Find("Main Camera"); //sets the object to just the main camera
     }
 
     //accessors and mutators
@@ -412,7 +493,7 @@ public class Player : MonoBehaviour
     public List<Card> InvertebratePlacement { get => invertebratePlacement; set => invertebratePlacement = value; }
     public List<Card> MicrobePlacement { get => microbePlacement; set => microbePlacement = value; }
     public List<Card> HumanPlacement { get => humanPlacement; set => humanPlacement = value; }
-    public List<Card> MultiPlacement { get => multiPlacement; set => multiPlacement = value; }
+    public List<Card> MultiplayerPlacement { get => multiPlacement; set => multiPlacement = value; }
     public List<Card> FungiPlacement { get => fungiPlacement; set => fungiPlacement = value; }
     public List<Card> ConditionPlacement { get => conditionPlacement; set => conditionPlacement = value; }
     public List<Card> DiscardPlacement { get => discardPlacement; set => discardPlacement = value; }
@@ -427,7 +508,7 @@ public class Player : MonoBehaviour
     public bool ProtectedFromInvasivePlant { get => protectedFromInvasivePlant; set => protectedFromInvasivePlant = value; }
     public bool NoConditionRequirements { get => noConditionRequirements; set => noConditionRequirements = value; }
     public bool ProtectedFromBlight { get => protectedFromBlight; set => protectedFromBlight = value; }
-    public bool PausedOneTurn { get => pausedOneTurn; set => pausedOneTurn = value; }
+    public bool SkipTurn { get => pausedOneTurn; set => pausedOneTurn = value; }
     public bool ProtectedFromWeb { get => protectedFromWeb; set => protectedFromWeb = value; }
     public bool NoDiscard { get => noDiscard; set => noDiscard = value; }
     public bool DrawExtraCard { get => drawExtraCard; set => drawExtraCard = value; }
@@ -473,12 +554,12 @@ public class Player : MonoBehaviour
     public bool ThreeCardBurstAvailable { get => threeCardBurstAvailable; set => threeCardBurstAvailable = value; }
     public string HumanScoreGameObject { get => humanScoreGameObject; set => humanScoreGameObject = value; }
     public string CP1ScoreGameObject { get => cP1ScoreGameObject; set => cP1ScoreGameObject = value; }
-    public string CP2ScoreGameObject { get => cP2ScoreGameObject; set => cP2ScoreGameObject = value; }
-    public string CP3ScoreGameObject { get => cP3ScoreGameObject; set => cP3ScoreGameObject = value; }
+    //public string CP2ScoreGameObject { get => cP2ScoreGameObject; set => cP2ScoreGameObject = value; }
+    //public string CP3ScoreGameObject { get => cP3ScoreGameObject; set => cP3ScoreGameObject = value; }
     public Text HumanScoreText { get => humanScoreText; set => humanScoreText = value; }
     public Text CP1ScoreText { get => cP1ScoreText; set => cP1ScoreText = value; }
-    public Text CP2ScoreText { get => cP2ScoreText; set => cP2ScoreText = value; }
-    public Text CP3ScoreText { get => cP3ScoreText; set => cP3ScoreText = value; }
+    //public Text CP2ScoreText { get => cP2ScoreText; set => cP2ScoreText = value; }
+    //public Text CP3ScoreText { get => cP3ScoreText; set => cP3ScoreText = value; }
     public string PlayerName { get => playerName; set => playerName = value; }
 }
 
