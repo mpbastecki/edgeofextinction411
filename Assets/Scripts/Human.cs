@@ -114,10 +114,11 @@ public class Human : Player
 
     public void CheckExtinction()
     {
+        Computer computerPerson = GameManager.Instance.CP1;
         bool foundExtinction = false;
-        for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
         {
-            if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+            if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
             {
                 foundExtinction = true;
             }
