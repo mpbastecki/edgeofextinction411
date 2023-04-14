@@ -21,6 +21,10 @@ public class Computer : Player
     private Requirements req;
     //will help determine if the card should be placed or not
     private bool requirementsWork;
+    //this is for human
+    private bool canDraw;
+    //i forget what this is used for- so find out
+    private bool cardDiscarded;
 
 
     /*
@@ -292,6 +296,12 @@ public class Computer : Player
         ////to keep from a null excpetion error
         if (Hand.Count > 0)
             Destroy(CardParent.GetChild(0).gameObject);
+    }
+    public void CSkipRound()
+    {
+        Round = GameManager.Instance.Round;
+        RoundText = GameObject.Find(RoundGameObject).GetComponent<Text>();
+        RoundText.text = Round.ToString();
     }
 
     //accessors and mutators

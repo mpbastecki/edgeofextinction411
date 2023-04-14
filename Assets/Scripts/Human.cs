@@ -15,8 +15,8 @@ public class Human : Player
 {
     //used to pass in current object to differnt classes
     private Human currentPlayer;
-    private Human person = GameManager.Instance.Person;
-    private Computer comp = GameManager.Instance.CP1;
+    private Human humanPerson = GameManager.Instance.Person;
+    private Computer computerPerson = GameManager.Instance.CP1;
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -26,6 +26,8 @@ public class Human : Player
 
     //to make the three card burst butto visibile ane not visible
     private Button threeCardBurstButton;
+
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -98,19 +100,19 @@ public class Human : Player
     public void CheckExtinction()
     {
         bool foundExtinction = false;
-        for (int i = 0; i < comp.MultiplayerPlacement.Count; i++)
+        for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
         {
-            if (comp.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+            if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
             {
                 foundExtinction = true;
             }
         }
 
-        if (comp.ProtectedFromExtinction && foundExtinction)
+        if (computerPerson.ProtectedFromExtinction && foundExtinction)
         {
-            for (int i = 0; i < comp.HumanPlacement.Count; i++)
+            for (int i = 0; i < computerPerson.HumanPlacement.Count; i++)
             {
-                if (comp.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+                if (computerPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
                 {
                     
                     Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
@@ -123,14 +125,14 @@ public class Human : Player
             }
             for (int i = 0; i < MultiplayerPlacement.Count; i++)
             {
-                if (comp.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
                 {
                     Destroy(GameObject.Find("Multi-Extinction"));
                     MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
 
                 }
             }
-            comp.ProtectedFromExtinction = false;
+            computerPerson.ProtectedFromExtinction = false;
         }
     }
 
@@ -200,8 +202,6 @@ public class Human : Player
         {
             Debug.Log("Found children at play");
             Debug.Log("Skip the turn");
-            CurrentPlayer.CanDraw = false;
-            CurrentPlayer.CardDiscarded = true;
 
             for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
             {
@@ -209,13 +209,15 @@ public class Human : Player
                 {
                     Destroy(GameObject.Find("Multi-Children-At-Play"));
                     MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
-                    GameManager.Instance.NextPlayer(GameManager.Instance.Person.PlayerName);
-                    CurrentPlayer.CanDraw = false;
-                    CurrentPlayer.CardDiscarded = true; 
+                    SkipRound();
+                    computerPerson.CSkipRound();
+                    humanPerson.cardDiscarded = false;
                 }
             }
-
+            
+        
         }
+        
         else
         {
             CurrentPlayer.SkipTurn = false;
@@ -288,10 +290,12 @@ public class Human : Player
 
 
 
-        /*
-     *  @name       GenerateCardObjects() extend from parent class and ads additon info specific to human
-     *  @purpose    this gets the card from the deck and assigns it to a game object that will be the card you will see omn the screen
-     */
+    /*
+ *  @name       GenerateCardObjects() extend from parent class and ads additon info specific to human
+ *  @purpose    this gets the card from the deck and assigns it to a game object that will be the card you will see omn the screen
+ */
+
+
     public override void GenerateCardObject()
     {
         //gets the parent class method stuff
@@ -401,5 +405,6 @@ public class Human : Player
     public Text DrawText { get => drawText; set => drawText = value; }
     public Human CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     public Button ThreeCardBurstButton { get => threeCardBurstButton; set => threeCardBurstButton = value; }
+    
 }
 
