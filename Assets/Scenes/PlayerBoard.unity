@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 405318550}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 9465ec15d30083f47a742c661c896797,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5464,6 +5465,7 @@ GameObject:
   - component: {fileID: 747240014}
   - component: {fileID: 747240013}
   - component: {fileID: 747240012}
+  - component: {fileID: 747240015}
   m_Layer: 5
   m_Name: Deck Draw Button
   m_TagString: Untagged
@@ -5537,8 +5539,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1986522119}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartHumanTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 747240015}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: DisableStartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5586,6 +5600,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747240010}
   m_CullTransparentMesh: 0
+--- !u!114 &747240015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747240010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa1bad2e7e5348419f87584f2670a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckbutton: {fileID: 747240010}
 --- !u!1 &775287460
 GameObject:
   m_ObjectHideFlags: 0
@@ -7276,15 +7303,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1986522105}
         m_TargetAssemblyTypeName: HideShowBoards, Assembly-CSharp
         m_MethodName: ShowPlayer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &974740680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12543,6 +12561,7 @@ GameObject:
   - component: {fileID: 1986522111}
   - component: {fileID: 1986522110}
   - component: {fileID: 1986522107}
+  - component: {fileID: 1986522099}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12550,6 +12569,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1986522099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986522098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61e109cfe204dda44af3cb4570e05101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &1986522100
 Behaviour:
   m_ObjectHideFlags: 0

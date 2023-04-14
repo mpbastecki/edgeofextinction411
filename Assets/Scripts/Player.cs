@@ -13,6 +13,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public GameObject deckbutton;
     //keeps track of how many regions they have to make sure they can draw the right amount if cards
     private int regionCounter;
     //keeps track of how many cards the player can draw based off of how many regions they have
@@ -220,6 +221,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //doesnt actually do shit
         Debug.Log("Hello");
         
@@ -413,6 +415,13 @@ public class Player : MonoBehaviour
         RoundText.text = Round.ToString();
     }
 
+    public void SkipRound()
+    {
+        Round = GameManager.Instance.Round + 1;
+        RoundText = GameObject.Find(RoundGameObject).GetComponent<Text>();
+        RoundText.text = Round.ToString();
+    }
+
         /*
     *  @name       AssignDeck()
     *  @purpose    This loops through the deck list created in the game manager and assigns the correct deck to the player
@@ -447,22 +456,31 @@ public class Player : MonoBehaviour
         DeckText.text = Deck.DeckName.ToString();
     }
 
-        /*
-    *  @name       StartTurn()
-    *  @purpose    deals the player 5 cards if its round one then starts the players turn
-    */
+    /*
+*  @name       StartTurn()
+*  @purpose    deals the player 5 cards if its round one then starts the players turn
+*/
+
+ 
     public virtual void StartTurn()
     {
+            //assigns deck info and color
+            //CreateDeckInfo();
+            //Updates the round to current
+            ChangeRound();
+            //updates the score board
+            ChangeAllScore();
+            //creating an "instance" of the CardRetrievalFromDeck script, allows it to be retrieved as an object
+            ScriptInstance = ScriptableObject.CreateInstance("CardRetrievalFromDeck"); //so you can use the script
+            Holder = ScriptableObject.FindObjectOfType<CardRetrievalFromDeck>(); //access to script
+                                                                                 //CameraHolder = GameObject.Find("Main Camera"); //sets the object to just the main camera
+    }
+
+    public void DisableStartButton()
+    {
+
+        deckbutton.SetActive(false);
         //assigns deck info and color
-        //CreateDeckInfo();
-        //Updates the round to current
-        ChangeRound();
-        //updates the score board
-        ChangeAllScore();
-        //creating an "instance" of the CardRetrievalFromDeck script, allows it to be retrieved as an object
-        ScriptInstance = ScriptableObject.CreateInstance("CardRetrievalFromDeck"); //so you can use the script
-        Holder = ScriptableObject.FindObjectOfType<CardRetrievalFromDeck>(); //access to script
-        //CameraHolder = GameObject.Find("Main Camera"); //sets the object to just the main camera
     }
 
     //accessors and mutators

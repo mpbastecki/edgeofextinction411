@@ -89,8 +89,10 @@ public class Reqs
 {
     //this is to hold the player object. We are using this that way the computer and humans can each use this class. 
     private Player thePlayer;
+
     private Human humanPerson = GameManager.Instance.Person;
     private Computer compPerson = GameManager.Instance.CP1;
+
     //this is the constructor that assigns the currentplayer that was passed in from the requirements 
     public Reqs(Player pPlayer)
     {

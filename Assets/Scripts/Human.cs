@@ -16,7 +16,7 @@ public class Human : Player
     //used to pass in current object to differnt classes
     private Human currentPlayer;
     private Human humanPerson = GameManager.Instance.Person;
-    
+    private Computer computerPerson = GameManager.Instance.CP1;
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -32,7 +32,6 @@ public class Human : Player
     //assigns the script to the game object
 
     //assigns the game object to the script withe the game object
-
     // Start is called before the first frame update
     void Start()
     {
@@ -77,34 +76,37 @@ public class Human : Player
     *  @name       StartTurn() extends from parent
     *  @purpose    deals the player 5 cards if its round one then starts the players turn
     */
+    bool foundChildrenAtPlay = false;
+    bool foundTemperatureDrop = false;
     public override void StartTurn()
     {
         //execute parent method
         base.StartTurn();
+        Debug.Log("Person player name is: " + GameManager.Instance.Person.PlayerName);
         //allowing colliders to work
         Physics.queriesHitTriggers = true;
-        //after the round has changed the player needs to discard again
-        CardDiscarded = false;
-        //gets the text component so it can be changed
-        DrawText = GameObject.Find("DrawText").GetComponent<Text>(); //gets the text component so it can be changed
-        //if it is the first round then deal 5 cards automatically
-        if (Round == 1 && CanDraw == true) //only happens in the first round
-        {
-            CreateButtonObjects();
-            Draw(5);
-        }
-        DrawText.text = "Step 1: Play Card(s) \n Step 2: Discard to End Your Turn";
-         //gets the right amount of cards to draw based off regions its a parent function
-        DrawAmount();
-        //draws the apropriate amount
-        Debug.Log("testing");
-        Draw(DrawCount);
-        //makes the human player unable to draw again
-        CanDraw = false;
-
+            //after the round has changed the player needs to discard again
+            CardDiscarded = false;
+            //gets the text component so it can be changed
+            DrawText = GameObject.Find("DrawText").GetComponent<Text>(); //gets the text component so it can be changed
+                                                                         //if it is the first round then deal 5 cards automatically
+            if (Round == 1 && CanDraw == true) //only happens in the first round
+            {
+                CreateButtonObjects();
+                Draw(5);
+                
+            }
+            DrawText.text = "Step 1: Play Card(s) \n Step 2: Discard to End Your Turn";
+            //gets the right amount of cards to draw based off regions its a parent function
+            DrawAmount();
+            //draws the apropriate amount
+            Debug.Log("testing");
+            Draw(DrawCount);
+            //makes the human player unable to draw again
+            CanDraw = false;
         
-
     }
+
 
 
     public void CheckExtinction()
@@ -221,6 +223,89 @@ public class Human : Player
             }
         }
 
+        bool foundChildrenAtPlay = false;
+        bool foundTemperatureDrop = false;
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+        {
+            switch (CurrentPlayer.MultiplayerPlacement[i].CardName)
+            {
+                case "Multi-Children-At-Play":
+
+                    foundChildrenAtPlay = true;
+                    break;
+                case "Multi-Temperature-Drop":
+
+                    foundTemperatureDrop = true;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        //checks for darkling larvae beetle
+        if (req.r247())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, Deck.Cards, InvertebratePlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if(CurrentPlayer.DiscardPlacement[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, DiscardPlacement, InvertebratePlacement, false);
+                }
+            }
+        }
+        //checks for barred owl
+        if (req.r246())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Animal-Barred-Owl")
+                {
+                    MoveCard(i, AnimalGameObject, Deck.Cards, AnimalPlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.DiscardPlacement[i].CardName == "Animal-Barred-Owl")
+                {
+                    MoveCard(i, AnimalGameObject, DiscardPlacement, AnimalPlacement, false);
+                }
+            }
+        }
+        //checks for big tooth aspen and white birch
+        if (req.r248())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+
+            }
+        }
+
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
             
@@ -255,7 +340,39 @@ public class Human : Player
 
 
         }
+        if (foundChildrenAtPlay)
+        {
+            Debug.Log("Found children at play");
+            Debug.Log("Skip the turn");
 
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+            {
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                {
+                    Destroy(GameObject.Find("Multi-Children-At-Play"));
+                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+                    SkipRound();
+                    computerPerson.CSkipRound();
+                    humanPerson.cardDiscarded = false;
+                }
+            }
+            
+        
+        }
+        
+        else
+        {
+            CurrentPlayer.SkipTurn = false;
+        }
+        if (foundTemperatureDrop)
+        {
+            Debug.Log("Found temperature drop");
+            CurrentPlayer.SkipTurn = true;
+        }
+        else
+        {
+            CurrentPlayer.SkipTurn = false;
+        }
         if (foundBiologist)
         {
             Debug.Log("biologist");
@@ -315,10 +432,12 @@ public class Human : Player
 
 
 
-        /*
-     *  @name       GenerateCardObjects() extend from parent class and ads additon info specific to human
-     *  @purpose    this gets the card from the deck and assigns it to a game object that will be the card you will see omn the screen
-     */
+    /*
+ *  @name       GenerateCardObjects() extend from parent class and ads additon info specific to human
+ *  @purpose    this gets the card from the deck and assigns it to a game object that will be the card you will see omn the screen
+ */
+
+
     public override void GenerateCardObject()
     {
         //gets the parent class method stuff
@@ -339,6 +458,7 @@ public class Human : Player
     */
     public override void Draw(int pAmount)
     {
+        Debug.Log("Skip the turn part 2");
         //gets parent info
         base.Draw(pAmount);
         //makes sure you can opnly draw once basically
@@ -419,13 +539,17 @@ public class Human : Player
         ThreeCardBurstButton.onClick.AddListener(ThreeCardExecute);
     }
 
+    
+
     //accessors and mutators
     public bool CanDraw { get => canDraw; set => canDraw = value; }
     public bool CardDiscarded { get => cardDiscarded; set => cardDiscarded = value; }
     public Text DrawText { get => drawText; set => drawText = value; }
     public Human CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     public Button ThreeCardBurstButton { get => threeCardBurstButton; set => threeCardBurstButton = value; }
+
    // public GameObject ReqGO { get => reqGO; set => reqGO = value; }
    // public Requirements Req { get => req; set => req = value; }
+
 }
 
