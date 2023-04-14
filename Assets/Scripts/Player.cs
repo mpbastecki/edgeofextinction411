@@ -226,10 +226,7 @@ public class Player : MonoBehaviour
     }
 
 
-    // Checks for the extinction card to remove Two Sisters in the Wild from play
-    public void CheckExtinction(){}
-
-
+  
 
 
 

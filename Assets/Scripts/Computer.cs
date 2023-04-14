@@ -110,10 +110,11 @@ public class Computer : Player
 
     public void CheckExtinction()
     {
+        Human humanPerson = GameManager.Instance.Person;
         bool foundExtinction = false;
-        for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
         {
-            if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+            if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
             {
                 foundExtinction = true;
             }
@@ -134,9 +135,9 @@ public class Computer : Player
 
                 }
             }
-            for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
             {
-                if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
                 {
                     Destroy(GameObject.Find("Multi-Extinction"));
                     MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);

@@ -16,7 +16,7 @@ public class Human : Player
     //used to pass in current object to differnt classes
     private Human currentPlayer;
     private Human humanPerson = GameManager.Instance.Person;
-    private Computer computerPerson = GameManager.Instance.CP1;
+    
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -109,11 +109,11 @@ public class Human : Player
 
     public void CheckExtinction()
     {
-                 
+            Computer computerPerson = GameManager.Instance.CP1;
             bool foundExtinction = false;
-            for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
             {
-                if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
                 {
                     foundExtinction = true;
                 }
@@ -134,9 +134,9 @@ public class Human : Player
 
                     }
                 }
-                for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+                for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
                 {
-                    if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Extinction")
+                    if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Extinction")
                     {
                         Destroy(GameObject.Find("Multi-Extinction"));
                         MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);

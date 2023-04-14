@@ -12,12 +12,13 @@ public class ActionButton : MonoBehaviour
 {
     private Text cardName;
 
-   
-    //this function decides what action function to use
-    //we are using a switch cased based off of the cards name to decide on what function to call.
-    //where the CardName object
-    //PlayerBored Scene >> CardInfoCanvas >> CardInfoPanal >> CardName
-    public void WhatActionIsHappening()
+    void Start(){ }
+
+        //this function decides what action function to use
+        //we are using a switch cased based off of the cards name to decide on what function to call.
+        //where the CardName object
+        //PlayerBored Scene >> CardInfoCanvas >> CardInfoPanal >> CardName
+        public void WhatActionIsHappening()
     {
         //This is finding the cards name by finding the game object Cardname and using its text component to set it to our variabl.
         CardName = GameObject.Find("CardName").GetComponent<Text>();
