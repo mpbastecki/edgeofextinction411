@@ -199,8 +199,8 @@ public class GameManager : MonoBehaviour {
         //sets human card values
         Person.Deck.DeckName = Allegheny;
         Person.Deck.DeckColor = AlleghenyColor;
-        CP1.Deck.DeckName = Appalachian;
-        CP1.Deck.DeckColor = AppalachianColor;
+        CP1.Deck.DeckName = Allegheny;//Appalachian;
+        CP1.Deck.DeckColor = AlleghenyColor;//AppalachianColor;
         //CP2.Deck.DeckName = Peat;
         //CP2.Deck.DeckColor = PeatBogsColor;
         //CP3.Deck.DeckName = Clarion;
