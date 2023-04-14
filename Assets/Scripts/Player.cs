@@ -94,6 +94,9 @@ public class Player : MonoBehaviour
     private List<Card> conditionPlacement;
     private List<Card> discardPlacement;
 
+    private Human humanPerson = GameManager.Instance.Person;
+    private Computer computerPerson = GameManager.Instance.CP1;
+
     /*
      *  @TODO:
      *      Refactor.
@@ -218,13 +221,26 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
 
+=======
+        //doesnt actually do shit
+        Debug.Log("Hello");
+        
+>>>>>>> main
     }
 
-      /*
-    *  @name       GetTotalRegions()
-    *  @purpose    adds up all the regions and returns that value so the amount if cards drawn can be determined
-    */
+
+  
+
+
+
+
+
+    /*
+  *  @name       GetTotalRegions()
+  *  @purpose    adds up all the regions and returns that value so the amount if cards drawn can be determined
+  */
     public int GetTotalRegions()
     {
         //local variable to keep track of regions
@@ -289,6 +305,7 @@ public class Player : MonoBehaviour
         Holder.CardNameHolder = pOriginPlacement[pZ].CardName;
         ////creates a new card object
         GenerateCardObject();
+        
         ////creates the new sprite with the correct image
         Holder.setSprite(Sr);
         ////tells the current game object at play where to go to
@@ -311,14 +328,15 @@ public class Player : MonoBehaviour
         pDestinationPlacement.Add(pOriginPlacement[pZ]);
         ////removes the card just played from the hand
         pOriginPlacement.Remove(pOriginPlacement[pZ]);
-
+        GameObject temp = GameObject.Find(pDestinationPlacement[pDestinationPlacement.Count - 1].CardName);
+        Destroy(temp.GetComponent<Draggable>());
         ////resets the card parent that way if anything funky happens it will return to the hand
         ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
         CardParent = GameObject.Find(HandGameObject).transform;
 
         ////to keep from a null excpetion error
-        if (Hand.Count > 0)
-            Destroy(CardParent.GetChild(0).gameObject);
+        //if (Hand.Count > 0)
+            //Destroy(CardParent.GetChild(0).gameObject);
     }
 
 

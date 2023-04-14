@@ -42,8 +42,27 @@ public class CardRetrievalFromDeck : ScriptableObject
                     //  removes aforementioned card from deck                
                     pCurrentPlayer.Deck.Cards.Remove(pCurrentPlayer.Deck.Cards[CardDrawHolder]);
 
+<<<<<<< HEAD
                     //ends loop becasue that means a region card was found
                     Region = true;
+=======
+                    while (Region == false && GameManager.Instance.Round == 1)
+                    {
+                        CardDrawHolder = Random.Range(0, (pCurrentPlayer.Deck.Cards.Count - 1));
+
+                        if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardType == "Human")
+                        {
+                            CardNameHolder = pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName;
+                            //  adds card to GameManager instance's hand
+                            pCurrentPlayer.Hand.Add(pCurrentPlayer.Deck.Cards[CardDrawHolder]);
+                            //  removes aforementioned card from deck                
+                             pCurrentPlayer.Deck.Cards.Remove(pCurrentPlayer.Deck.Cards[CardDrawHolder]);
+
+                            //ends loop becasue that means a region card was found
+                            Region = true;
+                        }
+                    }
+>>>>>>> main
                 }
             }
         }

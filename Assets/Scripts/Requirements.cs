@@ -11,13 +11,8 @@ using UnityEngine;
  *  @author     CIS 411
  *  @date       2020/04/13
  */
-public class Requirements : MonoBehaviour
+public class Requirements : Player
 {
-    // Use this for initialization
-    void Start()
-    {
-    }
-
     void DestroyGameObject()
     {
         Destroy(gameObject);
@@ -94,8 +89,13 @@ public class Reqs
 {
     //this is to hold the player object. We are using this that way the computer and humans can each use this class. 
     private Player thePlayer;
+<<<<<<< HEAD
     
 
+=======
+    private Human humanPerson = GameManager.Instance.Person;
+    private Computer compPerson = GameManager.Instance.CP1;
+>>>>>>> main
     //this is the constructor that assigns the currentplayer that was passed in from the requirements 
     public Reqs(Player pPlayer)
     {
@@ -114,7 +114,7 @@ public class Reqs
       */
     public void CastPlayer(Player pPlayer)
     {
-
+     
         if (ThePlayer.GetType() == typeof(Human))
         {
             ThePlayer = (Human)pPlayer;
@@ -123,7 +123,8 @@ public class Reqs
         {
             ThePlayer = (Computer)pPlayer;
         }
-    }
+    
+        }
 
 
     /*
@@ -3116,8 +3117,6 @@ public class Reqs
 
     //Checks to see if the explorer is played in the field. Condition card can be played without necessary requirements if Explorer is played
 
-   
-
     public bool r246() //Barred Owl to be played from deck or discard
     {
         //Variables hold the number of canopy plants and if the requirement is satisfied
@@ -3153,12 +3152,13 @@ public class Reqs
             animalCheck = true;
 
         //Checks all requirements including playable requirements
-        if (canopyCheck && animalCheck && r013() && r014() && r015() && r016())
+        if (canopyCheck && animalCheck )//&& r013() && r014() && r015() && r016())
             return true;
 
         return false;
 
     }
+
 
     public bool r247() //Darkling beetle larvae to be played from deck or discard
     {
@@ -3166,21 +3166,48 @@ public class Reqs
         bool humanCheck = false;
 
         //Checks if three humans are played
-        if (ThePlayer.HumanPlacement.Count >= 3)
-            humanCheck = false;
-
+        
+        if (thePlayer.HumanPlacement.Count >= 1)
+        {
+            humanCheck = true;
+        }
         //Checks all requirements
-        if (humanCheck && r046() && r047())
+        if (humanCheck)
+        {
             return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool r248()//for big tooth aspen and white birch
+    {
+        
+        for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+        {
+            //Counts each tiny or small animal
+            if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Forest-Fire")
+                return true;
+        }
+        for (int i = 0; i < compPerson.MultiplayerPlacement.Count; i++)
+        {
+            //Counts each tiny or small animal
+            if (compPerson.MultiplayerPlacement[i].CardName == "Multi-Forest-Fire")
+                return true;
+        }
+
+
 
         return false;
     }
 
 
-
         
     //accessors and mutators
     public Player ThePlayer { get => thePlayer; set => thePlayer = value; }
+    
 }
 
 
