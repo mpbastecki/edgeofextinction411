@@ -15,8 +15,6 @@ public class Human : Player
 {
     //used to pass in current object to differnt classes
     private Human currentPlayer;
-    private Human humanPerson = GameManager.Instance.Person;
-    private Computer computerPerson = GameManager.Instance.CP1;
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -80,6 +78,7 @@ public class Human : Player
     bool foundTemperatureDrop = false;
     public override void StartTurn()
     {
+        Computer computerPerson = GameManager.Instance.CP1;
         //execute parent method
         base.StartTurn();
         Debug.Log("Person player name is: " + GameManager.Instance.Person.PlayerName);
@@ -104,7 +103,54 @@ public class Human : Player
             Draw(DrawCount);
             //makes the human player unable to draw again
             CanDraw = false;
-        
+        bool foundChildrenAtPlay = false;
+        bool foundTemperatureDrop = false;
+        for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+        {
+            switch (computerPerson.MultiplayerPlacement[i].CardName)
+            {
+                case "Multi-Children-At-Play":
+
+                    foundChildrenAtPlay = true;
+                    break;
+                case "Multi-Temperature-Drop":
+
+                    foundTemperatureDrop = true;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        if (foundChildrenAtPlay)
+        {
+            Debug.Log("Found children at play");
+            Debug.Log("Skip the turn");
+
+            for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+            {
+                if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                {
+                    Destroy(GameObject.Find("Multi-Children-At-Play"));
+                    MoveCard(i, computerPerson.DiscardGameObject, computerPerson.MultiplayerPlacement, computerPerson.DiscardPlacement, true);
+                    SkipRound();
+                    foundChildrenAtPlay = false;     
+                    //CurrentPlayer.cardDiscarded = false;
+                    //CanDraw = true;
+                    //Draw(1);
+
+                }
+            }
+
+
+        }
+
+        //else
+        //{
+        //    computerPerson.SkipTurn = false;
+        //}
+
     }
 
 
@@ -160,6 +206,7 @@ public class Human : Player
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
+        Computer computerPerson = GameManager.Instance.CP1;
         //checks for darkling larvae beetle
         if (req.r247())
         {
@@ -223,25 +270,6 @@ public class Human : Player
             }
         }
 
-        bool foundChildrenAtPlay = false;
-        bool foundTemperatureDrop = false;
-        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
-        {
-            switch (CurrentPlayer.MultiplayerPlacement[i].CardName)
-            {
-                case "Multi-Children-At-Play":
-
-                    foundChildrenAtPlay = true;
-                    break;
-                case "Multi-Temperature-Drop":
-
-                    foundTemperatureDrop = true;
-                    break;
-
-                default:
-                    break;
-            }
-        }
         //checks for darkling larvae beetle
         if (req.r247())
         {
@@ -340,30 +368,6 @@ public class Human : Player
 
 
         }
-        if (foundChildrenAtPlay)
-        {
-            Debug.Log("Found children at play");
-            Debug.Log("Skip the turn");
-
-            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
-            {
-                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
-                {
-                    Destroy(GameObject.Find("Multi-Children-At-Play"));
-                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
-                    SkipRound();
-                    computerPerson.CSkipRound();
-                    humanPerson.cardDiscarded = false;
-                }
-            }
-            
-        
-        }
-        
-        else
-        {
-            CurrentPlayer.SkipTurn = false;
-        }
         if (foundTemperatureDrop)
         {
             Debug.Log("Found temperature drop");
@@ -458,7 +462,6 @@ public class Human : Player
     */
     public override void Draw(int pAmount)
     {
-        Debug.Log("Skip the turn part 2");
         //gets parent info
         base.Draw(pAmount);
         //makes sure you can opnly draw once basically

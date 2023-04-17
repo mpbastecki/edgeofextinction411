@@ -417,9 +417,11 @@ public class Player : MonoBehaviour
 
     public void SkipRound()
     {
-        Round = GameManager.Instance.Round + 1;
-        RoundText = GameObject.Find(RoundGameObject).GetComponent<Text>();
-        RoundText.text = Round.ToString();
+        //GameManager.Instance.Round = round++;
+        GameManager.Instance.NextPlayer(PlayerName);
+        //  updates score text
+        //RoundText = GameObject.Find(RoundGameObject).GetComponent<Text>();
+        //RoundText.text = Round.ToString();
     }
 
         /*
