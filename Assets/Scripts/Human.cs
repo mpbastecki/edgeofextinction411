@@ -525,12 +525,21 @@ public class Human : Player
         ThreeCardBurstButton.gameObject.SetActive(false);
         ThreeCardBurstButton.interactable = false;
     }
-
+    public void ThreeCardExecuteEffect()
+    {
+        base.ThreeCardExecute();
+        //makes it so player can draw the cards
+        CanDraw = true;
+        Draw(3);
+        
+        //Disables the button 
+       
+    }
     /*The code below is for buttso associated only woith the human, these get rid of the need to have separate classes for each button*/
-        /*
-     *  @name       CreateButtonObjects()
-     *  @purpose    creates the buttons and adds listeners for when they are clicked
-     */
+    /*
+ *  @name       CreateButtonObjects()
+ *  @purpose    creates the buttons and adds listeners for when they are clicked
+ */
     public void CreateButtonObjects()
     {
         //finds the ThreeCardBurstButton in the scene
@@ -548,6 +557,7 @@ public class Human : Player
     public Human CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     public Button ThreeCardBurstButton { get => threeCardBurstButton; set => threeCardBurstButton = value; }
 
+    
    // public GameObject ReqGO { get => reqGO; set => reqGO = value; }
    // public Requirements Req { get => req; set => req = value; }
 

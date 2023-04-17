@@ -34,7 +34,7 @@ public class CardRetrievalFromDeck : ScriptableObject
             {
                 CardDrawHolder = Random.Range(0, (pCurrentPlayer.Deck.Cards.Count - 1));
 
-                if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName == "Multi-Children-At-Play")
+                if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName == "Human-Two-Sisters-In-The-Wild")
                 {
                     CardNameHolder = pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName;
                     //  adds card to GameManager instance's hand
@@ -44,22 +44,7 @@ public class CardRetrievalFromDeck : ScriptableObject
 
                     //ends loop becasue that means a region card was found
                     Region = true;
-                    while (Region == false && GameManager.Instance.Round == 1)
-                    {
-                        CardDrawHolder = Random.Range(0, (pCurrentPlayer.Deck.Cards.Count - 1));
-
-                        if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardType == "Human")
-                        {
-                            CardNameHolder = pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName;
-                            //  adds card to GameManager instance's hand
-                            pCurrentPlayer.Hand.Add(pCurrentPlayer.Deck.Cards[CardDrawHolder]);
-                            //  removes aforementioned card from deck                
-                             pCurrentPlayer.Deck.Cards.Remove(pCurrentPlayer.Deck.Cards[CardDrawHolder]);
-
-                            //ends loop becasue that means a region card was found
-                            Region = true;
-                        }
-                    }
+                    
 
                 }
             }

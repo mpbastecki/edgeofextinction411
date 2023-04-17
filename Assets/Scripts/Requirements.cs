@@ -13,6 +13,10 @@ using UnityEngine;
  */
 public class Requirements : Player
 {
+    private void Start()
+    {
+        
+    }
     void DestroyGameObject()
     {
         Destroy(gameObject);
@@ -3164,7 +3168,7 @@ public class Reqs
 
         //Checks if three humans are played
         
-        if (thePlayer.HumanPlacement.Count >= 1)
+        if (thePlayer.HumanPlacement.Count >= 3)
         {
             humanCheck = true;
         }

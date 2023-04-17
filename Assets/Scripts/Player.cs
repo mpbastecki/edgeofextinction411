@@ -94,8 +94,8 @@ public class Player : MonoBehaviour
     private List<Card> conditionPlacement;
     private List<Card> discardPlacement;
 
-    private Human humanPerson = GameManager.Instance.Person;
-    private Computer computerPerson = GameManager.Instance.CP1;
+    //private Human humanPerson = GameManager.Instance.Person;
+    //private Computer computerPerson = GameManager.Instance.CP1;
 
     /*
      *  @TODO:
@@ -336,7 +336,48 @@ public class Player : MonoBehaviour
             //Destroy(CardParent.GetChild(0).gameObject);
     }
 
+    public void MoveCardDraggable(int pZ, string pParent, List<Card> pOriginPlacement, List<Card> pDestinationPlacement, bool pDiscard)
+    {
+        //assigns where the game object with go to a object
+        Debug.Log("Moving cards");
+        CardParent = GameObject.Find(pParent).transform;
+        Debug.Log(CardParent + " Moved");
+        //sets the name so the sprite can show the front of card
+        Holder.CardNameHolder = pOriginPlacement[pZ].CardName;
+        ////creates a new card object
+        GenerateCardObject();
 
+        ////creates the new sprite with the correct image
+        Holder.setSprite(Sr);
+        ////tells the current game object at play where to go to
+        ////CardObject.transform.SetParent(CardParent);
+        ////resizes the card so it fits nicely on the placements
+        CardObject.transform.localScale = new Vector3(1.0f, 1.0f, 0);
+
+        if (pDiscard == false)
+        {
+            ChangeScore(pOriginPlacement[pZ].PointValue);
+        }
+        else
+        {
+
+            ChangeScore(-(pOriginPlacement[pZ].PointValue));
+
+        }
+
+        ////adds the card from the hand to the correct list
+        pDestinationPlacement.Add(pOriginPlacement[pZ]);
+        ////removes the card just played from the hand
+        pOriginPlacement.Remove(pOriginPlacement[pZ]);
+        
+        ////resets the card parent that way if anything funky happens it will return to the hand
+        ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
+        CardParent = GameObject.Find(HandGameObject).transform;
+
+        ////to keep from a null excpetion error
+        //if (Hand.Count > 0)
+        //Destroy(CardParent.GetChild(0).gameObject);
+    }
 
     /*
 *  @name       ChangeAllScore()

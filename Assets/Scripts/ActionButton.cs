@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class ActionButton : MonoBehaviour
 {
     private Text cardName;
-
+    
     void Start(){ }
 
         //this function decides what action function to use
@@ -22,7 +22,8 @@ public class ActionButton : MonoBehaviour
     {
         //This is finding the cards name by finding the game object Cardname and using its text component to set it to our variabl.
         CardName = GameObject.Find("CardName").GetComponent<Text>();
-
+        Human humanPerson = GameManager.Instance.Person;
+        Computer computerPerson = GameManager.Instance.CP1;
 
         //Using the switch case with the cardname as our condition, using (.text) to derefrence
         //what is inside the CardName variable. If we didn't do that then it will only show
@@ -30,23 +31,23 @@ public class ActionButton : MonoBehaviour
         switch (CardName.text)
         {
             case ("Biologist "):
-                Biologist();
+                Biologist(humanPerson);
                 break;
 
             case ("Botanist "):
-                Botanist();
+                Botanist(humanPerson);
                 break;
 
             case ("Ranger "):
-                Ranger();
+                Ranger(humanPerson);
                 break;
 
             case ("Explorer "):
-                Explorer();
+                Explorer(humanPerson);
                 break;
 
-            case ("Sisters At Play "):
-                TwoSisters();
+            case ("Two Sisters In The Wild "):
+                TwoSisters(humanPerson);
                 break;
 
         }
@@ -55,24 +56,108 @@ public class ActionButton : MonoBehaviour
         //Debug.Log(CardName.text);
     }
 
-    public void Biologist()
+    public void Biologist(Human HumanPerson)
     {
+        bool foundAnimal = false;
         
+        for(int i = 0; i < HumanPerson.Deck.Cards.Count;i++)
+        {
+            if (HumanPerson.Deck.Cards[i].CardType == "Animal")
+            {
+                
+                HumanPerson.MoveCard(i, HumanPerson.AnimalGameObject, HumanPerson.Deck.Cards, HumanPerson.AnimalPlacement, false);    
+                foundAnimal= true;
+                break;
+            }
+        }
+        if (foundAnimal)
+        {
+            for (int i = 0; i < HumanPerson.HumanPlacement.Count; i++)
+            {
+                if (HumanPerson.HumanPlacement[i].CardName == "Human-Biologist")
+                {
+                    Destroy(GameObject.Find("Human-Biologist"));
+                    HumanPerson.MoveCard(i, HumanPerson.DiscardGameObject, HumanPerson.HumanPlacement, HumanPerson.DiscardPlacement, true);
+                }
+            }
+        }
     }
-    public void Botanist()
+    public void Botanist(Human HumanPerson)
+    {
+        bool foundPlant = false;
+
+        for (int i = 0; i < HumanPerson.Deck.Cards.Count; i++)
+        {
+            if (HumanPerson.Deck.Cards[i].CardType == "Plant")
+            {
+
+                HumanPerson.MoveCard(i, HumanPerson.PlantGameObject, HumanPerson.Deck.Cards, HumanPerson.PlantPlacement, false);
+                foundPlant = true;
+                break;
+            }
+        }
+        if (foundPlant)
+        {
+            for (int i = 0; i < HumanPerson.HumanPlacement.Count; i++)
+            {
+                if (HumanPerson.HumanPlacement[i].CardName == "Human-Botanist")
+                {
+                    Destroy(GameObject.Find("Human-Botanist"));
+                    HumanPerson.MoveCard(i, HumanPerson.DiscardGameObject, HumanPerson.HumanPlacement, HumanPerson.DiscardPlacement, true);
+                }
+            }
+        }
+
+
+    }
+    public void Ranger(Human HumanPerson)
     {
     }
-    public void Ranger()
+    public void Explorer(Human HumanPerson)
     {
+        bool foundCondition = false;
+
+        for (int i = 0; i < HumanPerson.Deck.Cards.Count; i++)
+        {
+            if (HumanPerson.Deck.Cards[i].CardType == "Condition")
+            {
+
+                HumanPerson.MoveCard(i, HumanPerson.ConditionGameObject, HumanPerson.Deck.Cards, HumanPerson.ConditionPlacement, false);
+                foundCondition = true;
+                break;
+            }
+        }
+        if (foundCondition)
+        {
+            for (int i = 0; i < HumanPerson.HumanPlacement.Count; i++)
+            {
+                if (HumanPerson.HumanPlacement[i].CardName == "Human-Explorer")
+                {
+                    Destroy(GameObject.Find("Human-Explorer"));
+                    HumanPerson.MoveCard(i, HumanPerson.DiscardGameObject, HumanPerson.HumanPlacement, HumanPerson.DiscardPlacement, true);
+                }
+            }
+        }
     }
-    public void Explorer()
+    public void TwoSisters(Human HumanPerson)
     {
-    }
-    public void TwoSisters()
-    {
+
+
+        HumanPerson.ThreeCardExecuteEffect();
+  
+        for (int i = 0; i < HumanPerson.HumanPlacement.Count; i++)
+        {
+            if (HumanPerson.HumanPlacement[i].CardName == "Human-Two-Sisters-In-The-Wild")
+            {
+                Destroy(GameObject.Find("Human-Two-Sisters-In-The-Wild"));
+                HumanPerson.MoveCard(i, HumanPerson.DiscardGameObject, HumanPerson.HumanPlacement, HumanPerson.DiscardPlacement, true);
+            }
+        }
+    
     }
 
     //getters and setters
     public Text CardName { get => cardName; set => cardName = value; }
-
+    //public Human HumanPerson { get => humanPerson;set => humanPerson = value; }
+    //public Computer ComputerPerson { get => computerPerson; set => computerPerson = value; }
 }
