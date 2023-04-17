@@ -337,7 +337,9 @@ public class Computer : Player
         ////resets the card parent that way if anything funky happens it will return to the hand
         ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
         CardParent = GameObject.Find(HandGameObject).transform;
-
+        //GameObject temp = GameObject.Find(pListPlacement[pListPlacement.Count - 1].CardName);
+        //Destroy(temp.GetComponent<HoverClass>());
+        //temp.AddComponent<DoubleClickDescription>();
         ////to keep from a null excpetion error
         if (Hand.Count > 0)
             Destroy(CardParent.GetChild(0).gameObject);

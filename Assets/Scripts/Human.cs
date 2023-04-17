@@ -104,7 +104,8 @@ public class Human : Player
             Draw(DrawCount);
             //makes the human player unable to draw again
             CanDraw = false;
-        
+            
+            
     }
 
 
@@ -149,7 +150,8 @@ public class Human : Player
             }
      }
     
-
+    private bool blackberryActivated = false;
+    private bool whitePineActivated = false;
 
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
     public void CheckStandingCards(Human pCurrentPlayer)
@@ -160,6 +162,7 @@ public class Human : Player
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
+        
         //checks for darkling larvae beetle
         if (req.r247())
         {
@@ -220,6 +223,78 @@ public class Human : Player
                 {
                     MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
                 }
+            }
+        }
+
+        bool foundBlackberry = false;
+        bool foundWhitePine = false;
+        
+
+        for (int i = 0; i < CurrentPlayer.PlantPlacement.Count; i++)
+        {
+            switch(CurrentPlayer.PlantPlacement[i].CardName) {
+
+                case "Plant-Allegeny-Blackberry":
+                    foundBlackberry= true;
+                    break;
+
+
+                case "Plant-Eastern-White-Pine":
+                    foundWhitePine = true;
+                    break;
+
+                default: break;
+
+            }
+        }
+
+        if (foundBlackberry && !blackberryActivated)
+        {
+            bool foundCanopy = false;
+            blackberryActivated = true;
+            for(int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].PlantType == "Canopy" || CurrentPlayer.Deck.Cards[i].PlantType == "Understory")
+                {
+                    MoveCard(i,PlantGameObject,CurrentPlayer.Deck.Cards,PlantPlacement,false);
+                    break;
+                }
+            }
+            if(!foundCanopy)
+            {
+                for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+                {
+                    if (CurrentPlayer.Deck.Cards[i].PlantType == "Canopy" || CurrentPlayer.Deck.Cards[i].PlantType == "Understory")
+                    {
+                        MoveCard(i, PlantGameObject, CurrentPlayer.Deck.Cards, PlantPlacement, false);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (foundWhitePine && !whitePineActivated)
+        {
+            whitePineActivated= true;
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].AnimalDiet == "Herbivore")
+                {
+                    switch (CurrentPlayer.Deck.Cards[i].CardType)
+                    {
+                        case "Animal":
+                            MoveCard(i, AnimalGameObject, CurrentPlayer.Deck.Cards, AnimalPlacement, false);
+                            break;
+
+                        case "Invertebrate":
+                            MoveCard(i, InvertebrateGameObject, CurrentPlayer.Deck.Cards, InvertebratePlacement, false);
+                            break;
+                    }
+                    break;
+                    
+                    
+                }
+                
             }
         }
 
@@ -250,6 +325,7 @@ public class Human : Player
                 if (CurrentPlayer.Deck.Cards[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
                 {
                     MoveCard(i, InvertebrateGameObject, Deck.Cards, InvertebratePlacement, false);
+                    break;
                 }
             }
             for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
@@ -257,6 +333,7 @@ public class Human : Player
                 if(CurrentPlayer.DiscardPlacement[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
                 {
                     MoveCard(i, InvertebrateGameObject, DiscardPlacement, InvertebratePlacement, false);
+                    break;
                 }
             }
         }
@@ -268,6 +345,7 @@ public class Human : Player
                 if (CurrentPlayer.Deck.Cards[i].CardName == "Animal-Barred-Owl")
                 {
                     MoveCard(i, AnimalGameObject, Deck.Cards, AnimalPlacement, false);
+                    break;
                 }
             }
             for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
@@ -275,6 +353,7 @@ public class Human : Player
                 if (CurrentPlayer.DiscardPlacement[i].CardName == "Animal-Barred-Owl")
                 {
                     MoveCard(i, AnimalGameObject, DiscardPlacement, AnimalPlacement, false);
+                    break;
                 }
             }
         }
@@ -286,10 +365,12 @@ public class Human : Player
                 if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
                 {
                     MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                    break;
                 }
                 else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
                 {
                     MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                    break;
                 }
             }
             for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
@@ -297,10 +378,12 @@ public class Human : Player
                 if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
                 {
                     MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                    break;
                 }
                 else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
                 {
                     MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                    break;
                 }
 
             }
@@ -308,9 +391,7 @@ public class Human : Player
 
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
-            
-
-            
+          
             switch(CurrentPlayer.HumanPlacement[i].CardName)
             {
                 case "Human-Biologist":

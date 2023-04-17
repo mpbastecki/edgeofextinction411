@@ -34,7 +34,7 @@ public class CardRetrievalFromDeck : ScriptableObject
             {
                 CardDrawHolder = Random.Range(0, (pCurrentPlayer.Deck.Cards.Count - 1));
 
-                if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName == "Human-Two-Sisters-In-The-Wild")
+                if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName == "Plant-Eastern-White-Pine")
                 {
                     CardNameHolder = pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName;
                     //  adds card to GameManager instance's hand

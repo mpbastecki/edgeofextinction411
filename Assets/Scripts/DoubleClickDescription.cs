@@ -121,6 +121,8 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
+        
         //makes sure that it was double clicked
         if (eventData.clickCount == 2)
         {
@@ -162,7 +164,7 @@ string nameHolder = this.gameObject.name; //this will be used to hold the name u
                 DescriptionOfCard.text = ""; //just resets it incase there is one that is completeley empty
 
                 //goes through andmatches the name, then proceeds to print the actions
-                for (int i = 0; i < person.SpecialRegionPlacement.Count; i++)
+                for (int i = 0; i < ThePlayer.SpecialRegionPlacement.Count; i++)
                 {
                     if (person.SpecialRegionPlacement[i].CardName == nameHolder)
                     {

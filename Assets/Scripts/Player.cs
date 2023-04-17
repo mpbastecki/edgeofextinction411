@@ -327,6 +327,7 @@ public class Player : MonoBehaviour
         pOriginPlacement.Remove(pOriginPlacement[pZ]);
         GameObject temp = GameObject.Find(pDestinationPlacement[pDestinationPlacement.Count - 1].CardName);
         Destroy(temp.GetComponent<Draggable>());
+        temp.AddComponent<DoubleClickDescription>();
         ////resets the card parent that way if anything funky happens it will return to the hand
         ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
         CardParent = GameObject.Find(HandGameObject).transform;
