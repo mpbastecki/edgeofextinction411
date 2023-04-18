@@ -73,7 +73,6 @@ public class Computer : Player
         }
             bool foundChildrenAtPlay = false;
             bool foundTemperatureDrop = false;
-            Human humanPerson = GameManager.Instance.Person;
             for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
             {
                 switch (humanPerson.MultiplayerPlacement[i].CardName)
@@ -92,7 +91,7 @@ public class Computer : Player
                 }
             }
 
-            if (foundChildrenAtPlay)
+            if (foundChildrenAtPlay || foundTemperatureDrop)
             {
                 Debug.Log("Found children at play");
                 Debug.Log("Skip the turn");
@@ -101,13 +100,17 @@ public class Computer : Player
                 {
                     if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
                     {
-                        //Destroy(GameObject.Find("Multi-Children-At-Play"));
-                        //MoveCard(i, humanPerson.DiscardGameObject, humanPerson.MultiplayerPlacement, humanPerson.DiscardPlacement, true);
+
+
                         SkipRound();
                         foundChildrenAtPlay = false;
-                        //CurrentPlayer.cardDiscarded = false;
-                        //CanDraw = true;
-                        //Draw(1);
+
+                    }
+                    else if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                    {
+
+                        SkipRound();
+                        foundTemperatureDrop = false;
 
                     }
                 }
@@ -215,6 +218,285 @@ public class Computer : Player
             }
             humanPerson.ProtectedFromExtinction = false;
         }
+    }
+
+    bool blackberryActivated = false;
+    bool whitePineActivated = false;
+    bool foundChildrenLock = false;
+    bool foundTemperatureDropLock = false;
+    int roundSkipCardPlayed;
+
+    //Checks human cards to set the right flags for protection from exinction, invasive species, etc
+    public void CheckStandingCards(Human pCurrentPlayer)
+    {
+        Reqs req = new Reqs(pCurrentPlayer);
+        bool foundBiologist = false;
+        bool foundBotanist = false;
+        bool foundExplorer = false;
+        bool foundRanger = false;
+        bool foundTwoSisters = false;
+        Computer computerPerson = GameManager.Instance.CP1;
+
+        //checks for children at play and temperature drop
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+        {
+            if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play" && !foundChildrenLock)
+            {
+                foundChildrenLock = true;
+                roundSkipCardPlayed = GameManager.Instance.Round;
+            }
+            else if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Temperature-Drop" && !foundTemperatureDropLock)
+            {
+                foundTemperatureDropLock = true;
+                roundSkipCardPlayed = GameManager.Instance.Round;
+            }
+            else if (foundChildrenLock && roundSkipCardPlayed < GameManager.Instance.Round)
+            {
+                //Debug.Log(GameObject.Find("Multi-Children-At-Play"));
+                Destroy(GameObject.Find("Multi-Children-At-Play"));
+                //Debug.Log("swag money");
+                MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+                foundChildrenLock = false;
+                roundSkipCardPlayed = 10;
+            }
+            else if (foundTemperatureDropLock && roundSkipCardPlayed < GameManager.Instance.Round)
+            {
+                //Debug.Log(GameObject.Find("Multi-Children-At-Play"));
+                Destroy(GameObject.Find("Multi-Temperature-Drop"));
+                //Debug.Log("swag money 2");
+                MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                foundTemperatureDropLock = false;
+                roundSkipCardPlayed = 10;
+            }
+        }
+
+        //checks for darkling larvae beetle
+        if (req.r247())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, Deck.Cards, InvertebratePlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.DiscardPlacement[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
+                {
+                    MoveCard(i, InvertebrateGameObject, DiscardPlacement, InvertebratePlacement, false);
+                }
+            }
+        }
+        //checks for barred owl
+        if (req.r246())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Animal-Barred-Owl")
+                {
+                    MoveCard(i, AnimalGameObject, Deck.Cards, AnimalPlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.DiscardPlacement[i].CardName == "Animal-Barred-Owl")
+                {
+                    MoveCard(i, AnimalGameObject, DiscardPlacement, AnimalPlacement, false);
+                }
+            }
+        }
+        //checks for big tooth aspen and white birch
+        if (req.r248())
+        {
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+            }
+            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
+                {
+                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
+                }
+            }
+        }
+
+
+        bool foundBlackberry = false;
+        bool foundWhitePine = false;
+
+
+        for (int i = 0; i < CurrentPlayer.PlantPlacement.Count; i++)
+        {
+            switch (CurrentPlayer.PlantPlacement[i].CardName)
+            {
+
+                case "Plant-Allegeny-Blackberry":
+                    foundBlackberry = true;
+                    break;
+
+
+                case "Plant-Eastern-White-Pine":
+                    foundWhitePine = true;
+                    break;
+
+                default: break;
+
+            }
+        }
+
+        if (foundBlackberry && !blackberryActivated)
+        {
+            bool foundCanopy = false;
+            blackberryActivated = true;
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].PlantType == "Canopy" || CurrentPlayer.Deck.Cards[i].PlantType == "Understory")
+                {
+                    MoveCard(i, PlantGameObject, CurrentPlayer.Deck.Cards, PlantPlacement, false);
+                    break;
+                }
+            }
+            if (!foundCanopy)
+            {
+                for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
+                {
+                    if (CurrentPlayer.Deck.Cards[i].PlantType == "Canopy" || CurrentPlayer.Deck.Cards[i].PlantType == "Understory")
+                    {
+                        MoveCard(i, PlantGameObject, CurrentPlayer.Deck.Cards, PlantPlacement, false);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (foundWhitePine && !whitePineActivated)
+        {
+            whitePineActivated = true;
+            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
+            {
+                if (CurrentPlayer.Deck.Cards[i].AnimalDiet == "Herbivore")
+                {
+                    switch (CurrentPlayer.Deck.Cards[i].CardType)
+                    {
+                        case "Animal":
+                            MoveCard(i, AnimalGameObject, CurrentPlayer.Deck.Cards, AnimalPlacement, false);
+                            break;
+
+                        case "Invertebrate":
+                            MoveCard(i, InvertebrateGameObject, CurrentPlayer.Deck.Cards, InvertebratePlacement, false);
+                            break;
+                    }
+                    break;
+
+
+                }
+
+            }
+        }
+
+        
+        for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
+        {
+
+            switch (CurrentPlayer.HumanPlacement[i].CardName)
+            {
+                case "Human-Biologist":
+
+                    foundBiologist = true;
+                    break;
+                case "Human-Botanist":
+
+                    foundBotanist = true;
+                    break;
+                case "Human-Explorer":
+
+                    foundExplorer = true;
+                    break;
+                case "Human-Ranger":
+
+                    foundRanger = true;
+                    break;
+                case "Human-Two-Sisters-In-The-Wild":
+
+                    foundTwoSisters = true;
+                    break;
+                default:
+
+                    break;
+            }
+
+
+        }
+        
+        if (foundBiologist)
+        {
+            //Debug.Log("biologist");
+            CurrentPlayer.ProtectedFromInvasiveAnimal = true;
+        }
+        else
+        {
+            //Debug.Log("NOT biologist");
+            CurrentPlayer.ProtectedFromInvasiveAnimal = false;
+        }
+
+        if (foundBotanist)
+        {
+            //Debug.Log("botanist");
+            CurrentPlayer.ProtectedFromInvasivePlant = true;
+        }
+        else
+        {
+            //Debug.Log("NOT botanist");
+            CurrentPlayer.ProtectedFromInvasivePlant = false;
+        }
+
+        if (foundExplorer)
+        {
+            //Debug.Log("explorer");
+            CurrentPlayer.NoConditionRequirements = true;
+        }
+        else
+        {
+            //Debug.Log("NOT explorer");
+            CurrentPlayer.NoConditionRequirements = false;
+        }
+
+        if (foundRanger)
+        {
+            //Debug.Log("ranger");
+            CurrentPlayer.ProtectedFromBlight = true;
+        }
+        else
+        {
+            //Debug.Log("NOT ranger");
+            CurrentPlayer.ProtectedFromBlight = false;
+        }
+
+        if (foundTwoSisters)
+        {
+            //Debug.Log("sisters");
+            CurrentPlayer.ProtectedFromExtinction = true;
+        }
+        else
+        {
+            //Debug.Log("NOT sisters");
+            CurrentPlayer.ProtectedFromExtinction = false;
+        }
+
     }
 
 

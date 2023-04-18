@@ -74,9 +74,8 @@ public class Human : Player
     *  @name       StartTurn() extends from parent
     *  @purpose    deals the player 5 cards if its round one then starts the players turn
     */
-    bool foundChildrenAtPlay = false;
-    bool foundTemperatureDrop = false;
-    int roundSkipCardPlayed;
+   
+    
     public override void StartTurn()
     {
 
@@ -203,6 +202,8 @@ public class Human : Player
     bool whitePineActivated = false;
     bool foundChildrenLock = false;
     bool foundTemperatureDropLock = false;
+    int roundSkipCardPlayed;
+
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
     public void CheckStandingCards(Human pCurrentPlayer)
     {
@@ -384,97 +385,6 @@ public class Human : Player
             }
         }
 
-        bool foundChildrenAtPlay = false;
-        bool foundTemperatureDrop = false;
-        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
-        {
-            switch (CurrentPlayer.MultiplayerPlacement[i].CardName)
-            {
-                case "Multi-Children-At-Play":
-
-                    foundChildrenAtPlay = true;
-                    break;
-                case "Multi-Temperature-Drop":
-
-                    foundTemperatureDrop = true;
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        //checks for darkling larvae beetle
-        if (req.r247())
-        {
-            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
-            {
-                if (CurrentPlayer.Deck.Cards[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
-                {
-                    MoveCard(i, InvertebrateGameObject, Deck.Cards, InvertebratePlacement, false);
-                    break;
-                }
-            }
-            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
-            {
-                if(CurrentPlayer.DiscardPlacement[i].CardName == "Invertebrate-Darkling-Beetle-Larvae")
-                {
-                    MoveCard(i, InvertebrateGameObject, DiscardPlacement, InvertebratePlacement, false);
-                    break;
-                }
-            }
-        }
-        //checks for barred owl
-        if (req.r246())
-        {
-            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
-            {
-                if (CurrentPlayer.Deck.Cards[i].CardName == "Animal-Barred-Owl")
-                {
-                    MoveCard(i, AnimalGameObject, Deck.Cards, AnimalPlacement, false);
-                    break;
-                }
-            }
-            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
-            {
-                if (CurrentPlayer.DiscardPlacement[i].CardName == "Animal-Barred-Owl")
-                {
-                    MoveCard(i, AnimalGameObject, DiscardPlacement, AnimalPlacement, false);
-                    break;
-                }
-            }
-        }
-        //checks for big tooth aspen and white birch
-        if (req.r248())
-        {
-            for (int i = 0; i < CurrentPlayer.Deck.Cards.Count; i++)
-            {
-                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
-                {
-                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
-                    break;
-                }
-                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
-                {
-                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
-                    break;
-                }
-            }
-            for (int i = 0; i < CurrentPlayer.DiscardPlacement.Count; i++)
-            {
-                if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-Bigtooth-Aspen")
-                {
-                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
-                    break;
-                }
-                else if (CurrentPlayer.Deck.Cards[i].CardName == "Plant-White-Birch")
-                {
-                    MoveCard(i, PlantGameObject, Deck.Cards, PlantPlacement, false);
-                    break;
-                }
-
-            }
-        }
 
         for (int i = 0; i < CurrentPlayer.HumanPlacement.Count; i++)
         {
@@ -508,15 +418,7 @@ public class Human : Player
 
 
         }
-        if (foundTemperatureDrop)
-        {
-            //Debug.Log("Found temperature drop");
-            CurrentPlayer.SkipTurn = true;
-        }
-        else
-        {
-            CurrentPlayer.SkipTurn = false;
-        }
+        
         if (foundBiologist)
         {
             //Debug.Log("biologist");
