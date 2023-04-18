@@ -15,8 +15,6 @@ public class Human : Player
 {
     //used to pass in current object to differnt classes
     private Human currentPlayer;
-    private Human humanPerson = GameManager.Instance.Person;
-    private Computer computerPerson = GameManager.Instance.CP1;
     //this is for human
     private bool canDraw;
     //i forget what this is used for- so find out
@@ -78,8 +76,11 @@ public class Human : Player
     */
     bool foundChildrenAtPlay = false;
     bool foundTemperatureDrop = false;
+    int roundSkipCardPlayed;
     public override void StartTurn()
     {
+
+        Computer computerPerson = GameManager.Instance.CP1;
         //execute parent method
         base.StartTurn();
         Debug.Log("Person player name is: " + GameManager.Instance.Person.PlayerName);
@@ -104,8 +105,55 @@ public class Human : Player
             Draw(DrawCount);
             //makes the human player unable to draw again
             CanDraw = false;
-            
-            
+
+        bool foundChildrenAtPlay = false;
+        bool foundTemperatureDrop = false;
+        for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+        {
+            switch (computerPerson.MultiplayerPlacement[i].CardName)
+            {
+                case "Multi-Children-At-Play":
+
+                    foundChildrenAtPlay = true;
+                    break;
+                case "Multi-Temperature-Drop":
+
+                    foundTemperatureDrop = true;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        if (foundChildrenAtPlay || foundTemperatureDrop)
+        {
+            Debug.Log("Found children at play");
+            Debug.Log("Skip the turn");
+
+            for (int i = 0; i < computerPerson.MultiplayerPlacement.Count; i++)
+            {
+                if (computerPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                {
+                    
+                    
+                    SkipRound();
+                    foundChildrenAtPlay = false;     
+                 
+                }
+                else if(computerPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                {
+
+                    SkipRound();
+                    foundTemperatureDrop = false;
+
+                }
+            }
+
+
+        }
+
+
     }
 
 
@@ -149,10 +197,12 @@ public class Human : Player
                 computerPerson.ProtectedFromExtinction = false;
             }
      }
-    
-    private bool blackberryActivated = false;
-    private bool whitePineActivated = false;
 
+
+    bool blackberryActivated = false;
+    bool whitePineActivated = false;
+    bool foundChildrenLock = false;
+    bool foundTemperatureDropLock = false;
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
     public void CheckStandingCards(Human pCurrentPlayer)
     {
@@ -162,7 +212,42 @@ public class Human : Player
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
-        
+        Computer computerPerson = GameManager.Instance.CP1;
+       
+        //checks for children at play and temperature drop
+        for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
+        {
+            if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play" && !foundChildrenLock)
+            {
+                foundChildrenLock = true;
+                roundSkipCardPlayed = GameManager.Instance.Round;
+            }
+            else if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Temperature-Drop" && !foundTemperatureDropLock)
+            {
+                foundTemperatureDropLock = true;
+                roundSkipCardPlayed = GameManager.Instance.Round;
+            }
+            else if (foundChildrenLock && roundSkipCardPlayed < GameManager.Instance.Round)
+            {
+                //Debug.Log(GameObject.Find("Multi-Children-At-Play"));
+                Destroy(GameObject.Find("Multi-Children-At-Play"));
+                //Debug.Log("swag money");
+                MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+                foundChildrenLock = false;
+                roundSkipCardPlayed = 10;
+            }
+            else if (foundTemperatureDropLock && roundSkipCardPlayed < GameManager.Instance.Round)
+            {
+                //Debug.Log(GameObject.Find("Multi-Children-At-Play"));
+                Destroy(GameObject.Find("Multi-Temperature-Drop"));
+                //Debug.Log("swag money 2");
+                MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
+
+                foundTemperatureDropLock = false;
+                roundSkipCardPlayed = 10;
+            }
+        }
+
         //checks for darkling larvae beetle
         if (req.r247())
         {
@@ -225,6 +310,7 @@ public class Human : Player
                 }
             }
         }
+
 
         bool foundBlackberry = false;
         bool foundWhitePine = false;
@@ -317,6 +403,7 @@ public class Human : Player
                     break;
             }
         }
+
         //checks for darkling larvae beetle
         if (req.r247())
         {
@@ -421,33 +508,9 @@ public class Human : Player
 
 
         }
-        if (foundChildrenAtPlay)
-        {
-            Debug.Log("Found children at play");
-            Debug.Log("Skip the turn");
-
-            for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
-            {
-                if (CurrentPlayer.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
-                {
-                    Destroy(GameObject.Find("Multi-Children-At-Play"));
-                    MoveCard(i, DiscardGameObject, MultiplayerPlacement, DiscardPlacement, true);
-                    SkipRound();
-                    computerPerson.CSkipRound();
-                    humanPerson.cardDiscarded = false;
-                }
-            }
-            
-        
-        }
-        
-        else
-        {
-            CurrentPlayer.SkipTurn = false;
-        }
         if (foundTemperatureDrop)
         {
-            Debug.Log("Found temperature drop");
+            //Debug.Log("Found temperature drop");
             CurrentPlayer.SkipTurn = true;
         }
         else
@@ -456,56 +519,56 @@ public class Human : Player
         }
         if (foundBiologist)
         {
-            Debug.Log("biologist");
+            //Debug.Log("biologist");
             CurrentPlayer.ProtectedFromInvasiveAnimal = true;
         }
         else
         {
-            Debug.Log("NOT biologist");
+            //Debug.Log("NOT biologist");
             CurrentPlayer.ProtectedFromInvasiveAnimal = false;
         }
 
         if (foundBotanist)
         {
-            Debug.Log("botanist");
+            //Debug.Log("botanist");
             CurrentPlayer.ProtectedFromInvasivePlant = true;
         }
         else
         {
-            Debug.Log("NOT botanist");
+            //Debug.Log("NOT botanist");
             CurrentPlayer.ProtectedFromInvasivePlant = false;
         }
 
         if (foundExplorer)
         {
-            Debug.Log("explorer");
+            //Debug.Log("explorer");
             CurrentPlayer.NoConditionRequirements = true;
         }
         else
         {
-            Debug.Log("NOT explorer");
+            //Debug.Log("NOT explorer");
             CurrentPlayer.NoConditionRequirements = false;
         }
 
         if (foundRanger)
         {
-            Debug.Log("ranger");
+            //Debug.Log("ranger");
             CurrentPlayer.ProtectedFromBlight = true;
         }
         else
         {
-            Debug.Log("NOT ranger");
+            //Debug.Log("NOT ranger");
             CurrentPlayer.ProtectedFromBlight = false;
         }
 
         if (foundTwoSisters)
         {
-            Debug.Log("sisters");
+            //Debug.Log("sisters");
             CurrentPlayer.ProtectedFromExtinction = true;
         }
         else
         {
-            Debug.Log("NOT sisters");
+            //Debug.Log("NOT sisters");
             CurrentPlayer.ProtectedFromExtinction = false;
         }
 
@@ -539,7 +602,6 @@ public class Human : Player
     */
     public override void Draw(int pAmount)
     {
-        Debug.Log("Skip the turn part 2");
         //gets parent info
         base.Draw(pAmount);
         //makes sure you can opnly draw once basically

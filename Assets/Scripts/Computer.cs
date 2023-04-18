@@ -71,9 +71,60 @@ public class Computer : Player
         {
             Draw(5);
         }
-        //after the 5 cards aredealt, the procedexd with computer AI alogorithm
-        StartCoroutine(ComputerPerforms()); //goes through the function needed for the AI
-                                            //ComputerPerforms();
+            bool foundChildrenAtPlay = false;
+            bool foundTemperatureDrop = false;
+            Human humanPerson = GameManager.Instance.Person;
+            for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+            {
+                switch (humanPerson.MultiplayerPlacement[i].CardName)
+                {
+                    case "Multi-Children-At-Play":
+
+                        foundChildrenAtPlay = true;
+                        break;
+                    case "Multi-Temperature-Drop":
+
+                        foundTemperatureDrop = true;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            if (foundChildrenAtPlay)
+            {
+                Debug.Log("Found children at play");
+                Debug.Log("Skip the turn");
+
+                for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+                {
+                    if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                    {
+                        //Destroy(GameObject.Find("Multi-Children-At-Play"));
+                        //MoveCard(i, humanPerson.DiscardGameObject, humanPerson.MultiplayerPlacement, humanPerson.DiscardPlacement, true);
+                        SkipRound();
+                        foundChildrenAtPlay = false;
+                        //CurrentPlayer.cardDiscarded = false;
+                        //CanDraw = true;
+                        //Draw(1);
+
+                    }
+                }
+
+
+            }
+
+            else
+            {
+                //after the 5 cards aredealt, the procedexd with computer AI alogorithm
+                StartCoroutine(ComputerPerforms()); //goes through the function needed for the AI
+                                                    //ComputerPerforms();
+                //    computerPerson.SkipTurn = false;
+            }
+
+
+
         }
     }
 
@@ -165,7 +216,6 @@ public class Computer : Player
             humanPerson.ProtectedFromExtinction = false;
         }
     }
-
 
 
     /*
