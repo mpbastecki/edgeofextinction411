@@ -295,9 +295,9 @@ public class Player : MonoBehaviour
     public void MoveCard(int pZ, string pParent, List<Card> pOriginPlacement, List<Card> pDestinationPlacement, bool pDiscard)
     {
         //assigns where the game object with go to a object
-        Debug.Log("Moving cards");
+        //Debug.Log("Moving cards");
         CardParent = GameObject.Find(pParent).transform;
-        Debug.Log(CardParent + " Moved");
+        //Debug.Log(CardParent + " Moved");
         //sets the name so the sprite can show the front of card
         Holder.CardNameHolder = pOriginPlacement[pZ].CardName;
         ////creates a new card object

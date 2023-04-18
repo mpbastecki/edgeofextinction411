@@ -101,8 +101,8 @@ public class Computer : Player
                 {
                     if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
                     {
-                        Destroy(GameObject.Find("Multi-Children-At-Play"));
-                        MoveCard(i, humanPerson.DiscardGameObject, humanPerson.MultiplayerPlacement, humanPerson.DiscardPlacement, true);
+                        //Destroy(GameObject.Find("Multi-Children-At-Play"));
+                        //MoveCard(i, humanPerson.DiscardGameObject, humanPerson.MultiplayerPlacement, humanPerson.DiscardPlacement, true);
                         SkipRound();
                         foundChildrenAtPlay = false;
                         //CurrentPlayer.cardDiscarded = false;
