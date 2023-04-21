@@ -53,17 +53,8 @@ public class Computer : Player
     //starts the turn of the computer initially dealing 5 cards
     public override void StartTurn()
     {
-        if (SkipTurn == true && foundTemperatureDrop == true)
-        {
-            Debug.Log("Round should change");
-        }
-
-        else if (SkipTurn == true && foundChildrenAtPlay == true)
-        {
-            Debug.Log("Round should change");
-        }
-        else
-        { 
+        
+     
         //execute parent method
         base.StartTurn();
         //if it is the first round then deal 5 cards automatically
@@ -106,7 +97,7 @@ public class Computer : Player
                         foundChildrenAtPlay = false;
 
                     }
-                    else if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                    else if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Temperature-Drop")
                     {
 
                         SkipRound();
@@ -128,7 +119,7 @@ public class Computer : Player
 
 
 
-        }
+        
     }
 
         /*
@@ -178,6 +169,7 @@ public class Computer : Player
         {
         Debug.Log("Testing from computer.cs");
         CheckExtinction();
+        CheckStandingCards(CurrentPlayer);
     }
 
     public void CheckExtinction()
@@ -227,7 +219,7 @@ public class Computer : Player
     int roundSkipCardPlayed;
 
     //Checks human cards to set the right flags for protection from exinction, invasive species, etc
-    public void CheckStandingCards(Human pCurrentPlayer)
+    public void CheckStandingCards(Computer pCurrentPlayer)
     {
         Reqs req = new Reqs(pCurrentPlayer);
         bool foundBiologist = false;
@@ -235,7 +227,8 @@ public class Computer : Player
         bool foundExplorer = false;
         bool foundRanger = false;
         bool foundTwoSisters = false;
-        Computer computerPerson = GameManager.Instance.CP1;
+        //Computer computerPerson = GameManager.Instance.CP1;
+        Human humanPerson = GameManager.Instance.Person;
 
         //checks for children at play and temperature drop
         for (int i = 0; i < CurrentPlayer.MultiplayerPlacement.Count; i++)
@@ -669,8 +662,8 @@ public class Computer : Player
         ////resets the card parent that way if anything funky happens it will return to the hand
         ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
         CardParent = GameObject.Find(HandGameObject).transform;
-        //GameObject temp = GameObject.Find(pListPlacement[pListPlacement.Count - 1].CardName);
-        //Destroy(temp.GetComponent<HoverClass>());
+        GameObject temp = GameObject.Find(pListPlacement[pListPlacement.Count - 1].CardName);
+        Destroy(temp.GetComponent<HoverClass>());
         //temp.AddComponent<DoubleClickDescription>();
         ////to keep from a null excpetion error
         if (Hand.Count > 0)

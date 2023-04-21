@@ -79,6 +79,10 @@ public class Human : Player
     public override void StartTurn()
     {
 
+        if (GameManager.Instance.Round == 0)
+        {
+            SkipRound();
+        }
         Computer computerPerson = GameManager.Instance.CP1;
         //execute parent method
         base.StartTurn();
@@ -140,7 +144,7 @@ public class Human : Player
                     foundChildrenAtPlay = false;     
                  
                 }
-                else if(computerPerson.MultiplayerPlacement[i].CardName == "Multi-Children-At-Play")
+                else if(computerPerson.MultiplayerPlacement[i].CardName == "Multi-Temperature-Drop")
                 {
 
                     SkipRound();

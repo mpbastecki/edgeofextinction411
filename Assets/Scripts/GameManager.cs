@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour {
         //gameObject.AddComponent<phpImport>();
 
         //  sets initial round number
-        Round = 1;
+        Round = 0;
 
         //this is how we inialize objects
         //initializing Human Person Player
@@ -279,7 +279,7 @@ public class GameManager : MonoBehaviour {
         //goes through each player and executes accordingly
         if (pPlayerName == "Person")
         {
-            Cursor.visible = false; //hides the mouse from the user
+            Cursor.visible = true; //hides the mouse from the user
             Cursor.lockState = CursorLockMode.Locked; //you cannot use the cursor
             HideShow.ShowCP1();
             CP1.CreateDeckInfo();
@@ -335,7 +335,7 @@ public class GameManager : MonoBehaviour {
     public void StartHumanTurn()
     {
       // if (GameFlag =! false)
-        if (round == 1)
+        if (round == 0)
         {
             CreateBoards(); 
             //Person.CreateDeckInfo();
@@ -365,7 +365,7 @@ public class GameManager : MonoBehaviour {
         }
 
         //  resets round number
-        Round = 1;
+        Round = 0;
 
         //  clear human and computer player hands
         Person.Hand.Clear();
