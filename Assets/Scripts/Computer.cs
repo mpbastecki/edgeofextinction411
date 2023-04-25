@@ -53,14 +53,17 @@ public class Computer : Player
     //starts the turn of the computer initially dealing 5 cards
     public override void StartTurn()
     {
-        
-     
+        if (GameManager.Instance.Round == 0)
+        {
+            SkipRound();
+        }
+
         //execute parent method
         base.StartTurn();
         //if it is the first round then deal 5 cards automatically
         if (Round == 1) //only happens in the first round
         {
-            Draw(5);
+            Draw(4);
         }
             bool foundChildrenAtPlay = false;
             bool foundTemperatureDrop = false;

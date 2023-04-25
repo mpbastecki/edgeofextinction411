@@ -325,6 +325,7 @@ public class GameManager : MonoBehaviour {
             //starts the players turn automatically 
             Person.StartTurn();
         }*/
+        
     }
 
     /*

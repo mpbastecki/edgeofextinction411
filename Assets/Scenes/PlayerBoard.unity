@@ -1724,7 +1724,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Click the Draw Pile to Draw Cards and Begin Your Turn
+  m_Text: Click the Draw Pile twice to Draw Cards and Begin the game
 --- !u!222 &351612826
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2215,7 +2215,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &393737503
 Canvas:
   m_ObjectHideFlags: 0
@@ -8392,7 +8392,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 425978014}
   m_Direction: 2
   m_Value: 1.0000001
-  m_Size: 0.2332949
+  m_Size: 0.23329493
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10650,8 +10650,8 @@ RectTransform:
   m_LocalScale: {x: 0.014705882, y: 0.014705882, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1920019530}
   - {fileID: 442915110}
+  - {fileID: 1920019530}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -97,10 +97,10 @@ public class Human : Player
             if (Round == 1 && CanDraw == true) //only happens in the first round
             {
                 CreateButtonObjects();
-                Draw(5);
+                Draw(4);
                 
             }
-            DrawText.text = "Step 1: Play Card(s) \n Step 2: Discard to End Your Turn";
+            DrawText.text = "Step 1:\n Play Cards \n Step 2: Discard to End Turn";
             //gets the right amount of cards to draw based off regions its a parent function
             DrawAmount();
             //draws the apropriate amount
