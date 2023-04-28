@@ -51,17 +51,16 @@ public class Requirements : Player
             //calls the method that was assigned from the list and passes in the "Class Object" so it know where to get the method from
             //and then in the returned value is false then set the requirements work to false
             //use this debug below to find what card was just played or checked 
-            //Debug.Log(card.CardName);
             try
             {
                 if (method.Invoke(ClassObject, null).ToString() == "False")
                 {
                     works = false;
                     //i dont think we need this break not sure why its here but ill keep if for now in case anyhting suacy happens
-                    //break;
+                    break;
                 }
                 else 
-                { 
+                {
                   works = true; 
                 }
             }
@@ -210,7 +209,17 @@ public class Reqs
     //r006
     public bool r006()
     {
-        if (ThePlayer.TotalRegions >= 1)
+        int count = 0;
+
+        count += ThePlayer.AridCount;
+        count += ThePlayer.GrasslandsCount;
+        count += ThePlayer.ForestCount;
+        count += ThePlayer.RunningWaterCount;
+        count += ThePlayer.StandingWaterCount;
+        count += ThePlayer.SaltWaterCount;
+        count += ThePlayer.SubZeroCount;
+
+        if(count >= 1)
             return true;
         else
             return false;
@@ -236,7 +245,17 @@ public class Reqs
     //r008
     public bool r008()
     {
-        if (ThePlayer.TotalRegions >= 2)
+        int count = 0;
+
+        count += ThePlayer.AridCount;
+        count += ThePlayer.GrasslandsCount;
+        count += ThePlayer.ForestCount;
+        count += ThePlayer.RunningWaterCount;
+        count += ThePlayer.StandingWaterCount;
+        count += ThePlayer.SaltWaterCount;
+        count += ThePlayer.SubZeroCount;
+
+        if (count >= 2)
             return true;
         else
             return false;
@@ -561,7 +580,7 @@ public class Reqs
 
     //1 canopy or understory plant
     //r053
-    public bool r30()
+    public bool r030()
     {
         for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
         {
