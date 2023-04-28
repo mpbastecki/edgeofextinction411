@@ -55,17 +55,16 @@ public class Requirements : Player
             //calls the method that was assigned from the list and passes in the "Class Object" so it know where to get the method from
             //and then in the returned value is false then set the requirements work to false
             //use this debug below to find what card was just played or checked 
-            //Debug.Log(card.CardName);
             try
             {
                 if (method.Invoke(ClassObject, null).ToString() == "False")
                 {
                     works = false;
                     //i dont think we need this break not sure why its here but ill keep if for now in case anyhting suacy happens
-                    //break;
+                    break;
                 }
                 else 
-                { 
+                {
                   works = true; 
                 }
             }
@@ -148,7 +147,9 @@ public class Reqs
     //All the methods below thise are to check requirements and then accessors and mutators are at the end
     /********************************************************************************/
 
-    public bool r001() //5 forest cards, grassland, arid, or Sub-Zero region
+    //5 forest, grassland, arid, or sub-zero
+    // r001
+    public bool r001()
     {
         int count = 0;
 
@@ -156,431 +157,337 @@ public class Reqs
         count += ThePlayer.GrasslandsCount;
         count += ThePlayer.AridCount;
         count += ThePlayer.SubZeroCount;
-
-        if (count >= 5)
-            return true;
-        else return false;
-    }
-
-    public bool r002() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r003() //3 plants type cards must be placed
-    {
-        if (ThePlayer.PlantPlacement.Count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r004() //2 invertebrate type cards must be placed
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r005() //2 animal type cards must be placed
-    {
-        if (ThePlayer.AnimalPlacement.Count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r006() //any 1 region card must be placed
-    {
-        if (ThePlayer.RegionPlacement.Count >= 1)
-            return true;
-        else if (ThePlayer.SpecialRegionPlacement.Count > 0)
-            return true;
-        else return false;
-    }
-    public bool r007() //1 species in play or in the discard pile
-    {
-        if (ThePlayer.AnimalPlacement.Count > 0 || ThePlayer.PlantPlacement.Count > 0 || ThePlayer.InvertebratePlacement.Count > 0 || ThePlayer.HumanPlacement.Count > 0)
-            return true;
-
-        for (int i = 0; i < ThePlayer.DiscardPlacement.Count; i++)
-        {
-            if (ThePlayer.DiscardPlacement[i].CardType == "Human" || ThePlayer.DiscardPlacement[i].CardType == "Animal" || ThePlayer.DiscardPlacement[i].CardType == "Plant" || ThePlayer.DiscardPlacement[i].CardType == "Invertebrate")
-                return true;
-        }
-
-        return false;
-    }
-    public bool r008() //2 of any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r009() //2 of any plants
-    {
-        if (ThePlayer.PlantPlacement.Count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r010() //1 invertebrate or animal card
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 1 || ThePlayer.AnimalPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r011() //1 forest or grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r012() //1 canopy or understory plant from the division of Coniferophyta or the magnophy one
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if ((ThePlayer.PlantPlacement[i].PlantType == "Canopy" || ThePlayer.PlantPlacement[i].PlantType == "Understory") && (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta" || ThePlayer.PlantPlacement[i].Division == "Coniferophyta"))
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r013() //3 forest regions
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r014() //1 canopy plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r015() //1 tiny or small invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r016() //2 tiny or small animals
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r017() //1 forest or grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r018() //1 canopy or understory plant from the division of Co
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if ((ThePlayer.PlantPlacement[i].PlantType == "Canopy" || ThePlayer.PlantPlacement[i].PlantType == "Understory") && (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta" || ThePlayer.PlantPlacement[i].Division == "Coniferophyta"))
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r019() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r020() //3 of any region EXCEPT salt water region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r021() //1 tiny or small invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r022() //2 tiny or small animals
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r023() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r024() //1 canopy or understory plant from the division of Co
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if ((ThePlayer.PlantPlacement[i].PlantType == "Canopy" || ThePlayer.PlantPlacement[i].PlantType == "Understory") && (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta" || ThePlayer.PlantPlacement[i].Division == "Coniferophyta"))
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r025() //1 forest or arid region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.AridCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r026() //1 Canopy plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r027() //1 invertebrate
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r028() //1 tiny or small animal
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r029() //1 forest or grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r030() //1 canopy or understory plant from the divison of Co
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if ((ThePlayer.PlantPlacement[i].PlantType == "Canopy" || ThePlayer.PlantPlacement[i].PlantType == "Understory") && (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta" || ThePlayer.PlantPlacement[i].Division == "Coniferophyta"))
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r031() //1 forest, arid, sub-zero or grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.AridCount;
-        count += ThePlayer.SubZeroCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r032() //1 any species in play or the discard pile
-    {
-        if (ThePlayer.AnimalPlacement.Count > 0 || ThePlayer.PlantPlacement.Count > 0 || ThePlayer.InvertebratePlacement.Count > 0 || ThePlayer.HumanPlacement.Count > 0)
-            return true;
-
-        for (int i = 0; i < ThePlayer.DiscardPlacement.Count; i++)
-        {
-            if (ThePlayer.DiscardPlacement[i].CardType == "Human" || ThePlayer.DiscardPlacement[i].CardType == "Animal" || ThePlayer.DiscardPlacement[i].CardType == "Plant" || ThePlayer.DiscardPlacement[i].CardType == "Invertebrate")
-                return true;
-        }
-
-        return false;
-    }
-    public bool r033() //2 of any forest or grassland regions
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r034() //3 plants
-    {
-        if (ThePlayer.PlantPlacement.Count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r035() //2 of any forest or grassland regions
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r036() //3 plants
-    {
-        if (ThePlayer.PlantPlacement.Count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r037() //5 any regions or Explorer played
-    {
-        int count = 0;
-        if (ThePlayer.NoConditionRequirements)
-            return true;
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
 
         if (count >= 5)
             return true;
         else
             return false;
     }
-    public bool r038() //1 forest region
+
+    //1 running or standing water region
+    // r002
+    public bool r002()
+    {
+        int count = 0;
+
+        count += ThePlayer.RunningWaterCount;
+        count += ThePlayer.StandingWaterCount;
+
+        if (count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //3 plants
+    //r003
+    public bool r003()
+    {
+        if (ThePlayer.PlantPlacement.Count >= 3)
+            return true;
+        else
+            return false;
+    }
+
+    //2 invertebrates
+    //r004
+    public bool r004()
+    {
+        if (ThePlayer.InvertebratePlacement.Count >= 2)
+            return true;
+        else
+            return false;
+    }
+
+    //2 animals
+    //r005
+    public bool r005()
+    {
+        if (ThePlayer.AnimalPlacement.Count >= 2)
+            return true;
+        else
+            return false;
+    }
+
+    //1 any region
+    //r006
+    public bool r006()
+    {
+        int count = 0;
+
+        count += ThePlayer.AridCount;
+        count += ThePlayer.GrasslandsCount;
+        count += ThePlayer.ForestCount;
+        count += ThePlayer.RunningWaterCount;
+        count += ThePlayer.StandingWaterCount;
+        count += ThePlayer.SaltWaterCount;
+        count += ThePlayer.SubZeroCount;
+
+        if(count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //1 speicies in play or in discard
+    //r007
+    public bool r007()
+    {
+        if (ThePlayer.AnimalPlacement.Count > 0 || ThePlayer.PlantPlacement.Count > 0 || ThePlayer.InvertebratePlacement.Count > 0 || ThePlayer.HumanPlacement.Count > 0)
+            return true;
+
+        for (int i = 0; i < ThePlayer.DiscardPlacement.Count; i++)
+        {
+            if (ThePlayer.DiscardPlacement[i].CardType == "Human" || ThePlayer.DiscardPlacement[i].CardType == "Animal" || ThePlayer.DiscardPlacement[i].CardType == "Plant" || ThePlayer.DiscardPlacement[i].CardType == "Invertebrate")
+                return true;
+        }
+
+        return false;
+    }
+
+    //2 any region
+    //r008
+    public bool r008()
+    {
+        int count = 0;
+
+        count += ThePlayer.AridCount;
+        count += ThePlayer.GrasslandsCount;
+        count += ThePlayer.ForestCount;
+        count += ThePlayer.RunningWaterCount;
+        count += ThePlayer.StandingWaterCount;
+        count += ThePlayer.SaltWaterCount;
+        count += ThePlayer.SubZeroCount;
+
+        if (count >= 2)
+            return true;
+        else
+            return false;
+    }
+
+    //2 plants
+    //r009
+    public bool r009()
+    {
+        if (ThePlayer.PlantPlacement.Count >= 2)
+            return true;
+        else
+            return false;
+    }
+
+    //1 invertebrate or animal
+    //r010
+    public bool r010()
+    {
+        if (ThePlayer.InvertebratePlacement.Count >= 1 || ThePlayer.AnimalPlacement.Count >= 1)
+            return true;
+        return false;
+    }
+
+    //1 forest or grassland
+    //r011
+    public bool r011()
     {
         int count = 0;
 
         count += ThePlayer.ForestCount;
+        count += ThePlayer.GrasslandsCount;
 
         if (count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
-    public bool r039() //1 canopy or under story plant from the division
+
+    //1 canopy or understory plant from the division Coniferophyta or magnoliophyta
+    //r012
+    public bool r012()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+        {
+            if ((ThePlayer.PlantPlacement[i].PlantType == "Canopy" || ThePlayer.PlantPlacement[i].PlantType == "Understory") && (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta" || ThePlayer.PlantPlacement[i].Division == "Coniferophyta"))
+                count++;
+        }
+
+        if (count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //3 forest
+    //r013
+    public bool r013()
+    {
+        if (ThePlayer.ForestCount >= 3)
+            return true;
+        else
+            return false;
+    }
+
+    //1 canopy plant
+    //r014
+    public bool r014()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+        {
+            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
+                count++;
+        }
+
+        if (count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //1 tiny or small invertebrate
+    //r015
+    public bool r015()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        {
+            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
+                count++;
+        }
+
+        if (count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //2 tiny or small animals
+    //r016
+    public bool r016()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+        {
+            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
+                count++;
+        }
+
+        if (count >= 2)
+            return true;
+        else
+            return false;
+    }
+
+    //1 forest
+    //r019
+    public bool r017()
+    {
+        if (ThePlayer.ForestCount >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //3 any region except salt water
+    //r020
+    public bool r018()
+    {
+        int count = 0;
+
+        count += ThePlayer.AridCount;
+        count += ThePlayer.ForestCount;
+        count += ThePlayer.GrasslandsCount;
+        count += ThePlayer.RunningWaterCount;
+        count += ThePlayer.StandingWaterCount;
+        count += ThePlayer.SubZeroCount;
+
+        if (count >= 3)
+            return true;
+        else
+            return false;
+    }
+
+    //1 forest or arid region
+    //r025
+    public bool r019()
+    {
+        int count = 0;
+
+        count += ThePlayer.ForestCount;
+        count += ThePlayer.AridCount;
+
+        if (count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //1 invertebrate
+    //r027
+    public bool r020()
+    {
+        if (ThePlayer.InvertebratePlacement.Count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //1 tiny or small animal
+    //r028
+    public bool r021()
+    {
+        int count = 0;
+
+        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+        {
+            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
+                count++;
+        }
+
+        if (count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //1 forest, arid, sub-zero, or grassland region
+    //r031
+    public bool r022()
+    {
+        int count = 0;
+
+        count += ThePlayer.ForestCount;
+        count += ThePlayer.GrasslandsCount;
+        count += ThePlayer.AridCount;
+        count += ThePlayer.SubZeroCount;
+
+        if (count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    //2 forest or grassland
+    //r033
+    public bool r023()
+    {
+        int count = 0;
+
+        count += ThePlayer.ForestCount;
+        count += ThePlayer.GrasslandsCount;
+
+        if (count >= 2)
+            return true;
+        else
+            return false;
+    }
+
+    //1 canopy or understory plant from the division magnoliophyta
+    //r039
+    public bool r024()
     {
         int count = 0;
 
@@ -592,33 +499,13 @@ public class Reqs
 
         if (count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
-    public bool r040() //1 forest region
-    {
-        int count = 0;
 
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r041() //1 canopy plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r042() //1 any region except salt water regions
+    //1 any region except salt water
+    //r042
+    public bool r025()
     {
         int count = 0;
 
@@ -631,158 +518,26 @@ public class Reqs
 
         if (count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
-    public bool r043() //1 plant in division Magnoliophyla - Flowering Plants
-    {
-        int count = 0;
 
+    //1 plant from the division mangoliophyta
+    //r043
+    public bool r026()
+    {
         for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
         {
             if (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r044() //1 any region except sub-zero and salt water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r045() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r046() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r047() //1 species in play or in the discard pile
-    {
-        if (ThePlayer.AnimalPlacement.Count > 0 || ThePlayer.PlantPlacement.Count > 0 || ThePlayer.InvertebratePlacement.Count > 0 || ThePlayer.HumanPlacement.Count > 0)
-            return true;
-
-        for (int i = 0; i < ThePlayer.DiscardPlacement.Count; i++)
-        {
-            if (ThePlayer.DiscardPlacement[i].CardType == "Human" || ThePlayer.DiscardPlacement[i].CardType == "Animal" || ThePlayer.DiscardPlacement[i].CardType == "Plant" || ThePlayer.DiscardPlacement[i].CardType == "Invertebrate")
                 return true;
         }
 
         return false;
     }
-    public bool r048() //1 any region except sub zero regions
-    {
-        int count = 0;
 
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r049() //1 plant in the division magnoliophyta - flower plants
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r050() //1 any region except sub zerio regions 
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r051() //1 plant in the division magnoliophyta - flowering pl
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r052() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r053() //1 canopy or understory plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy" || ThePlayer.PlantPlacement[i].PlantType == "Understory")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r054() //1 any region excet sub zero and salt ater regions
+    //1 any region except salt water or sub-zero
+    //r044
+    public bool r027()
     {
         int count = 0;
 
@@ -791,464 +546,26 @@ public class Reqs
         count += ThePlayer.GrasslandsCount;
         count += ThePlayer.RunningWaterCount;
         count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r055() //1 plant in the deivison magnoliophyta
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r056() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r057() //2 forest regions
-    {
-        int forestCount = ThePlayer.ForestCount;
-
-        if (forestCount >= 2)
-            return true;
-        else
-            return false;
-    }
-    public bool r058() //1 canopy plant 
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
 
         if (count >= 1)
             return true;
         else
             return false;
     }
-    public bool r059() //1 groundcover plant
-    {
-        int count = 0;
 
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Groundcover")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else
-            return false;
-    }
-    public bool r060() //1 mountain range 
-    {
-        int count = 0;
-
-        count += ThePlayer.ConditionPlacement.Count;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r061() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r062() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r063() //1 canopy plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through the plants that have been played
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r064() //1 mountain range
-    {
-        int count = 0;
-
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r065() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r066() //2 forest regions
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r067() //2 canopy plants
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r068() //1 mycorrhizal fungus
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].CardName.Contains("Mycorrhizal"))
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r069() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r070() //1 mountain range
-    {
-        int count = 0;
-
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r071() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r072() //1 canopy plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r073() //1 mountain range
-    {
-        int count = 0;
-
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r074() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r075() //1 canopy plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r076() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r077() //1 canopy plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r078() //2 groundcover plants
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Groundcover")
-                count++;
-        }
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r079() //1 mycorrhizal fungus
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].CardName.Contains("Mycorrhizal"))
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r080() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r081() //1 forest or grassland or sub-zero region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.SubZeroCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r082() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r083() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r084() //1 canopy plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r085() //3 any regions except saltwater and sub zero
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r086() //2 invertebrates
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r087() //2 tiny or small animals
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r088() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r089() //1 human
-    {
-        if (ThePlayer.HumanPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r090() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r091() //1 human
-    {
-        if (ThePlayer.HumanPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r092() //1 plant
+    //1 plant
+    //r045
+    public bool r028()
     {
         if (ThePlayer.PlantPlacement.Count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
-    public bool r093() //1 invertebrate
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r094() //1 any region
+
+    //1 any region except sub-zero
+    //r048
+    public bool r029()
     {
         int count = 0;
 
@@ -1256,1862 +573,756 @@ public class Reqs
         count += ThePlayer.ForestCount;
         count += ThePlayer.GrasslandsCount;
         count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
         count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
+        count += ThePlayer.SaltWaterCount;
 
         if (count >= 1)
             return true;
-        else return false;
+        else
+            return false;
     }
-    public bool r095() //1 human
+
+    //1 canopy or understory plant
+    //r053
+    public bool r030()
     {
-        if (ThePlayer.HumanPlacement.Count >= 1)
-            return true;
-        else return false;
+        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+        {
+            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy"
+                || ThePlayer.PlantPlacement[i].PlantType == "Understory")
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
-    public bool r096() //1 forest or grassland region
+
+    //2 forests
+    //r057
+    public bool r031()
+    {
+        if (ThePlayer.ForestCount >= 2)
+            return true;
+        else
+            return false;
+    }
+
+    //1 groundcover plant
+    //r059
+    public bool r032()
+    {
+        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+        {
+            if (ThePlayer.PlantPlacement[i].PlantType == "Groundcover")
+                return true;
+        }
+
+        return false;
+    }
+
+    //1 mountain range
+    //r060
+    public bool r033()
+    {
+        for (int i = 0; i < ThePlayer.ConditionPlacement.Count; i++)
+        {
+            if (ThePlayer.ConditionPlacement[i].CardName.Contains("Mountain"))
+                return true;
+        }
+
+        return false;
+    }
+
+    //2 canopy plants
+    //r067
+    public bool r034()
     {
         int count = 0;
 
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
+        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+        {
+            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
+                count++;
+        }
 
-        if (count >= 1)
+        if (count >= 2)
             return true;
-        else return false;
+        else
+            return false;
     }
 
-    public bool r097() //1 groundcover plant
+    //1 mycorrhizal fungus
+    //r068
+    public bool r035()
+    {
+        for (int i = 0; i < ThePlayer.FungiPlacement.Count; i++)
+        {
+            if (ThePlayer.FungiPlacement[i].CardName.Contains("Mycorrhizal"))
+                return true;
+        }
+
+        return false;
+    }
+
+    //2 groundcover plants
+    //r078
+    public bool r036()
     {
         int count = 0;
 
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
+        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
         {
             if (ThePlayer.PlantPlacement[i].PlantType == "Groundcover")
                 count++;
         }
 
-        if (count >= 1)
+        if (count >= 2)
             return true;
-        else return false;
+        else
+            return false;
     }
-    public bool r098() //1 forest or grassland region
-    {
-        int count = 0;
 
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r099() //2 tiny or small animals
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+        //1 forest, grassland, or sub-zero region
+        //r081
+        public bool r037()
         {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
+            int count = 0;
+
+            count += ThePlayer.ForestCount;
+            count += ThePlayer.GrasslandsCount;
+            count += ThePlayer.SubZeroCount;
+
+            if (count >= 1)
+                return true;
+            else
+                return false;
         }
 
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r100() //5 land regions (forest, grassland, arid, sub zero)
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.SubZeroCount;
-
-        if (count >= 5)
-            return true;
-        else return false;
-    }
-    public bool r101() //2 water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r102() //1 invertebrate
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 1)
-            return true;
-        return false;
-    }
-    public bool r103() //2 tiny, small, or medium animals
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+        //3 any region except salt water or sub-zero
+        //r085
+        public bool r038()
         {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small" || ThePlayer.AnimalPlacement[i].AnimalSize == "Medium")
-                count++;
+            int count = 0;
+
+            count += ThePlayer.AridCount;
+            count += ThePlayer.ForestCount;
+            count += ThePlayer.GrasslandsCount;
+            count += ThePlayer.RunningWaterCount;
+            count += ThePlayer.StandingWaterCount;
+
+            if (count >= 3)
+                return true;
+            else
+                return false;
         }
 
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r104() //1 cliff or canyon
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.ConditionPlacement.Count; i++) //goes through regions
+        //1 human
+        //r089
+        public bool r039()
         {
+            if (ThePlayer.HumanPlacement.Count >= 1)
+                return true;
+            else
+                return false;
+        }
+
+        //2 water regions
+        //r101
+        public bool r040()
+        {
+            int count = 0;
+
+            count += ThePlayer.RunningWaterCount;
+            count += ThePlayer.StandingWaterCount;
+            count += ThePlayer.SaltWaterCount;
+
+            if (count >= 2)
+                return true;
+            else
+                return false;
+        }
+
+        //2 tiny, small, or medium animals
+        //r103
+        public bool r041()
+        {
+            int count = 0;
+
+            for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+            {
+                if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small" || ThePlayer.AnimalPlacement[i].AnimalSize == "Medium")
+                    count++;
+            }
+
+            if (count >= 2)
+                return true;
+            else
+                return false;
+        }
+
+        //1 cliffs and canyons
+        //r104
+        public bool r042()
+        {
+            for (int i = 0; i < ThePlayer.ConditionPlacement.Count; i++)
+            {
             if (ThePlayer.ConditionPlacement[i].CardName.Contains("Cliff"))
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r105() //1 grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r106() //2 groundcover plants
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++) //goes through regions
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Groundcover")
-                count++;
-        }
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r107() //1 grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r108() //2 any regions except salt water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r109() //1 tiny, small, or medium invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Medium")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r110() //1 tiny or small animal
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r111() //2 forest, arid, sub-zero or grassland regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.SubZeroCount;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r112() //1 plant
-    {
-
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r113() //1 invertebrate
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r114() //1 tiny or small animal
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r115() //5 regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 5)
-            return true;
-        else return false;
-    }
-    public bool r116() //1 any region except salt water or sub zero regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r117() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r118() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r119() //1 species in play or in the discard pile
-    {
-        if (ThePlayer.AnimalPlacement.Count > 0 || ThePlayer.PlantPlacement.Count > 0 || ThePlayer.InvertebratePlacement.Count > 0 || ThePlayer.HumanPlacement.Count > 0)
-            return true;
-
-        for (int i = 0; i < ThePlayer.DiscardPlacement.Count; i++)
-        {
-            if (ThePlayer.DiscardPlacement[i].CardType == "Human" || ThePlayer.DiscardPlacement[i].CardType == "Animal" || ThePlayer.DiscardPlacement[i].CardType == "Plant" || ThePlayer.DiscardPlacement[i].CardType == "Invertebrate")
                 return true;
+            }
+
+            return false;
         }
 
-        return false;
-    }
-    public bool r120() // 1 any region except sub zero regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r121() //1 divison magnoliophyta - flowering plants
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+        //1 grassland region
+        //r105
+        public bool r043()
         {
-            if (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r122() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r123() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r124() //1 forest or grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r125() //1 plant in the diviosn magnioliophytta - flowering plants
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.PlantPlacement[i].Division == "Magnoliophyta")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r126() //1 grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r127() //1 forest region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r128() //1 any region except salt water and sub zero regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r129() //1 grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r130() //1 human
-    {
-        if (ThePlayer.HumanPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r131() //1 grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r132() //1 human
-    {
-        if (ThePlayer.HumanPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r133() //1 grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r134() //1 human
-    {
-        if (ThePlayer.HumanPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r135() //1 region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 0)
-            return true;
-        else return false;
-    }
-    public bool r136() //1 grassaland region
-    {
-        int count = 0;
-
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r137() //5 running or Standing-Water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 5)
-            return true;
-        else return false;
-    }
-    public bool r138() //2 canopy plants
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Canopy")
-                count++;
-        }
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r139() //3 animals
-    {
-        if (ThePlayer.AnimalPlacement.Count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r140() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r141() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r142() //1 tiny or small invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r143() //1 running ro Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r144() //1 any species in play or the discard pile
-    {
-        if (ThePlayer.AnimalPlacement.Count > 0 || ThePlayer.PlantPlacement.Count > 0 || ThePlayer.InvertebratePlacement.Count > 0 || ThePlayer.HumanPlacement.Count > 0)
-            return true;
-
-        for (int i = 0; i < ThePlayer.DiscardPlacement.Count; i++)
-        {
-            if (ThePlayer.DiscardPlacement[i].CardType == "Human" || ThePlayer.DiscardPlacement[i].CardType == "Animal" || ThePlayer.DiscardPlacement[i].CardType == "Plant" || ThePlayer.DiscardPlacement[i].CardType == "Invertebrate")
+            if (ThePlayer.GrasslandsCount >= 1)
                 return true;
+            else
+                return false;
         }
 
-        return false;
-    }
-    public bool r145() //1 Running-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r146() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r147() //1 tiny or small aquatic invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //2 any region except salt water
+        //r108
+        public bool r044()
         {
-            if ((ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small") && ThePlayer.InvertebratePlacement[i].AnimalEnvironment == "Aquatic")
-                count++;
-        }
+            int count = 0;
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r148() //1 tiny or small aquatic animal
-    {
-        int count = 0;
+            count += ThePlayer.AridCount;
+            count += ThePlayer.ForestCount;
+            count += ThePlayer.GrasslandsCount;
+            count += ThePlayer.RunningWaterCount;
+            count += ThePlayer.StandingWaterCount;
+            count += ThePlayer.SubZeroCount;
 
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            if ((ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small") && ThePlayer.AnimalPlacement[i].AnimalEnvironment == "Aquatic")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r149() //1 mountain range
-    {
-        int count = 0;
-
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r150() //1 running or stnading water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r151() // 3 any regions except salt water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r152() //1 tiny or small invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r153() //1 tiny, small, or medium animal
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small" || ThePlayer.AnimalPlacement[i].AnimalSize == "Medium")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r154() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r155() //1 species in play or the discard pile
-    {
-        if (ThePlayer.AnimalPlacement.Count > 0 || ThePlayer.PlantPlacement.Count > 0 || ThePlayer.InvertebratePlacement.Count > 0 || ThePlayer.HumanPlacement.Count > 0)
-            return true;
-
-        for (int i = 0; i < ThePlayer.DiscardPlacement.Count; i++)
-        {
-            if (ThePlayer.DiscardPlacement[i].CardType == "Human" || ThePlayer.DiscardPlacement[i].CardType == "Animal" || ThePlayer.DiscardPlacement[i].CardType == "Plant" || ThePlayer.DiscardPlacement[i].CardType == "Invertebrate")
+            if (count >= 2)
                 return true;
+            else
+                return false;
         }
 
-        return false;
-    }
-    public bool r156() //3 running or Standing-Water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r157() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r158() //2 tiny or small invertebrates
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //1 tiny, small, or medium invertebrate
+        //r109
+        public bool r045()
         {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r159() //1 mountain rainge
-    {
-        int count = 0;
-
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r160() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r161() //2 invertebrates
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r162() //1 tiny or small aquatic animals
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            if ((ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small") && ThePlayer.AnimalPlacement[i].AnimalEnvironment == "Aquatic")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r163() //5 running or Standing-Water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 5)
-            return true;
-        else return false;
-    }
-    public bool r164() //1 aquatic plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.PlantPlacement[i].AnimalEnvironment == "Aquatic")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r165() //2 invertebrates
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r166() // 3 animals that require a running or Standing-Water Region
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
-        {
-            int id = ThePlayer.AnimalPlacement[i].ReqID.Count;
-
-            for (int j = 0; j < id; j++) //goes through and checks the requirements of the animals to see if they need running or standing water
+            for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
             {
-                if (ThePlayer.AnimalPlacement[i].ReqID[j] == "r002" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r137" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r140" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r143"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r150" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r154" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r156" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r160"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r163" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r166" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r167" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r170"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r172"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r173" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r174" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r176" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r180"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r188" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r189" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r190" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r191"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r192" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r194" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r198" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r199"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r202" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r207" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r235" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r145"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r211"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r218" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r222" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r225" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r229"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r231" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r235")
-                {
+                if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny"
+                || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small"
+                || ThePlayer.InvertebratePlacement[i].AnimalSize == "Medium")
+                    return true;
+            }
+
+            return false;
+        }
+
+        //2 forest, grassland, arid, or sub-zero
+        //r111
+        public bool r046()
+        {
+            int count = 0;
+
+            count += ThePlayer.AridCount;
+            count += ThePlayer.ForestCount;
+            count += ThePlayer.GrasslandsCount;
+            count += ThePlayer.SubZeroCount;
+
+            if (count >= 2)
+                return true;
+            else
+                return false;
+        }
+
+        //5 any regions or explorer
+        //r115
+        public bool r047()
+        {
+            if (GameManager.Instance.Person.NoConditionRequirements)
+                return true;
+
+            int count = 0;
+
+            count += ThePlayer.AridCount;
+            count += ThePlayer.ForestCount;
+            count += ThePlayer.GrasslandsCount;
+            count += ThePlayer.RunningWaterCount;
+            count += ThePlayer.SaltWaterCount;
+            count += ThePlayer.StandingWaterCount;
+            count += ThePlayer.SubZeroCount;
+
+            if (count >= 5)
+                return true;
+            else
+                return false;
+        }
+
+        //5 running or standing water
+        //r137
+        public bool r048()
+        {
+            int count = 0;
+
+            count += ThePlayer.RunningWaterCount;
+            count += ThePlayer.StandingWaterCount;
+
+            if (count >= 5)
+                return true;
+            else
+                return false;
+        }
+
+        //3 animals
+        //r139
+        public bool r049()
+        {
+            if (ThePlayer.AnimalPlacement.Count >= 3)
+                return true;
+            else
+                return false;
+        }
+
+        //1 running water region
+        //r145
+        public bool r050()
+        {
+            if (ThePlayer.RunningWaterCount >= 1)
+                return true;
+            else
+                return false;
+        }
+
+        //1 tiny or small aquatic invertebrate
+        //r147
+        public bool r051()
+        {
+            for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+            {
+                if ((ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small") && ThePlayer.InvertebratePlacement[i].AnimalEnvironment == "Aquatic")
+                    return true;
+            }
+
+            return false;
+        }
+
+        //1 tiny or small aquatic animal
+        //r148
+        public bool r052()
+        {
+            for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+            {
+                if ((ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small") && ThePlayer.AnimalPlacement[i].AnimalEnvironment == "Aquatic")
+                    return true;
+            }
+
+            return false;
+        }
+
+        //1 tiny, small, or medium animal
+        //r153
+        public bool r053()
+        {
+            for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+            {
+                if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small" || ThePlayer.AnimalPlacement[i].AnimalSize == "Medium")
+                    return true;
+            }
+
+            return false;
+        }
+
+        //3 running or standing water regions
+        //r156
+        public bool r054()
+        {
+            int count = 0;
+
+            count += ThePlayer.RunningWaterCount;
+            count += ThePlayer.StandingWaterCount;
+
+            if (count >= 3)
+                return true;
+            else
+                return false;
+        }
+
+        //2 tiny or small invertebrates
+        //r158
+        public bool r055()
+        {
+            int count = 0;
+
+            for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+            {
+                if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
                     count++;
-                    break;
+            }
+
+            if (count >= 2)
+                return true;
+            else
+                return false;
+        }
+
+        //1 aquatic plant
+        //r164
+        public bool r056()
+        {
+            for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+            {
+                if (ThePlayer.PlantPlacement[i].AnimalEnvironment == "Aquatic")
+                    return true;
+            }
+
+            return false;
+        }
+
+        //3 animals that require running or standing water
+        //r166
+        public bool r057()
+        {
+            int count = 0;
+
+            for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+            {
+                int id = ThePlayer.AnimalPlacement[i].ReqID.Count;
+
+                for (int j = 0; j < id; j++) //goes through and checks the requirements of the animals to see if they need running or standing water
+                {
+                    if (ThePlayer.AnimalPlacement[i].ReqID[j] == "r002"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r048"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r50"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r54"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r61"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r66")
+                    {
+                        count++;
+                        break;
+                    }
                 }
             }
+
+            if (count >= 3)
+                return true;
+            else
+                return false;
         }
 
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r167() //3 running or Standing-Water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r168() //2 invertebrates
-    {
-        if (ThePlayer.InvertebratePlacement.Count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r169() //1 tiny or small animal
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+        //3 species that require running or standing water
+        //r173
+        public bool r058()
         {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
-        }
+            int count = 0;
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r170() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r171() //1 tiny or small invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r172() //3 running or Standing-Water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r173() //3 species that require running or Standing-Water
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++) // I KNOW THIS IS AWFULL TO LOOK AT AND NOT A GOOD WAY TO DO IT AT ALL I JUST HAD TO GET THIS DONE
-        {
-            int id = ThePlayer.AnimalPlacement[i].ReqID.Count;
-
-            for (int j = 0; j < id; j++)
+            for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
             {
-                if (ThePlayer.AnimalPlacement[i].ReqID[j] == "r002" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r137" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r140" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r143"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r150" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r154" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r156" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r160"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r163" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r166" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r167" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r170"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r172"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r173" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r174" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r176" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r180"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r188" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r189" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r190" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r191"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r192" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r194" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r198" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r199"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r202" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r207" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r235" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r145"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r211"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r218" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r222" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r225" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r229"
-                    || ThePlayer.AnimalPlacement[i].ReqID[j] == "r231" || ThePlayer.AnimalPlacement[i].ReqID[j] == "r235")
+                int id = ThePlayer.AnimalPlacement[i].ReqID.Count;
+
+                for (int j = 0; j < id; j++) //goes through and checks the requirements of the animals to see if they need running or standing water
                 {
-                    count++;
-                    break;
+                    if (ThePlayer.AnimalPlacement[i].ReqID[j] == "r002"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r048"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r50"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r54"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r61"
+                        || ThePlayer.AnimalPlacement[i].ReqID[j] == "r66")
+                    {
+                        count++;
+                        break;
+                    }
                 }
             }
-        }
-        for (int i = 0; i < ThePlayer.HumanPlacement.Count; i++)
-        {
-            int id = ThePlayer.HumanPlacement[i].ReqID.Count;
 
-            for (int j = 0; j < id; j++)
+            for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
             {
-                if (ThePlayer.HumanPlacement[i].ReqID[j] == "r002" || ThePlayer.HumanPlacement[i].ReqID[j] == "r137" || ThePlayer.HumanPlacement[i].ReqID[j] == "r140" || ThePlayer.HumanPlacement[i].ReqID[j] == "r143"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r150" || ThePlayer.HumanPlacement[i].ReqID[j] == "r154" || ThePlayer.HumanPlacement[i].ReqID[j] == "r156" || ThePlayer.HumanPlacement[i].ReqID[j] == "r160"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r163" || ThePlayer.HumanPlacement[i].ReqID[j] == "r166" || ThePlayer.HumanPlacement[i].ReqID[j] == "r167" || ThePlayer.HumanPlacement[i].ReqID[j] == "r170"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r172"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r173" || ThePlayer.HumanPlacement[i].ReqID[j] == "r174" || ThePlayer.HumanPlacement[i].ReqID[j] == "r176" || ThePlayer.HumanPlacement[i].ReqID[j] == "r180"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r188" || ThePlayer.HumanPlacement[i].ReqID[j] == "r189" || ThePlayer.HumanPlacement[i].ReqID[j] == "r190" || ThePlayer.HumanPlacement[i].ReqID[j] == "r191"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r192" || ThePlayer.HumanPlacement[i].ReqID[j] == "r194" || ThePlayer.HumanPlacement[i].ReqID[j] == "r198" || ThePlayer.HumanPlacement[i].ReqID[j] == "r199"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r202" || ThePlayer.HumanPlacement[i].ReqID[j] == "r207" || ThePlayer.HumanPlacement[i].ReqID[j] == "r235" || ThePlayer.HumanPlacement[i].ReqID[j] == "r145"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r211"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r218" || ThePlayer.HumanPlacement[i].ReqID[j] == "r222" || ThePlayer.HumanPlacement[i].ReqID[j] == "r225" || ThePlayer.HumanPlacement[i].ReqID[j] == "r229"
-                    || ThePlayer.HumanPlacement[i].ReqID[j] == "r231" || ThePlayer.HumanPlacement[i].ReqID[j] == "r235")
+                int id = ThePlayer.PlantPlacement[i].ReqID.Count;
+
+                for (int j = 0; j < id; j++) //goes through and checks the requirements of the animals to see if they need running or standing water
                 {
-                    count++;
-                    break;
+                    if (ThePlayer.PlantPlacement[i].ReqID[j] == "r002"
+                        || ThePlayer.PlantPlacement[i].ReqID[j] == "r048"
+                        || ThePlayer.PlantPlacement[i].ReqID[j] == "r50"
+                        || ThePlayer.PlantPlacement[i].ReqID[j] == "r54"
+                        || ThePlayer.PlantPlacement[i].ReqID[j] == "r61"
+                        || ThePlayer.PlantPlacement[i].ReqID[j] == "r66")
+                    {
+                        count++;
+                        break;
+                    }
                 }
             }
-        }
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            int id = ThePlayer.PlantPlacement[i].ReqID.Count;
 
-            for (int j = 0; j < id; j++)
+            for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
             {
-                if (ThePlayer.PlantPlacement[i].ReqID[j] == "r002" || ThePlayer.PlantPlacement[i].ReqID[j] == "r137" || ThePlayer.PlantPlacement[i].ReqID[j] == "r140" || ThePlayer.PlantPlacement[i].ReqID[j] == "r143"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r150" || ThePlayer.PlantPlacement[i].ReqID[j] == "r154" || ThePlayer.PlantPlacement[i].ReqID[j] == "r156" || ThePlayer.PlantPlacement[i].ReqID[j] == "r160"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r163" || ThePlayer.PlantPlacement[i].ReqID[j] == "r166" || ThePlayer.PlantPlacement[i].ReqID[j] == "r167" || ThePlayer.PlantPlacement[i].ReqID[j] == "r170"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r172"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r173" || ThePlayer.PlantPlacement[i].ReqID[j] == "r174" || ThePlayer.PlantPlacement[i].ReqID[j] == "r176" || ThePlayer.PlantPlacement[i].ReqID[j] == "r180"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r188" || ThePlayer.PlantPlacement[i].ReqID[j] == "r189" || ThePlayer.PlantPlacement[i].ReqID[j] == "r190" || ThePlayer.PlantPlacement[i].ReqID[j] == "r191"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r192" || ThePlayer.PlantPlacement[i].ReqID[j] == "r194" || ThePlayer.PlantPlacement[i].ReqID[j] == "r198" || ThePlayer.PlantPlacement[i].ReqID[j] == "r199"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r202" || ThePlayer.PlantPlacement[i].ReqID[j] == "r207" || ThePlayer.PlantPlacement[i].ReqID[j] == "r235" || ThePlayer.PlantPlacement[i].ReqID[j] == "r145"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r211"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r218" || ThePlayer.PlantPlacement[i].ReqID[j] == "r222" || ThePlayer.PlantPlacement[i].ReqID[j] == "r225" || ThePlayer.PlantPlacement[i].ReqID[j] == "r229"
-                    || ThePlayer.PlantPlacement[i].ReqID[j] == "r231" || ThePlayer.PlantPlacement[i].ReqID[j] == "r235")
+                int id = ThePlayer.InvertebratePlacement[i].ReqID.Count;
+
+                for (int j = 0; j < id; j++) //goes through and checks the requirements of the animals to see if they need running or standing water
                 {
-                    count++;
-                    break;
+                    if (ThePlayer.InvertebratePlacement[i].ReqID[j] == "r002"
+                        || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r048"
+                        || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r50"
+                        || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r54"
+                        || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r61"
+                        || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r66")
+                    {
+                        count++;
+                        break;
+                    }
                 }
             }
-        }
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            int id = ThePlayer.InvertebratePlacement[i].ReqID.Count;
 
-            for (int j = 0; j < id; j++)
+            for (int i = 0; i < ThePlayer.FungiPlacement.Count; i++)
             {
-                if (ThePlayer.InvertebratePlacement[i].ReqID[j] == "r002" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r137" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r140" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r143"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r150" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r154" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r156" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r160"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r163" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r166" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r167" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r170"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r172"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r173" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r174" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r176" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r180"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r188" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r189" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r190" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r191"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r192" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r194" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r198" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r199"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r202" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r207" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r235" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r145"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r211"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r218" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r222" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r225" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r229"
-                    || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r231" || ThePlayer.InvertebratePlacement[i].ReqID[j] == "r235")
+                int id = ThePlayer.FungiPlacement[i].ReqID.Count;
+
+                for (int j = 0; j < id; j++) //goes through and checks the requirements of the animals to see if they need running or standing water
                 {
-                    count++;
-                    break;
+                    if (ThePlayer.FungiPlacement[i].ReqID[j] == "r002"
+                        || ThePlayer.FungiPlacement[i].ReqID[j] == "r048"
+                        || ThePlayer.FungiPlacement[i].ReqID[j] == "r50"
+                        || ThePlayer.FungiPlacement[i].ReqID[j] == "r54"
+                        || ThePlayer.FungiPlacement[i].ReqID[j] == "r61"
+                        || ThePlayer.FungiPlacement[i].ReqID[j] == "r66")
+                    {
+                        count++;
+                        break;
+                    }
                 }
             }
+
+            for (int i = 0; i < ThePlayer.MicrobePlacement.Count; i++)
+            {
+                int id = ThePlayer.MicrobePlacement[i].ReqID.Count;
+
+                for (int j = 0; j < id; j++) //goes through and checks the requirements of the animals to see if they need running or standing water
+                {
+                    if (ThePlayer.MicrobePlacement[i].ReqID[j] == "r002"
+                        || ThePlayer.MicrobePlacement[i].ReqID[j] == "r048"
+                        || ThePlayer.MicrobePlacement[i].ReqID[j] == "r50"
+                        || ThePlayer.MicrobePlacement[i].ReqID[j] == "r54"
+                        || ThePlayer.MicrobePlacement[i].ReqID[j] == "r61"
+                        || ThePlayer.MicrobePlacement[i].ReqID[j] == "r66")
+                    {
+                        count++;
+                        break;
+                    }
+                }
+            }
+
+            if (count >= 3)
+                return true;
+            else
+                return false;
         }
 
-        if (count >= 3)
-            return true;
-        else return false;
-    }
-    public bool r174() //1 running ro Standing-Water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r175() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r176() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r177() //1 tiny invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //1 tiny invertebrate
+        //r177
+        public bool r059()
         {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny")
-                count++;
+            for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+            {
+                if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny")
+                    return true;
+            }
+
+            return false;
         }
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r178() //1 any region except sub-zero and salt water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r179() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r180() //1 standing or Running-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r181() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r182() //2 tiny or small invertebrates
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //1 caves and caverns
+        //r209
+        public bool r060()
         {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
+            for (int i = 0; i < ThePlayer.ConditionPlacement.Count; i++)
+            {
+                if (ThePlayer.ConditionPlacement[i].CardName.Contains("Caves"))
+        
+            return true;
+            }
+
+            return false;
         }
 
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r183() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r184() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r185() //2 tiny or small invertebrates
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //1 standing water region
+        //r211
+        public bool r061()
         {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
+            if (ThePlayer.StandingWaterCount >= 1)
+                return true;
+            else
+                return false;
         }
 
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r186() //1 any region except sub-zero and salt water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r187() //1 groundcover plant
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+        //4 any regions
+        //r212
+        public bool r062()
         {
-            if (ThePlayer.PlantPlacement[i].PlantType == "Groundcover")
-                count++;
+            int count = 0;
+
+            count += ThePlayer.AridCount;
+            count += ThePlayer.ForestCount;
+            count += ThePlayer.GrasslandsCount;
+            count += ThePlayer.RunningWaterCount;
+            count += ThePlayer.SaltWaterCount;
+            count += ThePlayer.StandingWaterCount;
+            count += ThePlayer.SubZeroCount;
+
+            if (count >= 4)
+                return true;
+            else
+                return false;
         }
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r188() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r189() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r190() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r191() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r192() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r193() //1 any region except salt water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r194() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r195() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r196() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r197() //1 forest or grassland or sub-zero region
-    {
-        int count = 0;
-
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.SubZeroCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r198() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r199() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r200() //1 human
-    {
-        if (ThePlayer.HumanPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r201() //1 region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r202() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r203() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r204() //2 tiny or small invertebrates
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //1 invertebrate in the family aphidiae
+        //r215
+        public bool r063()
         {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny" || ThePlayer.InvertebratePlacement[i].AnimalSize == "Small")
-                count++;
+            for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+            {
+                if (ThePlayer.InvertebratePlacement[i].Family == "Aphididae")
+                    return true;
+            }
+
+            return false;
         }
 
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r205() //1 grassland region
-    {
-        int count = 0;
-
-        count += ThePlayer.GrasslandsCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r206() //2 tiny or small animals
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.AnimalPlacement.Count; i++)
+        //1 plant from the family asclepiadaceae
+        //r217
+        public bool r064()
         {
-            if (ThePlayer.AnimalPlacement[i].AnimalSize == "Tiny" || ThePlayer.AnimalPlacement[i].AnimalSize == "Small")
-                count++;
+            for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+            {
+                if (ThePlayer.PlantPlacement[i].Family == "Asclepiadaceae - Milkweed family")
+                    return true;
+            }
+
+            return false;
         }
 
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r207() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r208() //1 tiny invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //1 tiny invertebrate or microbe
+        //r224
+        public bool r065()
         {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny")
-                count++;
+            for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+            {
+                if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny")
+                    return true;
+            }
+            for (int i = 0; i < ThePlayer.MicrobePlacement.Count; i++)
+            {
+                if (ThePlayer.MicrobePlacement[i].AnimalSize == "Tiny")
+                    return true;
+            }
+
+            return false;
         }
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r209() //1 caves and caverns
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.ConditionPlacement.Count; i++)
+        //2 standing water
+        //r225
+        public bool r066()
         {
-            if (ThePlayer.ConditionPlacement[i].CardName.Contains("Cave") || ThePlayer.RegionPlacement[i].CardName.Contains("Cavern"))
-                count++;
+            if (ThePlayer.StandingWaterCount >= 2)
+                return true;
+            else
+                return false;
         }
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r210() //5 any regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 5)
-            return true;
-        else return false;
-    }
-    public bool r211() //1 Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r212() //4 any additional regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 4)
-            return true;
-        else return false;
-    }
-    public bool r213() //1 any region except sub-zero
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r214() //1 plant
-    {
-        if (ThePlayer.PlantPlacement.Count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r215() //1 invertebrate in the family: aphididae
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //1 plant from the genus sphagnum
+        //r226
+        public bool r067()
         {
-            if (ThePlayer.InvertebratePlacement[i].Family == "Aphididae")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r216() //1 any region except sub-zero regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r217() //1 plant from the family asclepiadaceae?milkweed family
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
-            if (ThePlayer.PlantPlacement[i].Family == "Asclepiadaceae - Milkweed family")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r218() //1 Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r219() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return true;
-    }
-    public bool r220() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r221() //1 any region except salt water or sub-zero regions
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r222() //1 Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r223() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r224() //1 tiny invertebrate or microbe
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny")
-                count++;
-        }
-        for (int i = 0; i < ThePlayer.MicrobePlacement.Count; i++)
-        {
-            if (ThePlayer.MicrobePlacement[i].AnimalSize == "Tiny")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r225() //2 Standing-Water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r226() //1 spagnum
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
-        {
+            for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+            {
             if (ThePlayer.PlantPlacement[i].Genus.Contains("Sphagnum"))
-                count++;
+                return true;
+            }
+
+            return false;
         }
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r227() //1 tiny invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
+        //1 peat bog
+        //r228
+        public bool r068()
         {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r228() //1 peat bog
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.ConditionPlacement.Count; i++)
-        {
+            for (int i = 0; i < ThePlayer.ConditionPlacement.Count; i++)
+            {
             if (ThePlayer.ConditionPlacement[i].CardName.Contains("Peat-Bog"))
-                count++;
+                return true;
+            }
+
+            return false;
         }
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r229() //1 Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r230() //1 any region
-    {
-        int count = 0;
-
-        count += ThePlayer.AridCount;
-        count += ThePlayer.ForestCount;
-        count += ThePlayer.GrasslandsCount;
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.SaltWaterCount;
-        count += ThePlayer.StandingWaterCount;
-        count += ThePlayer.SubZeroCount;
-        count += ThePlayer.MountainRange;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r231() //2 Standing-Water regions
-    {
-        int count = 0;
-
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 2)
-            return true;
-        else return false;
-    }
-    public bool r232() //1 spahgnum
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.PlantPlacement.Count; i++)
+        //1 any region except arid or salt water
+        public bool r069()
         {
-            if (ThePlayer.PlantPlacement[i].Genus.Contains("Sphagnum"))
-                count++;
+            int count = 0;
+
+            count += ThePlayer.ForestCount;
+            count += ThePlayer.GrasslandsCount;
+            count += ThePlayer.RunningWaterCount;
+            count += ThePlayer.StandingWaterCount;
+            count += ThePlayer.SubZeroCount;
+
+            if (count >= 1)
+                return true;
+            else
+                return false;
         }
 
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r233() //1 tiny invertebrate
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.InvertebratePlacement.Count; i++)
-        {
-            if (ThePlayer.InvertebratePlacement[i].AnimalSize == "Tiny")
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r234() //1 peat bog
-    {
-        int count = 0;
-
-        for (int i = 0; i < ThePlayer.ConditionPlacement.Count; i++)
-        {
-            if (ThePlayer.ConditionPlacement[i].CardName.Contains("Peat-Bog"))
-                count++;
-        }
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
-    public bool r235() //1 running or Standing-Water region
-    {
-        int count = 0;
-
-        count += ThePlayer.RunningWaterCount;
-        count += ThePlayer.StandingWaterCount;
-
-        if (count >= 1)
-            return true;
-        else return false;
-    }
 
     //these still need made. I havr them all return false for now so they can be played. This can be expanded in a later release
-    //REQUIREMENTS R236 - R245 ARE FOR THE MULTIPLAYER CARDS
+    //REQUIREMENTS R070 - R079 ARE FOR THE MULTIPLAYER CARDS
 
-    public bool r236() //acidic waters
+    public bool r070() //acidic waters
     {
         return true;
     }
 
-    public bool r237() //children at play
+    public bool r071() //children at play
     {
         return true;
     }
 
-    public bool r238() //extinction - as of right now there should be no requirements, i just jave this here as a precautionary detail for further use
+    public bool r072() //extinction - as of right now there should be no requirements, i just jave this here as a precautionary detail for further use
     {
         
             return true;
         
     }
 
-    public bool r239() //isolated ecosystems
+    public bool r073() //isolated ecosystems
     {
         return true;
     }
 
-    public bool r240() //temperature drop
+    public bool r074() //temperature drop
     {
         return true;
     }
 
-    public bool r241() //ideal conditions
+    public bool r075() //ideal conditions
     {
         return true;
     }
 
-    public bool r242() //invasive invertebrate species
+    public bool r076() //invasive invertebrate species
     {
         
         return true;
     }
 
-    public bool r243() //web of life
+    public bool r077() //web of life
     {
         return true;
     }
 
-    public bool r244() //relocate species
+    public bool r078() //relocate species
     {
         return true;
     }
 
-    public bool r245() //forest fire
+    public bool r079() //forest fire
     {
         return true;
     }
