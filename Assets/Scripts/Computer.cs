@@ -87,8 +87,8 @@ public class Computer : Player
 
             if (foundChildrenAtPlay || foundTemperatureDrop)
             {
-                Debug.Log("Found children at play");
-                Debug.Log("Skip the turn");
+                //Debug.Log("Found children at play");
+                //Debug.Log("Skip the turn");
 
                 for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
                 {
@@ -589,9 +589,6 @@ public class Computer : Player
                 }
                 else if (Hand[z].CardType == "Special Region") //puts the card into the special region pile
                 {
-                    //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
-                    MoveCard(z, SpecialRegionGameObject, SpecialRegionPlacement, false);
-
                     //Adds regions to the total count when special region cards are played
                     if (Hand[z].CardName.Contains("Farmers"))
                     {
@@ -610,6 +607,9 @@ public class Computer : Player
                         ForestCount++;
                         GrasslandsCount++;
                     }
+
+                    //calls the method to asssigning the correct sprite and update score and passes in z so it knows which card to work with
+                    MoveCard(z, SpecialRegionGameObject, SpecialRegionPlacement, false);
                 }
                 else if (Hand[z].CardType == "Multi-Player") //puts the card into the multiplayer pile
                 {
