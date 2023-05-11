@@ -21,7 +21,7 @@ public class ActionButton : MonoBehaviour
     {
         //This is finding the cards name by finding the game object Cardname and using its text component to set it to our variabl.
         CardName = GameObject.Find("CardName").GetComponent<Text>();
-
+        
 
         //Using the switch case with the cardname as our condition, using (.text) to derefrence
         //what is inside the CardName variable. If we didn't do that then it will only show
