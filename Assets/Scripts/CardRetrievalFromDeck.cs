@@ -12,7 +12,6 @@ using UnityEngine;
 
 public class CardRetrievalFromDeck : ScriptableObject
 {
-
     //to store info about card drawn from deck
     private int cardDrawHolder;
     private string cardNameHolder;
@@ -27,14 +26,27 @@ public class CardRetrievalFromDeck : ScriptableObject
      */
     public void CardDrawRandomizer(Human pCurrentPlayer)
     {
-                if (pCurrentPlayer.RegionCounter == 0)
+        if (pCurrentPlayer.RegionCounter == 0)
+        {
+            Region = false;
+
+            while (Region == false && GameManager.Instance.Round == 1)
+            {
+                CardDrawHolder = Random.Range(0, (pCurrentPlayer.Deck.Cards.Count - 1));
+
+                if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName == "Multi-Temperature-Drop")
                 {
-                    Region = false;
+                    CardNameHolder = pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName;
+                    //  adds card to GameManager instance's hand
+                    pCurrentPlayer.Hand.Add(pCurrentPlayer.Deck.Cards[CardDrawHolder]);
+                    //  removes aforementioned card from deck                
+                    pCurrentPlayer.Deck.Cards.Remove(pCurrentPlayer.Deck.Cards[CardDrawHolder]);
 
-                    while (Region == false && GameManager.Instance.Round == 1)
-                    {
-                        CardDrawHolder = Random.Range(0, (pCurrentPlayer.Deck.Cards.Count - 1));
+                    //ends loop becasue that means a region card was found
+                    Region = true;
+                    
 
+<<<<<<< HEAD
                         if (pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName == "Multi-Extinction")
                         {
                             CardNameHolder = pCurrentPlayer.Deck.Cards[CardDrawHolder].CardName;
@@ -47,8 +59,12 @@ public class CardRetrievalFromDeck : ScriptableObject
                             Region = true;
                         }
                     }
+=======
+>>>>>>> main
                 }
-                else
+            }
+        }
+        else
                 {
                     //  select random position in deck
                     CardDrawHolder = Random.Range(0, (pCurrentPlayer.Deck.Cards.Count - 1));

@@ -64,7 +64,7 @@ public class OpenURL : MonoBehaviour
      */
     public void OpenFacebook()
     {
-        Application.OpenURL("https://www.tswgames.com/");
+        Application.OpenURL("https://www.facebook.com/tswgamesllc");
         Application.Quit(); //just closes the application
     }
 

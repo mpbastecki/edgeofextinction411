@@ -114,10 +114,21 @@ public class GameManager : MonoBehaviour {
         _instance = this;
         DontDestroyOnLoad(_instance);
     }
+<<<<<<< HEAD
     /*
      *  @name       Start
      *  @purpose    initialize GameManager object 
      */
+=======
+
+
+        /*
+         *  @name       Start
+         *  @purpose    initialize GameManager object 
+         */
+
+
+>>>>>>> main
     void Start () {
 
         Debug.Log("GameManagerCreated");
@@ -128,7 +139,7 @@ public class GameManager : MonoBehaviour {
         //gameObject.AddComponent<phpImport>();
 
         //  sets initial round number
-        Round = 1;
+        Round = 0;
 
         //this is how we inialize objects
         //initializing Human Person Player
@@ -199,14 +210,30 @@ public class GameManager : MonoBehaviour {
         //sets human card values
         Person.Deck.DeckName = Allegheny;
         Person.Deck.DeckColor = AlleghenyColor;
-        CP1.Deck.DeckName = Appalachian;
-        CP1.Deck.DeckColor = AppalachianColor;
+        CP1.Deck.DeckName = Allegheny;//Appalachian;
+        CP1.Deck.DeckColor = AlleghenyColor;//AppalachianColor;
         //CP2.Deck.DeckName = Peat;
         //CP2.Deck.DeckColor = PeatBogsColor;
         //CP3.Deck.DeckName = Clarion;
         //CP3.Deck.DeckColor = ClarionRiverColor;     
     }
 
+
+
+    // Update is called once per frame
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) == true && Screen.fullScreen == true)
+        {
+            Screen.fullScreen = false;
+            Debug.Log("Exit full screen");
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) == true && Screen.fullScreen == false)
+        {
+            Screen.fullScreen = true;
+            Debug.Log("Enter full screen");
+        }
+    }
     /*
  *  @name       CreateDecks()
  *  @purpose    Hard code deck IDs to a list then creates a deck and adds it to deck list with an id associated with it
@@ -259,7 +286,7 @@ public class GameManager : MonoBehaviour {
         //goes through each player and executes accordingly
         if (pPlayerName == "Person")
         {
-            Cursor.visible = false; //hides the mouse from the user
+            Cursor.visible = true; //hides the mouse from the user
             Cursor.lockState = CursorLockMode.Locked; //you cannot use the cursor
             HideShow.ShowCP1();
             CP1.CreateDeckInfo();
@@ -315,7 +342,11 @@ public class GameManager : MonoBehaviour {
     public void StartHumanTurn()
     {
       // if (GameFlag =! false)
+<<<<<<< HEAD
         if (round == 1)
+=======
+        if (round == 0)
+>>>>>>> main
         {
             CreateBoards(); 
             //Person.CreateDeckInfo();
@@ -345,7 +376,7 @@ public class GameManager : MonoBehaviour {
         }
 
         //  resets round number
-        Round = 1;
+        Round = 0;
 
         //  clear human and computer player hands
         Person.Hand.Clear();

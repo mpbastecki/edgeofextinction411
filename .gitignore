@@ -60,3 +60,6 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+UserSettings/Layouts/CurrentMaximizeLayout.dwlt
+ProjectSettings/Packages/com.unity.services.mediation/Settings.json
+*.dwlt

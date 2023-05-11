@@ -13,6 +13,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public GameObject deckbutton;
     //keeps track of how many regions they have to make sure they can draw the right amount if cards
     private int regionCounter;
     //keeps track of how many cards the player can draw based off of how many regions they have
@@ -92,6 +93,9 @@ public class Player : MonoBehaviour
     private List<Card> fungiPlacement;
     private List<Card> conditionPlacement;
     private List<Card> discardPlacement;
+
+    //private Human humanPerson = GameManager.Instance.Person;
+    //private Computer computerPerson = GameManager.Instance.CP1;
 
     /*
      *  @TODO:
@@ -217,14 +221,23 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //doesnt actually do shit
         Debug.Log("Hello");
+        
     }
 
-      /*
-    *  @name       GetTotalRegions()
-    *  @purpose    adds up all the regions and returns that value so the amount if cards drawn can be determined
-    */
+
+  
+
+
+
+
+
+    /*
+  *  @name       GetTotalRegions()
+  *  @purpose    adds up all the regions and returns that value so the amount if cards drawn can be determined
+  */
     public int GetTotalRegions()
     {
         //local variable to keep track of regions
@@ -282,13 +295,14 @@ public class Player : MonoBehaviour
     public void MoveCard(int pZ, string pParent, List<Card> pOriginPlacement, List<Card> pDestinationPlacement, bool pDiscard)
     {
         //assigns where the game object with go to a object
-        Debug.Log("Moving cards");
+        //Debug.Log("Moving cards");
         CardParent = GameObject.Find(pParent).transform;
-        Debug.Log(CardParent + " Moved");
+        //Debug.Log(CardParent + " Moved");
         //sets the name so the sprite can show the front of card
         Holder.CardNameHolder = pOriginPlacement[pZ].CardName;
         ////creates a new card object
         GenerateCardObject();
+        
         ////creates the new sprite with the correct image
         Holder.setSprite(Sr);
         ////tells the current game object at play where to go to
@@ -311,7 +325,9 @@ public class Player : MonoBehaviour
         pDestinationPlacement.Add(pOriginPlacement[pZ]);
         ////removes the card just played from the hand
         pOriginPlacement.Remove(pOriginPlacement[pZ]);
-
+        GameObject temp = GameObject.Find(pDestinationPlacement[pDestinationPlacement.Count - 1].CardName);
+        Destroy(temp.GetComponent<Draggable>());
+        temp.AddComponent<DoubleClickDescription>();
         ////resets the card parent that way if anything funky happens it will return to the hand
         ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
         CardParent = GameObject.Find(HandGameObject).transform;
@@ -321,7 +337,48 @@ public class Player : MonoBehaviour
             //Destroy(CardParent.GetChild(0).gameObject);
     }
 
+    public void MoveCardDraggable(int pZ, string pParent, List<Card> pOriginPlacement, List<Card> pDestinationPlacement, bool pDiscard)
+    {
+        //assigns where the game object with go to a object
+        Debug.Log("Moving cards");
+        CardParent = GameObject.Find(pParent).transform;
+        Debug.Log(CardParent + " Moved");
+        //sets the name so the sprite can show the front of card
+        Holder.CardNameHolder = pOriginPlacement[pZ].CardName;
+        ////creates a new card object
+        GenerateCardObject();
 
+        ////creates the new sprite with the correct image
+        Holder.setSprite(Sr);
+        ////tells the current game object at play where to go to
+        ////CardObject.transform.SetParent(CardParent);
+        ////resizes the card so it fits nicely on the placements
+        CardObject.transform.localScale = new Vector3(1.0f, 1.0f, 0);
+
+        if (pDiscard == false)
+        {
+            ChangeScore(pOriginPlacement[pZ].PointValue);
+        }
+        else
+        {
+
+            ChangeScore(-(pOriginPlacement[pZ].PointValue));
+
+        }
+
+        ////adds the card from the hand to the correct list
+        pDestinationPlacement.Add(pOriginPlacement[pZ]);
+        ////removes the card just played from the hand
+        pOriginPlacement.Remove(pOriginPlacement[pZ]);
+        
+        ////resets the card parent that way if anything funky happens it will return to the hand
+        ////but since its a computer nothing like that would probably happen casue there is no dragability for the computer
+        CardParent = GameObject.Find(HandGameObject).transform;
+
+        ////to keep from a null excpetion error
+        //if (Hand.Count > 0)
+        //Destroy(CardParent.GetChild(0).gameObject);
+    }
 
     /*
 *  @name       ChangeAllScore()
@@ -400,6 +457,15 @@ public class Player : MonoBehaviour
         RoundText.text = Round.ToString();
     }
 
+    public void SkipRound()
+    {
+        //GameManager.Instance.Round = round++;
+        GameManager.Instance.NextPlayer(PlayerName);
+        //  updates score text
+        //RoundText = GameObject.Find(RoundGameObject).GetComponent<Text>();
+        //RoundText.text = Round.ToString();
+    }
+
         /*
     *  @name       AssignDeck()
     *  @purpose    This loops through the deck list created in the game manager and assigns the correct deck to the player
@@ -434,22 +500,31 @@ public class Player : MonoBehaviour
         DeckText.text = Deck.DeckName.ToString();
     }
 
-        /*
-    *  @name       StartTurn()
-    *  @purpose    deals the player 5 cards if its round one then starts the players turn
-    */
+    /*
+*  @name       StartTurn()
+*  @purpose    deals the player 5 cards if its round one then starts the players turn
+*/
+
+ 
     public virtual void StartTurn()
     {
+            //assigns deck info and color
+            //CreateDeckInfo();
+            //Updates the round to current
+            ChangeRound();
+            //updates the score board
+            ChangeAllScore();
+            //creating an "instance" of the CardRetrievalFromDeck script, allows it to be retrieved as an object
+            ScriptInstance = ScriptableObject.CreateInstance("CardRetrievalFromDeck"); //so you can use the script
+            Holder = ScriptableObject.FindObjectOfType<CardRetrievalFromDeck>(); //access to script
+                                                                                 //CameraHolder = GameObject.Find("Main Camera"); //sets the object to just the main camera
+    }
+
+    public void DisableStartButton()
+    {
+
+        deckbutton.SetActive(false);
         //assigns deck info and color
-        //CreateDeckInfo();
-        //Updates the round to current
-        ChangeRound();
-        //updates the score board
-        ChangeAllScore();
-        //creating an "instance" of the CardRetrievalFromDeck script, allows it to be retrieved as an object
-        ScriptInstance = ScriptableObject.CreateInstance("CardRetrievalFromDeck"); //so you can use the script
-        Holder = ScriptableObject.FindObjectOfType<CardRetrievalFromDeck>(); //access to script
-        //CameraHolder = GameObject.Find("Main Camera"); //sets the object to just the main camera
     }
 
     //accessors and mutators

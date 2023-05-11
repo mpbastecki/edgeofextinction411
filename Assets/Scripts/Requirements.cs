@@ -13,6 +13,13 @@ using UnityEngine;
  */
 public class Requirements : Player
 {
+<<<<<<< HEAD
+=======
+    private void Start()
+    {
+        
+    }
+>>>>>>> main
     void DestroyGameObject()
     {
         Destroy(gameObject);
@@ -89,6 +96,9 @@ public class Reqs
 {
     //this is to hold the player object. We are using this that way the computer and humans can each use this class. 
     private Player thePlayer;
+
+    private Human humanPerson = GameManager.Instance.Person;
+    private Computer compPerson = GameManager.Instance.CP1;
 
     //this is the constructor that assigns the currentplayer that was passed in from the requirements 
     public Reqs(Player pPlayer)
@@ -3146,7 +3156,7 @@ public class Reqs
             animalCheck = true;
 
         //Checks all requirements including playable requirements
-        if (canopyCheck && animalCheck && r013() && r014() && r015() && r016())
+        if (canopyCheck && animalCheck )//&& r013() && r014() && r015() && r016())
             return true;
 
         return false;
@@ -3176,6 +3186,26 @@ public class Reqs
         }
     }
 
+    public bool r248()//for big tooth aspen and white birch
+    {
+        
+        for (int i = 0; i < humanPerson.MultiplayerPlacement.Count; i++)
+        {
+            //Counts each tiny or small animal
+            if (humanPerson.MultiplayerPlacement[i].CardName == "Multi-Forest-Fire")
+                return true;
+        }
+        for (int i = 0; i < compPerson.MultiplayerPlacement.Count; i++)
+        {
+            //Counts each tiny or small animal
+            if (compPerson.MultiplayerPlacement[i].CardName == "Multi-Forest-Fire")
+                return true;
+        }
+
+
+
+        return false;
+    }
 
 
         

@@ -121,6 +121,8 @@ public class DoubleClickDescription : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
+        
         //makes sure that it was double clicked
         if (eventData.clickCount == 2)
         {
